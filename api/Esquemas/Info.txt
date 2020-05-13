@@ -1,0 +1,26 @@
+
+Un usuario realiza un pedido
+El pedido esta formado por uno o mas productos
+Los productos pertenecen a una tienda
+Un usuario realiza el pago del pedido
+
+
+
+Un usuario administra una tienda
+Un usuario administra los productos de una tienda
+
+
+
+Un usuario puede:
+- Realizar un pedido
+- Tener una tienda (propietario)
+
+Un pedido:
+- Conjunto de uno o mas productos
+- hacen en referencia a una tienda
+
+Un producto:
+- Hace referencia a un producto en una tienda, en el pedido siempre tendra referencia a una tienda
+
+Una tienda
+- Tiene lista de productos que puede modificar
