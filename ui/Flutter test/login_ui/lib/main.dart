@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: HomePage(),
     ));
 
@@ -17,10 +16,10 @@ class HomePage extends StatelessWidget {
             Container(
               height: 300,
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/background.png'),
-                      fit: BoxFit.fill)
-                      ),
+                image: DecorationImage(
+                    image: AssetImage('assets/images/background.png'),
+                    fit: BoxFit.fill),
+              ),
               child: Stack(
                 children: <Widget>[
                   Positioned(
@@ -29,9 +28,10 @@ class HomePage extends StatelessWidget {
                     height: 200,
                     child: Container(
                       decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('assets/images/light-1.png'))
-                              ),
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/light-1.png'),
+                        ),
+                      ),
                     ),
                   ),
                   Positioned(
@@ -41,8 +41,7 @@ class HomePage extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: AssetImage('assets/images/light-1.png'))
-                              ),
+                              image: AssetImage('assets/images/light-1.png'))),
                     ),
                   ),
                   Positioned(
@@ -53,8 +52,7 @@ class HomePage extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: AssetImage('assets/images/clock.png'))
-                              ),
+                              image: AssetImage('assets/images/clock.png'))),
                     ),
                   ),
                   Positioned(
@@ -94,48 +92,60 @@ class HomePage extends StatelessWidget {
                         Container(
                           padding: EdgeInsets.all(8.0),
                           decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(color: Colors.grey[100]))
-                                  ),
+                            border: Border(
+                              bottom: BorderSide(color: Colors.grey[100]),
+                            ),
+                          ),
                           child: TextField(
                             decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Email or Phone number",
-                                hintStyle: TextStyle(color: Colors.grey[400])
-                                ),
+                              border: InputBorder.none,
+                              hintText: "Email or Phone number",
+                              hintStyle: TextStyle(color: Colors.grey[400]),
+                            ),
                           ),
                         ),
                         Container(
                           padding: EdgeInsets.all(8.0),
                           child: TextField(
                             decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Password",
-                                hintStyle: TextStyle(color: Colors.grey[400])
-                                ),
+                              border: InputBorder.none,
+                              hintText: "Password",
+                              hintStyle: TextStyle(color: Colors.grey[400]),
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Container(
                     height: 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromRGBO(143, 148, 251, 1),
-                          Color.fromRGBO(143, 148, 251, .6),
-                        ]
-                        ),
+                      gradient: LinearGradient(colors: [
+                        Color.fromRGBO(143, 148, 251, 1),
+                        Color.fromRGBO(143, 148, 251, .6),
+                      ]),
                     ),
                     child: Center(
-                      child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
-                  SizedBox(height: 70,),
-                  Text("Forgot Password?", style: TextStyle(color: Color.fromRGBO(143, 148, 251, 1), fontWeight: FontWeight.bold),),
+                  SizedBox(
+                    height: 70,
+                  ),
+                  Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                        color: Color.fromRGBO(143, 148, 251, 1),
+                        fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
             )
