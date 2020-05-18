@@ -1,0 +1,11 @@
+
+####
+Los Seeders tienen 4 pasos a la hora de cojer los datos e introducir-los.
+Podemos introducir datos de una manera muy basica y al final acabara creando la estructura del array necessaria para la insercion
+en la base de datos
+
+#### Estructura
+Input [Opcional]: Datos basicos, es más facil introducir datos en esta parte
+Datos: Los datos en un array con las llaves/keys necessarias para la base de datos
+Autogenerados: Introduce los datos que se pueden autogenerar (como la ID o los timestamps)
+Insert: Introduce los datos finales a la base de datos
