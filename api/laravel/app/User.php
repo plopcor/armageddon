@@ -37,10 +37,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    //relacion con practica
-    public function practicas()
+
+    /**
+     * Retornar la Tienda si tiene
+     */
+    public function tienda()
     {
-        //En una relacion 1-N, eres 1
-    	return $this->hasMany(Practica::class);
+        if($this->esTienda) {
+            return $this->hasOne('App\Tienda', 'id_propietario');
+        } else {
+            return false;
+        }
     }
+
 }
