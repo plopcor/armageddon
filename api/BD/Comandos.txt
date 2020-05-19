@@ -1,0 +1,20 @@
+
+#### Migrate
+# Migrate
+php artisan migrate
+
+# Drop All Tables and Migrate
+php artisan migrate:fresh
+
+# Drop All Tables, Migrate and Seed
+php artisan migrate:fresh --seed
+
+
+# Deletef
+
+#### Seed
+# Seed all
+php artisan db:seed
+
+# Seed class
+php artisan db:seed --class=NombreSeeder

@@ -1,0 +1,16 @@
+# Default values
+https://laravel.com/docs/7.x/eloquent#default-attribute-values
+
+# Run seeders
+https://laravel.com/docs/7.x/seeding#running-seeders
+
+
+# Soft deletes
+https://laravel.com/docs/7.x/eloquent#soft-deleting
+
+# Local scopes
+https://laravel.com/docs/7.x/eloquent#local-scopes
+
+# APP KEY
+- Generar nueva key
+https://stackoverflow.com/a/33701047
