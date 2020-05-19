@@ -19,18 +19,18 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
 // RUTAS
-Route::get('/tiendas', 'TiendasController@listarTiendas');
-Route::get('/tienda/{id}', 'TiendasController@verTienda');
-Route::post('/tienda', 'TiendasController@crearTienda');
+// @ Tiendas
+Route::get('/tiendas', 'TiendaController@listar');
+Route::get('/tienda/{id}', 'TiendaController@ver');
+Route::post('/tienda', 'TiendaController@crear');
 
+// @ Productos
+Route::get('/productos', 'ProductoController@listar');
+Route::get('/producto/{id}', 'ProductoController@ver');
 
-/*
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/hola', 'PracticasController@hola');
-Route::get('/misPracticas', 'PracticasController@verMisPracticas');
-Route::get('/newPractica', 'PracticasController@entregarPractica');
-Route::post('/newPractica', 'PracticasController@subirPractica');
-//esto signfica que cuando vayas a /corrigePractica/1, va a ir a PracticasController, funcion corrigePractica, y le pasaras como parámetro un int 1
-Route::get('/corrigePractica/{practica}', 'PracticasController@corrigePractica');
-*/
+// @ Categorias
+Route::get('/categorias', 'CategoriaController@listar');
+Route::get('/categoria/{id}', 'CategoriaController@ver');
+Route::get('/categoria/{id}/productos', 'CategoriaController@verProductos');
