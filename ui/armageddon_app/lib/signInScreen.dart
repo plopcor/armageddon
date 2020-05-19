@@ -7,41 +7,40 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BackgroundColor,
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              child: Text(
-                'ARMAGEDDON',
-                overflow: TextOverflow.visible,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 39,
-                  color: PrimaryPurple,
-                  letterSpacing: 4,
-                ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 100,
+            ),
+            Text(
+              'ARMAGEDDON',
+              overflow: TextOverflow.visible,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 39,
+                color: PrimaryPurple,
+                letterSpacing: 4,
               ),
-              padding: EdgeInsets.symmetric(horizontal: 49, vertical: 100),
             ),
-          ),
-          Expanded(
-            child: Column(
-              children: <Widget>[
-                InputText(
-                  placeHolderText: 'Usuario',
-                ),
-                InputText(
-                  placeHolderText: 'Contraseña',
-                ),
-                StartButton(
-                  text: 'Iniciar Sesión',
-                  type: true,
-                  page: null,
-                )
-              ],
+            SizedBox(
+              height: 150,
             ),
-          )
-        ],
+            InputText(
+              placeHolderText: 'Usuario',
+              hideText: false,
+            ),
+            InputText(
+              placeHolderText: 'Contraseña',
+              hideText: true,
+            ),
+            StartButton(
+              text: 'Iniciar Sesión',
+              type: true,
+              page: null,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -49,8 +48,9 @@ class SignInScreen extends StatelessWidget {
 
 class InputText extends StatelessWidget {
   final String placeHolderText;
+  final bool hideText;
 
-  InputText({this.placeHolderText});
+  InputText({this.placeHolderText, this.hideText});
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +65,10 @@ class InputText extends StatelessWidget {
           fontSize: 24,
           color: PrimaryPurple,
         ),
+        obscureText: hideText,
       ),
       margin: EdgeInsets.only(top: 24, left: 27, right: 27),
-      padding: EdgeInsets.all(18),
+      padding: EdgeInsets.only(top: 4, bottom: 4, left: 18, right: 18),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(17),
