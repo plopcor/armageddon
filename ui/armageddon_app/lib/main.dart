@@ -1,10 +1,18 @@
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/registerScreen.dart';
 import 'package:armageddon_app/signInScreen.dart';
+import 'package:armageddon_app/widgets.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(
-      MaterialApp(home: StartScreen()),
+      MaterialApp(
+        theme: ThemeData(
+          primaryColor: PrimaryPurple,
+          hintColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.grey[400]),
+        ),
+        home: StartScreen(),
+      ),
     );
 
 class StartScreen extends StatelessWidget {
@@ -53,39 +61,12 @@ class StartScreen extends StatelessWidget {
   }
 }
 
-class StartButton extends StatelessWidget {
-  final String text;
-  final bool type;
-  final Widget page;
-
-  StartButton({this.text, this.type, this.page});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return page;
-          },
-        ));
-      },
-      child: Container(
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 24,
-            color: type ? Colors.white : PrimaryPurple,
-          ),
-        ),
-        margin: EdgeInsets.only(top: 24, left: 27, right: 27),
-        padding: EdgeInsets.symmetric(horizontal: 105, vertical: 18),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(17),
-          color: type ? PrimaryPurple : Colors.white,
-        ),
-      ),
-    );
-  }
+ThemeData buildTheme() {
+  final ThemeData base = ThemeData();
+  return base.copyWith(
+    hintColor: Colors.red,
+    inputDecorationTheme: InputDecorationTheme(
+      labelStyle: TextStyle(color: Colors.yellow, fontSize: 24.0),
+    ),
+  );
 }

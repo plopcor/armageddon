@@ -1,5 +1,5 @@
 import 'package:armageddon_app/constants.dart';
-import 'package:armageddon_app/main.dart';
+import 'package:armageddon_app/widgets.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -26,19 +26,7 @@ class SignInScreen extends StatelessWidget {
             SizedBox(
               height: 150,
             ),
-            InputText(
-              placeHolderText: 'Usuario',
-              hideText: false,
-            ),
-            InputText(
-              placeHolderText: 'Contraseña',
-              hideText: true,
-            ),
-            StartButton(
-              text: 'Iniciar Sesión',
-              type: true,
-              page: null,
-            )
+            SingInForm(),
           ],
         ),
       ),
@@ -46,33 +34,62 @@ class SignInScreen extends StatelessWidget {
   }
 }
 
-class InputText extends StatelessWidget {
-  final String placeHolderText;
-  final bool hideText;
+class SingInForm extends StatefulWidget {
+  @override
+  SingInFormState createState() {
+    return SingInFormState();
+  }
+}
 
-  InputText({this.placeHolderText, this.hideText});
+class SingInFormState extends State<SingInForm> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: placeHolderText,
-          border: InputBorder.none,
-          hintStyle: TextStyle(color: Colors.grey[400]),
-        ),
-        style: TextStyle(
-          fontSize: 24,
-          color: PrimaryPurple,
-        ),
-        obscureText: hideText,
-      ),
-      margin: EdgeInsets.only(top: 24, left: 27, right: 27),
-      padding: EdgeInsets.only(top: 4, bottom: 4, left: 18, right: 18),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(17),
-        color: Colors.white,
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          InputText(
+            icon: Icons.home,
+            hideText: false,
+            placeHolderText: 'Usuario',
+          ),
+          InputText(
+            icon: Icons.lock,
+            hideText: true,
+            placeHolderText: 'Contraseña',
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 24, left: 27, right: 27),
+            child: RaisedButton(
+              onPressed: () {
+                if (_formKey.currentState.validate()) {
+                  // Si el formulario es válido, queremos mostrar un Snackbar
+                  Scaffold.of(context)
+                      .showSnackBar(SnackBar(content: Text('Processing Data')));
+                }
+              },
+              padding: EdgeInsets.symmetric(horizontal: 105, vertical: 18),
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(17),
+                side: BorderSide(
+                  color: PrimaryPurple,
+                ),
+              ),
+              color: PrimaryPurple,
+              child: Text(
+                'Iniciar Sesión',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
