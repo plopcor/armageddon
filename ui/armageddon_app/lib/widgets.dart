@@ -52,8 +52,10 @@ class InputText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var grey = Colors.grey[400];
-    return Container(
+    // FocusNode focusNode = new FocusNode();
+    return Padding(
       child: TextFormField(
+        // focusNode: focusNode,
         validator: (value) {
           if (value.isEmpty) {
             return 'Introduce ' +
@@ -64,11 +66,16 @@ class InputText extends StatelessWidget {
         },
         decoration: InputDecoration(
           hintText: placeHolderText,
-          border: InputBorder.none,
+          contentPadding: EdgeInsets.all(18),
+          fillColor: Colors.white,
+          filled: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(17),
+          ),
           hintStyle: TextStyle(color: grey),
           prefixIcon: Icon(
             icon,
-            color: grey,
+          //  color: focusNode.hasFocus ? PrimaryPurple : grey,
           ),
         ),
         style: TextStyle(
@@ -77,13 +84,7 @@ class InputText extends StatelessWidget {
         ),
         obscureText: hideText,
       ),
-      margin: EdgeInsets.only(top: 24, left: 27, right: 27),
-      padding: EdgeInsets.only(top: 4, bottom: 4, left: 18, right: 18),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(17),
-        color: Colors.white,
-      ),
+      padding: EdgeInsets.only(top: 24, left: 27, right: 27),
     );
   }
 }

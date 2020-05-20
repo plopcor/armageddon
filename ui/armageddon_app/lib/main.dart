@@ -6,6 +6,11 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(
       MaterialApp(
+        theme: ThemeData(
+          primaryColor: PrimaryPurple,
+          hintColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.grey[400]),
+        ),
         home: StartScreen(),
       ),
     );
@@ -54,4 +59,14 @@ class StartScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+ThemeData buildTheme() {
+  final ThemeData base = ThemeData();
+  return base.copyWith(
+    hintColor: Colors.red,
+    inputDecorationTheme: InputDecorationTheme(
+      labelStyle: TextStyle(color: Colors.yellow, fontSize: 24.0),
+    ),
+  );
 }
