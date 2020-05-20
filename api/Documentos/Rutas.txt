@@ -19,4 +19,9 @@ GET => /categorias
 # Ver categoria
 GET => /categoria/{id}
 
+#### TIENDAS
+# Listar
+GET => /tiendas
 
+# Ver tienda
+GET => /tienda/{id}
