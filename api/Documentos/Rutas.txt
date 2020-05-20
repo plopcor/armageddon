@@ -1,0 +1,22 @@
+
+#### LOGIN
+POST => /login
+
+#### REGISTRO
+POST => /register
+
+#### PRODUCTOS
+# Listar
+GET => /productos
+
+# Ver producto
+GET => /producto/{id}
+
+#### CATEGORIAS
+# Listar
+GET => /categorias
+
+# Ver categoria
+GET => /categoria/{id}
+
+
