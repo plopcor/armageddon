@@ -1,0 +1,8 @@
+##### Docker
+## Scripts
+*.ps1
+## Compose
+docker-compose.yml
+
+##### Otros
+/_notas

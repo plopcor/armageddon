@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Tienda extends Model
 {
 
+    protected $fillable = [
+        'nombre', 'longitud', 'latitud'
+    ];
+
     /*
      * Propietario de la tienda
      */

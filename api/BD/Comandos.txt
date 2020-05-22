@@ -1,7 +1,11 @@
 
+
 #### Migrate
 # Migrate
 php artisan migrate
+
+# Remove last migration and apply it again
+php artisan migrate:fresh
 
 # Drop All Tables and Migrate
 php artisan migrate:fresh
@@ -12,9 +16,12 @@ php artisan migrate:fresh --seed
 
 # Deletef
 
-#### Seed
+#### Seeders
 # Seed all
 php artisan db:seed
 
 # Seed class
 php artisan db:seed --class=NombreSeeder
+
+# Recognize new seeders
+composer dump-autoload

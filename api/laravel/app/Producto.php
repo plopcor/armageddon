@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
 
+    protected $fillable = [
+        'nombre', 'img_path', 'esEspecifico'
+    ];
+
     /*
      * Categorias del producto
      */

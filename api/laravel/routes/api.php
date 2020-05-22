@@ -13,6 +13,39 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+// AGRUPAR Y USAR MIDDLEWARE
+//Route::middleware('auth:api')->group( function () {
+//    Route::get('/productos', 'ProductoController@listar');
+//});
+
+// Rutas API (Version 1)
+Route::group(['prefix' => 'v1'], function () {
+
+    // @ Autenticacion
+    Route::post('/login', 'UsuarioController@login');
+    Route::post('/register', 'UsuarioController@register');
+    Route::get('/logout', 'UsuarioController@logout')->middleware('auth:api');
+
+    // @ Tiendas
+    Route::get('/tiendas', 'TiendaController@listar');
+    Route::get('/tienda/{id}', 'TiendaController@ver');
+    Route::post('/tienda', 'TiendaController@crear');
+
+    // @ Productos
+    Route::get('/productos', 'ProductoController@listar');
+    Route::get('/producto/{id}', 'ProductoController@ver');
+
+    // @ Categorias
+    Route::get('/categorias', 'CategoriaController@listar');
+    Route::get('/categoria/{id}', 'CategoriaController@ver');
+    Route::get('/categoria/{id}/productos', 'CategoriaController@verProductos');
+
 });
+
+
+
+
