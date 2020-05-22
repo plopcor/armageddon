@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class StartButton extends StatelessWidget {
   final String text;
   final bool type;
-  final Widget page;
-  StartButton({this.text, this.type, this.page});
+  final String routeName;
+  StartButton({this.text, this.type, this.routeName});
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +13,7 @@ class StartButton extends StatelessWidget {
       margin: EdgeInsets.only(top: 24, left: 27, right: 27),
       child: RaisedButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return page;
-              },
-            ),
-          );
+          Navigator.pushNamed(context, routeName);
         },
         padding: EdgeInsets.symmetric(horizontal: 105, vertical: 18),
         elevation: 0,
@@ -48,7 +41,6 @@ class InputText extends StatelessWidget {
   final bool hideText;
   final IconData icon;
   InputText({this.placeHolderText, this.hideText, this.icon});
-
   @override
   Widget build(BuildContext context) {
     var grey = Colors.grey[400];
@@ -75,7 +67,7 @@ class InputText extends StatelessWidget {
           hintStyle: TextStyle(color: grey),
           prefixIcon: Icon(
             icon,
-          //  color: focusNode.hasFocus ? PrimaryPurple : grey,
+            //  color: focusNode.hasFocus ? PrimaryPurple : grey,
           ),
         ),
         style: TextStyle(
