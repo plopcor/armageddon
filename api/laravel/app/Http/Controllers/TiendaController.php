@@ -1,21 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
 use Auth;
-//use App\Auth;
-use App\Tienda;
 use DB;
 use App\User;
-use Illuminate\Http\Request;
+use App\Tienda;
 
-class TiendaController extends Controller
+
+class TiendaController extends APIController
 {
 
     /*
      * Listar todas
      */
-    public function listar() {
-
+    public function listar()
+    {
         $tiendas = array();
         foreach(Tienda::all() as $tienda) {
 
@@ -26,17 +27,15 @@ class TiendaController extends Controller
         }
 
         return json_encode($tiendas);
-
     }
 
     /*
      * Ver tienda especifica
      */
-    public function ver(Request $Request) {
-
-        Tienda::findOrFail($Request->id);
-        return 'Hola';
-
+    public function ver(Request $Request)
+    {
+        $tienda = Tienda::findOrFail($Request->id);
+        return $this->sendResponse($tienda);
     }
 
 }
