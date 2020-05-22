@@ -1,3 +1,0 @@
-https://dev.to/azibom/create-api-rest-with-laravel-7-x-passport-authentication-and-implement-refresh-token-part-1-43ja
-https://laravel.com/docs/7.x/passport#introduction
-https://xpertphp.com/laravel-7-rest-api-with-passport-authentication-tutorial/

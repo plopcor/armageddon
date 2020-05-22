@@ -5,40 +5,34 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Categoria;
 
-class CategoriaController extends Controller
+class CategoriaController extends APIController
 {
     /*
-     * Ver todas las categorias
+     * Listar categorias
      */
-    public function listar() {
-
-        return json_encode(Categoria::all());
-
+    public function listar()
+    {
+        return $this->sendResponse(Categoria::all());
     }
 
     /*
      * Ver categoria especifica
      */
-    public function ver(Request $request) {
-
+    public function ver(Request $request)
+    {
         $categoria = Categoria::findOrFail($request->id);
-        return json_encode($categoria);
 
+        return $this->sendResponse($categoria);
     }
 
     /*
-     * Ver los productos que tienen esa categoria
+     * Ver productos con esa categoria
      */
-    public function verProductos(Request $request) {
-
+    public function verProductos(Request $request)
+    {
         $categoria = Categoria::findOrFail($request->id);
-        $productos = array();
 
-        foreach($categoria->productos as $producto) {
-            $productos[] = $producto->nombre;
-        }
-
-        return json_encode($productos);
+        return $this->sendResponse($categoria->productos);
     }
 
 
