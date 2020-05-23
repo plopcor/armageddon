@@ -40,7 +40,10 @@ class InputText extends StatelessWidget {
   final String placeHolderText;
   final bool hideText;
   final IconData icon;
-  InputText({this.placeHolderText, this.hideText, this.icon});
+  final TextEditingController controller;
+
+  InputText({this.placeHolderText, this.hideText, this.icon, this.controller});
+
   @override
   Widget build(BuildContext context) {
     var grey = Colors.grey[400];
@@ -48,6 +51,7 @@ class InputText extends StatelessWidget {
     return Padding(
       child: TextFormField(
         // focusNode: focusNode,
+        controller: controller,
         validator: (value) {
           if (value.isEmpty) {
             return 'Introduce ' +

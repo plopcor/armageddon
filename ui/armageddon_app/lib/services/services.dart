@@ -1,9 +1,11 @@
-import 'package:armageddon_app/constants.dart';
-import 'package:armageddon_app/models/user.dart';
-import 'package:http/http.dart' as http;
 import 'dart:async';
 
-Future<User> getPost() async {
-  final response = await http.get('$apiUrl/1');
-  return userFromJson(response.body);
+import 'package:armageddon_app/constants.dart';
+import 'package:armageddon_app/models/responseModel.dart';
+import 'package:http/http.dart' as http;
+
+Future<Response> login({String password, String username}) async {
+  final response =
+      await http.post('$apiUrl/login?usuario=$username&contraseña=$password');
+  return responseFromJson(response.body);
 }
