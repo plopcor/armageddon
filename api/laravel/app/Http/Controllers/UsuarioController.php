@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 use Illuminate\Support\Facades\Validator;
 
 class UsuarioController extends APIController
@@ -14,8 +15,8 @@ class UsuarioController extends APIController
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email'       => 'required|string|email',
-            'password'    => 'required|string',
+            'usuario'       => 'required|string',
+            'contraseña'    => 'required|string',
             'remember_me' => 'boolean',
         ]);
 
@@ -23,11 +24,11 @@ class UsuarioController extends APIController
             return $this->sendError(400, 'Datos incorrectos', $validator->errors());
         }
 
-        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
+        if (Auth::attempt(['usuario' => request('usuario'), 'password' => request('contraseña')])) {
 
             $user = Auth::user();
             $success['token'] = $user->createToken('APIToken')->accessToken;
-            $success['user'] = $user;
+            $success['usuario'] = $user;
 
             if ($request->remember_me) {
                 $success['token']->expires_at = Carbon::now()->addWeeks(1);
@@ -59,9 +60,11 @@ class UsuarioController extends APIController
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required',
-            'usuario' => 'required',
-            'contraseña' => 'required',
+            'nombre' => 'required|string',
+            'usuario' => 'required|string',
+            'contraseña' => 'required|string',
+            'email' => 'string|email',
+            'avatar' => 'url'
         ]);
 
         if($validator->fails()){
@@ -69,11 +72,20 @@ class UsuarioController extends APIController
         }
 
         $input = $request->all();
-        $input['contraseña'] = bcrypt($input['password']);
+        $input['password'] = bcrypt($input['contraseña']);
         $user = User::create($input);
-        $success['token'] =  $user->createToken('APIToken')->accessToken;
-        $success['name'] =  $user->name;
 
-        return $this->sendResponse($success, 'User register successfully.');
+        $success['token'] =  $user->createToken('APIToken')->accessToken;
+        $success['usuario'] =  $user;
+
+        return $this->sendResponse($success);
+    }
+
+    /**
+     * Logout
+     */
+    public function logout(Request $request)
+    {
+
     }
 }

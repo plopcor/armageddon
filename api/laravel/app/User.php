@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'esTienda',
+        'nombre', 'usuario', 'email', 'password',
     ];
 
     /**
@@ -38,6 +38,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     *  Cambiar campo de identificacion para autenticacion (por defecto utiliza el campo 'email')
+     */
+    public function findForPassport($username) {
+        return $this->where('id', $username)->first();
+    }
+
+//    /**
+//     * Cambiar campo donde se buscara la contraseña (por defecto es 'password')
+//     */
+//    public function validateForPassportPasswordGrant($password)
+//    {
+//        return Hash::check($password, $this->PasswMd);
+//    }
 
     /**
      * Retornar la Tienda si tiene

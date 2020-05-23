@@ -17,26 +17,30 @@ class UsuariosSeeder extends Seeder
         $datos_usuarios = [
             [
                 'id' => 1,
-                'name' => 'Usuario 1',
+                'nombre' => 'Usuario 1',
+                'usuario' => 'usuario1',
                 'email' => 'usuario1@mail.com',
                 'password' => bcrypt('usuario1'),
                 'avatar' => 'https://www.washingtonpost.com/resizer/uwlkeOwC_3JqSUXeH8ZP81cHx3I=/arc-anglerfish-washpost-prod-washpost/public/HB4AT3D3IMI6TMPTWIZ74WAR54.jpg'
             ],
             [
                 'id' => 2,
-                'name' => 'Usuario 2',
+                'nombre' => 'Usuario 2',
+                'usuario' => 'usuario2',
                 'email' => 'usuario2@mail.com',
                 'password' => bcrypt('usuario2')
             ],
             [
                 'id' => 3,
-                'name' => 'Usuario 3',
+                'nombre' => 'Usuario 3',
+                'usuario' => 'usuario3',
                 'email' => 'usuario3@mail.com',
                 'password' => bcrypt('usuario3')
             ],
             [
                 'id' => 4,
-                'name' => 'Usuario 4',
+                'nombre' => 'Usuario 4',
+                'usuario' => 'usuario4',
                 'email' => 'usuario4@mail.com',
                 'password' => bcrypt('usuario4')
             ]
@@ -64,7 +68,8 @@ class UsuariosSeeder extends Seeder
         $datos_tiendas = [
             [
                 'id' => 5,
-                'name' => 'Tienda 1',
+                'nombre' => 'Tienda 1',
+                'usuario' => 'tienda1',
                 'email' => 'tienda1@mail.com',
                 'password' => bcrypt('tienda1'),
                 'avatar' => 'https://cdn131.picsart.com/307342630030211.png',
@@ -72,7 +77,8 @@ class UsuariosSeeder extends Seeder
             ],
             [
                 'id' => 6,
-                'name' => 'Tienda 2',
+                'nombre' => 'Tienda 2',
+                'usuario' => 'tienda1',
                 'email' => 'tienda2@mail.com',
                 'password' => bcrypt('tienda2'),
                 'avatar' => 'https://i.redd.it/9feswlg1n8z41.jpg',

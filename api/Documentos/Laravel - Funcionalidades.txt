@@ -1,6 +1,8 @@
 # Validacion de peticiones
 https://laravel.com/docs/7.x/validation#available-validation-rules
 
+# Traducir mensajes de validacion al español
+https://parzibyte.me/blog/2019/06/20/laravel-mensajes-validacion-espanol/
 
 # Default values
 https://laravel.com/docs/7.x/eloquent#default-attribute-values
