@@ -8,6 +8,14 @@ Iniciar sesión
 
 **Auth requerida** : NO
 
+**Datos** :
+```json
+{
+  "usuario": "<String>",
+  "contraseña": "<String>",
+}
+```
+
 ## Respuesta Correcta
 
 **Codigo** : `200 OK`

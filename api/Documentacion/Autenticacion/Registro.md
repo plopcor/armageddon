@@ -8,6 +8,17 @@ Informacion sobre esta ruta, lo que hace y devuelve
 
 **Auth requerida** : NO
 
+**Datos** :
+```json
+{
+  "nombre": "<String>",
+  "usuario": "<String>",
+  "contraseña": "<String>",
+  "email [OPCIONAL]": "<Email>",
+  "avatar [OPCIONAL]": "<URL>"
+}
+```
+
 ## Respuesta Correcta
 
 **Codigo** : `200 OK`

@@ -8,6 +8,8 @@ Destruira el token de inicio de sesión del usuario
 
 **Auth requerida** : SI
 
+**Datos** : NO
+
 ## Respuesta Correcta
 
 **Codigo** : `200 OK`
