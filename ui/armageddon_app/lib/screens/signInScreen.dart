@@ -1,4 +1,5 @@
 import 'package:armageddon_app/constants.dart';
+import 'package:armageddon_app/models/user.dart';
 import 'package:armageddon_app/widgets.dart';
 import 'package:flutter/material.dart';
 
