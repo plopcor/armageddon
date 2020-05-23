@@ -1,0 +1,56 @@
+
+Cafe con leche
+Cafe solo
+Croissant
+Coca Cola
+Baguette
+Cacaolat
+Bocadillo de jamon
+Bocadillo vegetal
+
+
+
+# Pakistani
+Patatas fritas
+Coca Cola
+Donuts
+Chuches
+Zumo de piña
+Cacaolat
+Barra de pan
+Bocadillo de hamburguesa
+Bocadillo de tortilla
+
+# Panaderia
+Cafe
+Croissant
+Vaso de leche
+Bocadillo vegetal
+Donuts
+Cafe con leche
+Cafe manchado
+
+# Panaderia
+Baguette
+Vienna
+Bocadillo de jamon
+Bocadillo de queso
+Bocadillo vegetal
+Kinder Bueno
+Croissant amb nutella
+Croissant de jamon dulce con queso
+Crepe
+Crepe de miel
+Crepe de chocolate
+Crepe de Nutella
+Crepe de dulce de leche
+Gofre de chocolate
+Gofre de miel
+Chocolate blanco
+
+Cafe
+Coca cola
+Croissant
+Barra de pan
+Zumo de piña
+Patatas fritas
