@@ -1,6 +1,6 @@
 # Login
 
-Iniciar sessión
+Iniciar sesión
 
 **URL** : `/login`
 
@@ -36,11 +36,15 @@ Iniciar sessión
 
 ## Respuesta Incorrecta
 
+#### [400 Bad Request](../General/Errores.md#400-bad-request)
+
+#### 404 Not Found
+
+Las credenciales no corresponden a ningun usuario
+
 **Codigo** : `404 Not Found`
 
-**Ejemplo contenido**
-
-Credenciales invalidas
+**Contenido** :
 
 ```json
 {
@@ -53,5 +57,3 @@ Credenciales invalidas
 ```
 
 ## Notas
-
-* Notas de cosas sobre la peticion, si haces esto pasara eso etc

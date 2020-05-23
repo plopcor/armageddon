@@ -1,4 +1,4 @@
-# NombreRuta
+# Registro
 
 Informacion sobre esta ruta, lo que hace y devuelve
 
@@ -13,8 +13,6 @@ Informacion sobre esta ruta, lo que hace y devuelve
 **Codigo** : `200 OK`
 
 **Ejemplo contenido**
-
-Informacion de la Peticion
 
 ```json
 {
@@ -38,22 +36,9 @@ Informacion de la Peticion
 
 ## Respuesta Incorrecta
 
-#### Usuario ya existe
+#### [400 Bad Request](../General/Errores.md#400-bad-request)
 
-**Codigo** : `400 Bad Request`
+#### [409 Conflict](Errores.md#409-conflict)
 
-**Ejemplo contenido**
-
-```json
-{
-    "success": false,
-    "message": "Datos incorrectos",
-    "data": {
-        "usuario": [
-            "The usuario has already been taken."
-        ]
-    }
-}
-```
 
 ## Notas

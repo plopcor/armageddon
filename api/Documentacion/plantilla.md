@@ -27,20 +27,18 @@ Informacion de la Peticion
 
 ## Respuesta Incorrecta
 
-**Codigo** : `404 Not Found`
+#### [400 Bad Request](../General/Errores.md#400-bad-request)
+
+#### 4XX Excepcion
+
+Ha fallado porque XXX
+
+**Codigo** : `4XX Excepcion`
 
 **Ejemplo contenido**
 
-Informacion de la Peticion
-
 ```json
-{
-    "success": false,
-    "message": "",
-    "data": {
 
-    }
-}
 ```
 
 ## Notas
