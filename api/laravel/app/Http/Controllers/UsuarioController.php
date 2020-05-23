@@ -61,7 +61,7 @@ class UsuarioController extends APIController
     {
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string',
-            'usuario' => 'required|string',
+            'usuario' => 'required|string|unique:users',
             'contraseña' => 'required|string',
             'email' => 'string|email',
             'avatar' => 'url'
@@ -86,6 +86,7 @@ class UsuarioController extends APIController
      */
     public function logout(Request $request)
     {
-
+        $request->user()->token()->revoke();
+        return $this->sendResponse("");
     }
 }
