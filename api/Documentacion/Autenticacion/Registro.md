@@ -38,7 +38,25 @@ Informacion sobre esta ruta, lo que hace y devuelve
 
 #### [400 Bad Request](../General/Errores.md#400-bad-request)
 
-#### [409 Conflict](Errores.md#409-conflict)
+#### 409 Conflict
+
+El usuario ya existe, ha de escojer otro nombre
+
+**Codigo** : `409 Conflict`
+
+**Contenido** :
+
+```json
+{
+    "success": false,
+    "message": "Datos incorrectos",
+    "data": {
+        "usuario": [
+            "The usuario has already been taken."
+        ]
+    }
+}
+```
 
 
 ## Notas

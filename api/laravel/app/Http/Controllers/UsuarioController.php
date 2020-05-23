@@ -87,6 +87,6 @@ class UsuarioController extends APIController
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();
-        return $this->sendResponse("Session cerrada correctamente");
+        return $this->sendMessage("Session cerrada correctamente");
     }
 }

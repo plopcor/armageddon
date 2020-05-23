@@ -2,3 +2,11 @@ Zoom tiene buena API, mirar para cojer ejemplos y ver la estructura
 
 # Ejemplos de categorias para la BD, tabla "Categorias" y "Subcategorias"
 https://es.openfoodfacts.org/tienda/mercadona/categorias
+
+# Ejemplos de documentacion
+# Con ficheros .md
+https://github.com/jamescooke/restapidocs/blob/master/examples/user/put.md
+https://github.com/jamescooke/restapidocs/blob/master/examples/user/get.md
+https://github.com/CrossRef/rest-api-doc/blob/master/README.md#filter-names
+
+https://swagger.io/specification/

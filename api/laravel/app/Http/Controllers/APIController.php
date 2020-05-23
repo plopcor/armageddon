@@ -6,6 +6,22 @@ use Illuminate\Http\Request;
 
 class APIController extends Controller
 {
+
+    /**
+     * Return OK response with message
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sendMessage($message)
+    {
+        $response = [
+            'success' => true,
+            'message'    => $message,
+        ];
+
+        return response()->json($response, 200);
+    }
+
     /**
      * Return Correct response
      *
