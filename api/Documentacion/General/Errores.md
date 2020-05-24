@@ -14,7 +14,34 @@ Faltan datos en la peticion o el formato de los datos es invalido
 
 ```json
 {
-    "message": "Unauthenticated."
+    "success": false,
+    "message": "Datos incorrectos",
+    "data": {
+        "<campo>": [
+            "The <campo> field <error de validacion>."
+        ],
+        "<campo>": [
+            "The <campo> field <error de validacion>."
+        ]
+    }
+}
+```
+
+**Contenido ejemplo** :
+
+Login sin enviar los parametros "usuario" ni "contraseña"
+```json
+{
+    "success": false,
+    "message": "Datos incorrectos",
+    "data": {
+        "usuario": [
+            "The usuario field is required."
+        ],
+        "contraseña": [
+            "The contraseña field is required."
+        ]
+    }
 }
 ```
 
