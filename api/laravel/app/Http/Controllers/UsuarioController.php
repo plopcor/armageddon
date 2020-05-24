@@ -89,4 +89,14 @@ class UsuarioController extends APIController
         $request->user()->token()->revoke();
         return $this->sendMessage("Session cerrada correctamente");
     }
+
+    /**
+     * Token prueba
+     */
+    public function tokenTest(Request $request)
+    {
+        $usuario = Auth::user()->usuario;
+        return $this->sendMessage("Usuario " . $usuario);
+    }
 }
+
