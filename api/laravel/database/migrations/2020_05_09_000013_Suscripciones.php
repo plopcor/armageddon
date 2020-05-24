@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ProductoTienda extends Migration
+class Suscripciones extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class ProductoTienda extends Migration
      */
     public function up()
     {
-        Schema::create('producto_tienda', function (Blueprint $table) {
+        Schema::create('suscripciones', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('id_usuario');
             $table->integer('id_tienda');
-            $table->integer('id_producto');
-            $table->decimal('precio', 7, 2); //Hasta 99.999,99
-            $table->boolean('disponible')->default(true);
         });
     }
 
@@ -29,6 +27,6 @@ class ProductoTienda extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('producto_tienda');
+        Schema::dropIfExists('suscripciones');
     }
 }

@@ -15,9 +15,10 @@ class Favoritos extends Migration
     {
         Schema::create('favoritos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('id_usuario');
-            $table->integer('id_productosFavoritos');
             $table->string('nombre');
+            $table->integer('id_usuario');
+            $table->integer('id_tienda');
+            $table->integer('id_productosFavoritos');
         });
     }
 

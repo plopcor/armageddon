@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'email_verified_at'
     ];
 
     /**
@@ -41,7 +41,8 @@ class User extends Authenticatable
     /**
      *  Cambiar campo de identificacion para autenticacion (por defecto utiliza el campo 'email')
      */
-    public function findForPassport($username) {
+    public function findForPassport($username)
+    {
         return $this->where('id', $username)->first();
     }
 
@@ -63,6 +64,14 @@ class User extends Authenticatable
         } else {
             return false;
         }
+    }
+
+    /**
+     * Suscripciones a Tiendas
+     */
+    public function suscripciones()
+    {
+        return $this->belongsToMany(Tienda::class, 'suscripciones', 'id_usuario', 'id_tienda');
     }
 
 }

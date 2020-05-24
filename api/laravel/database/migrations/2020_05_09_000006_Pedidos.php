@@ -16,6 +16,10 @@ class Pedidos extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('id_usuario');
+            $table->integer('id_tienda');
+            $table->string('estado'); //TODO
+            //$table->enum('estado', ['', 'PROCESO', '']);
+            $table->dateTime('recogida', 0);
             $table->timestamps();
         });
     }
