@@ -44,6 +44,12 @@ class RegisterForm extends StatefulWidget {
 class RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
 
+  final textNameController = TextEditingController();
+  final textUserController = TextEditingController();
+  final textPassController = TextEditingController();
+  final textPass2Controller = TextEditingController();
+  final textEmailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -52,33 +58,43 @@ class RegisterFormState extends State<RegisterForm> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           InputText(
+            placeHolderText: 'Nombre',
+            hideText: false,
+            icon: Icons.home,
+            controller: textNameController,
+          ),
+          InputText(
             placeHolderText: 'Usuario',
             hideText: false,
             icon: Icons.home,
+            controller: textUserController,
           ),
           InputText(
             placeHolderText: 'Correo electrónico',
             hideText: false,
             icon: Icons.email,
+            controller: textEmailController,
           ),
           InputText(
             placeHolderText: 'Contraseña',
             hideText: true,
             icon: Icons.lock,
-          ),
-          InputText(
-            placeHolderText: 'Confirmar Contraseña',
-            hideText: true,
-            icon: Icons.lock,
+            controller: textPassController,
           ),
           Container(
             margin: EdgeInsets.only(top: 24, left: 27, right: 27),
             child: RaisedButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
+                  var user = textUserController.text;
+                  var email = textEmailController.text;
+                  var pass = textPassController.text;
+
+                  var message = 'Processing Data';
+
                   // Si el formulario es válido, queremos mostrar un Snackbar
                   Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('Processing Data')));
+                      .showSnackBar(SnackBar(content: Text(message)));
                 }
               },
               padding: EdgeInsets.symmetric(horizontal: 105, vertical: 18),
