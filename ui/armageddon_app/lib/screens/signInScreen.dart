@@ -1,5 +1,5 @@
 import 'package:armageddon_app/constants.dart';
-import 'package:armageddon_app/models/user.dart';
+import 'package:armageddon_app/services/authenticationServices.dart';
 import 'package:armageddon_app/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -44,6 +44,15 @@ class SingInForm extends StatefulWidget {
 
 class SingInFormState extends State<SingInForm> {
   final _formKey = GlobalKey<FormState>();
+  final textUserController = TextEditingController();
+  final textPassController = TextEditingController();
+
+  @override
+  void dispose() {
+    textUserController.dispose();
+    textPassController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,20 +65,26 @@ class SingInFormState extends State<SingInForm> {
             icon: Icons.home,
             hideText: false,
             placeHolderText: 'Usuario',
+            controller: textUserController,
           ),
           InputText(
             icon: Icons.lock,
             hideText: true,
             placeHolderText: 'Contraseña',
+            controller: textPassController,
           ),
           Container(
             margin: EdgeInsets.only(top: 24, left: 27, right: 27),
             child: RaisedButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  // Si el formulario es válido, queremos mostrar un Snackbar
-                  Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('Processing Data')));
+                  var user = textUserController.text;
+                  var pass = textPassController.text;
+
+                  login(username: user, password: pass).then((response) =>
+                      /* Si el formulario es válido, queremos mostrar un Snackbar con la respuesta del servidor */
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text(response.success.toString()))));
                 }
               },
               padding: EdgeInsets.symmetric(horizontal: 105, vertical: 18),

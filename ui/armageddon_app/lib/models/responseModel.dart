@@ -1,29 +1,36 @@
 // To parse this JSON data, do
 //
-//     final user = userFromJson(jsonString);
+//     final response = responseFromJson(jsonString);
 
 import 'dart:convert';
 
-User userFromJson(String str) => User.fromJson(json.decode(str));
+Response responseFromJson(String str) => Response.fromJson(json.decode(str));
 
-String userToJson(User data) => json.encode(data.toJson());
+String responseToJson(Response data) => json.encode(data.toJson());
 
-class User {
+class Response {
   bool success;
+  String message;
   Data data;
 
-  User({
+  Response({
     this.success,
+    this.message,
     this.data,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
-        success: json["success"],
-        data: Data.fromJson(json["data"]),
-      );
+  factory Response.fromJson(Map<String, dynamic> json) {
+    var data = json["success"] ? Data.fromJson(json["data"]) : null;
+    return Response(
+      success: json["success"],
+      message: json["message"],
+      data: data,
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "success": success,
+        "message": message,
         "data": data.toJson(),
       };
 }
