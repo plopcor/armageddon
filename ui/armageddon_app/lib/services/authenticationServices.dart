@@ -9,30 +9,33 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Login - Send username and password throught POST
-Future<User> login({String password, String username}) async {
+Future<bool> login({String password, String username}) async {
   final url = '$apiUrl/login';
 
   final response = await http
       .post(url, body: {'usuario': '$username', 'contraseña': '$password'});
 
-  User user;
   if (response.statusCode == 200) {
     Map<String, dynamic> result = jsonDecode(response.body);
     result = result['data'];
 
-    user = User.fromJson(result['usuario']);
+    User user = User.fromJson(result['usuario']);
+    // save user object
 
     String token = result['token'].toString();
+    // save token
     _setToken(token);
+    return true;
+  } else {
+    return false;
   }
-
-  return user;
 }
 
 /// Logout - Send token throught GET
 Future<bool> logout() async {
   final url = '$apiUrl/logout';
 
+  // take token
   final token = await _getToken();
 
   final response = await http.get(url,

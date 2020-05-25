@@ -94,7 +94,7 @@ class SingInFormState extends State<SingInForm> {
                   login(username: user, password: pass).then((response) {
                     /* Si el formulario es válido, queremos mostrar un Snackbar con la respuesta del servidor */
                     return Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text(response.usuario.toString())));
+                        SnackBar(content: Text(response.toString())));
                   });
                 }
               },
