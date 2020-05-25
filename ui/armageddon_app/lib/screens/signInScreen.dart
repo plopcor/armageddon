@@ -34,7 +34,7 @@ class SignInScreen extends StatelessWidget {
               onPressed: () {
                 logout().then((value) => log(value.toString()));
               },
-              child: Text('Log out'),
+              child: Text('Logout'),
             ),
           ],
         ),
