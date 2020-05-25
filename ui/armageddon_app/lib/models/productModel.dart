@@ -30,7 +30,7 @@ class Product {
         nombre: json["nombre"],
         imgPath: json["img_path"],
         esEspecifico: json["esEspecifico"],
-        createdAt: DateTime.parse(json["created_at"]),
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"],
       );
 
