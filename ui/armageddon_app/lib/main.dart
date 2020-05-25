@@ -1,11 +1,19 @@
-import 'package:flutter/material.dart';
 import 'package:armageddon_app/constants.dart';
+import 'package:armageddon_app/models/userModel.dart';
 import 'package:armageddon_app/screens/registerScreen.dart';
 import 'package:armageddon_app/screens/signInScreen.dart';
 import 'package:armageddon_app/screens/startScreen.dart';
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
+void main() async {
+  /* inizialice Hive */
+  WidgetsFlutterBinding.ensureInitialized();
+  initHive();
+
   return runApp(MaterialApp(
+    darkTheme: ThemeData.dark(),
     theme: ThemeData(
       primaryColor: PrimaryPurple,
       hintColor: Colors.white,
@@ -32,4 +40,10 @@ ThemeData buildTheme() {
       labelStyle: TextStyle(color: Colors.yellow, fontSize: 24.0),
     ),
   );
+}
+
+Future<void> initHive() async {
+  final _dir = await getApplicationDocumentsDirectory();
+  Hive.init(_dir.path);
+  Hive.registerAdapter(UserAdapter());
 }

@@ -1,30 +1,37 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/userModel.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 /// Login - Send username and password throught POST
 Future<bool> login({String password, String username}) async {
-  final url = '$apiUrl/login';
+  final _url = '$apiUrl/login';
 
-  final response = await http
-      .post(url, body: {'usuario': '$username', 'contraseña': '$password'});
+  final _response = await http
+      .post(_url, body: {'usuario': '$username', 'contraseña': '$password'});
 
-  if (response.statusCode == 200) {
-    Map<String, dynamic> result = jsonDecode(response.body);
-    result = result['data'];
+  if (_response.statusCode == 200) {
+    Map<String, dynamic> _result = jsonDecode(_response.body);
+    _result = _result['data'];
 
-    User user = User.fromJson(result['usuario']);
-    // save user object
+    User _user = User.fromJson(_result['usuario']);
 
-    String token = result['token'].toString();
-    // save token
-    _setToken(token);
+    /* save user object */
+    var _userBox = await Hive.openBox<User>('user');
+    _userBox.add(_user);
+
+    String token = _result['token'].toString();
+
+    /* save token */
+    var _tokenBox = await Hive.openBox<String>('token');
+    _tokenBox.putAt(0, token);
+
+    log(_tokenBox.get(0));
+
     return true;
   } else {
     return false;
@@ -33,35 +40,21 @@ Future<bool> login({String password, String username}) async {
 
 /// Logout - Send token throught GET
 Future<bool> logout() async {
-  final url = '$apiUrl/logout';
+  final _url = '$apiUrl/logout';
 
-  // take token
-  final token = await _getToken();
+  /* take token */
+  var _tokenBox = await Hive.openBox<String>('token');
+  String _token = _tokenBox.get(0);
 
-  final response = await http.get(url,
-      headers: {'Accept': 'application/json', 'Authorization': "$token"});
+  log(_tokenBox.get(0));
 
-  log(jsonDecode(response.body).toString());
+  final _response = await http.get(_url,
+      headers: {'Accept': 'application/json', 'Authorization': "$_token"});
 
-  if (response.statusCode == 200) {
+  log(jsonDecode(_response.body).toString());
+
+  if (_response.statusCode == 200)
     return true;
-  } else {
+  else
     return false;
-  }
-}
-
-Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
-/// Returns the token from Shared Preferences
-Future<String> _getToken() async {
-  final SharedPreferences prefs = await _prefs;
-
-  return prefs.getString('token') ?? 'NO TOKEN';
-}
-
-/// Saves the token in Shared Preferences
-Future<bool> _setToken(String token) async {
-  final SharedPreferences prefs = await _prefs;
-
-  return prefs.setString('token', token);
 }
