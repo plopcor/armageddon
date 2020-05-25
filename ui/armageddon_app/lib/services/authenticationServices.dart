@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/userModel.dart';
@@ -52,8 +53,10 @@ Future<bool> logout() async {
 
   log(_tokenBox.get(0));
 
-  final _response = await http.get(_url,
-      headers: {'Accept': 'application/json', 'Authorization': _token});
+  final _response = await http.get(_url, headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer $_token',
+  });
 
   log(jsonDecode(_response.body).toString());
 

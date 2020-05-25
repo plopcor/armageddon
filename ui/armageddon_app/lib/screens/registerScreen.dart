@@ -106,8 +106,9 @@ class RegisterFormState extends State<RegisterForm> {
                           username: _user,
                           password: _pass,
                           email: _email)
-                      .then((response) => Scaffold.of(context).showSnackBar(
-                          SnackBar(content: Text(response.toString()))));
+                      .then((response) {
+                    if (response) Navigator.pushNamed(context, '/home');
+                  });
                 }
               },
               padding: EdgeInsets.symmetric(horizontal: 105, vertical: 18),

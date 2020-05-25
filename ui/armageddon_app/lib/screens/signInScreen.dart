@@ -90,8 +90,7 @@ class SingInFormState extends State<SingInForm> {
                   var _pass = _textPassController.text;
 
                   login(username: _user, password: _pass).then((response) {
-                    return Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text(response.toString())));
+                    if (response) Navigator.pushNamed(context, '/home');
                   });
                 }
               },

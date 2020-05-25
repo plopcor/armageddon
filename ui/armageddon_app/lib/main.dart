@@ -1,5 +1,6 @@
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/userModel.dart';
+import 'package:armageddon_app/screens/homeScreen.dart';
 import 'package:armageddon_app/screens/registerScreen.dart';
 import 'package:armageddon_app/screens/signInScreen.dart';
 import 'package:armageddon_app/screens/startScreen.dart';
@@ -13,7 +14,6 @@ void main() async {
   initHive();
 
   return runApp(MaterialApp(
-    darkTheme: ThemeData.dark(),
     theme: ThemeData(
       primaryColor: PrimaryPurple,
       hintColor: Colors.white,
@@ -27,7 +27,7 @@ var routes = <String, WidgetBuilder>{
   '/welcome': (BuildContext context) => new StartScreen(),
   '/signIn': (BuildContext context) => new SignInScreen(),
   '/register': (BuildContext context) => new RegisterScreen(),
-  // '/home': (BuildContext context) => new HomeScreen(),
+  '/home': (BuildContext context) => new HomeScreen(),
   // '/search': (BuildContext context) => new SearchScreen(),
   // '/profile': (BuildContext context) => new ProfileScreen(),
 };
