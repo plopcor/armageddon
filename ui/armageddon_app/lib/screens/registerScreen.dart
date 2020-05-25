@@ -86,6 +86,7 @@ class RegisterFormState extends State<RegisterForm> {
             child: RaisedButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
+                  var name = textNameController.text;
                   var user = textUserController.text;
                   var email = textEmailController.text;
                   var pass = textPassController.text;

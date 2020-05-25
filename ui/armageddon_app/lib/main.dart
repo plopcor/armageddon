@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/screens/registerScreen.dart';
 import 'package:armageddon_app/screens/signInScreen.dart';
 import 'package:armageddon_app/screens/startScreen.dart';
-import 'package:flutter/material.dart';
 
 void main() {
   return runApp(MaterialApp(

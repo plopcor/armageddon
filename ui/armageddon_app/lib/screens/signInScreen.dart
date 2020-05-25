@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/services/authenticationServices.dart';
 import 'package:armageddon_app/widgets.dart';
@@ -47,6 +49,8 @@ class SingInFormState extends State<SingInForm> {
   final textUserController = TextEditingController();
   final textPassController = TextEditingController();
 
+  var token;
+
   @override
   void dispose() {
     textUserController.dispose();
@@ -81,10 +85,11 @@ class SingInFormState extends State<SingInForm> {
                   var user = textUserController.text;
                   var pass = textPassController.text;
 
-                  login(username: user, password: pass).then((response) =>
-                      /* Si el formulario es válido, queremos mostrar un Snackbar con la respuesta del servidor */
-                      Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text(response.success.toString()))));
+                  login(username: user, password: pass).then((response) {
+                    /* Si el formulario es válido, queremos mostrar un Snackbar con la respuesta del servidor */
+                    return Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text(response.usuario.toString())));
+                  });
                 }
               },
               padding: EdgeInsets.symmetric(horizontal: 105, vertical: 18),
