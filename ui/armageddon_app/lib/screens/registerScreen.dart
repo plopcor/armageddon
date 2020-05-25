@@ -1,4 +1,5 @@
 import 'package:armageddon_app/constants.dart';
+import 'package:armageddon_app/services/authenticationServices.dart';
 import 'package:armageddon_app/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -44,17 +45,17 @@ class RegisterForm extends StatefulWidget {
 class RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
 
-  final textNameController = TextEditingController();
-  final textUserController = TextEditingController();
-  final textPassController = TextEditingController();
-  final textEmailController = TextEditingController();
+  final _textNameController = TextEditingController();
+  final _textUserController = TextEditingController();
+  final _textPassController = TextEditingController();
+  final _textEmailController = TextEditingController();
 
   @override
   void dispose() {
-    textNameController.dispose();
-    textUserController.dispose();
-    textPassController.dispose();
-    textEmailController.dispose();
+    _textNameController.dispose();
+    _textUserController.dispose();
+    _textPassController.dispose();
+    _textEmailController.dispose();
     super.dispose();
   }
 
@@ -69,41 +70,44 @@ class RegisterFormState extends State<RegisterForm> {
             placeHolderText: 'Nombre',
             hideText: false,
             icon: Icons.home,
-            controller: textNameController,
+            controller: _textNameController,
           ),
           InputText(
             placeHolderText: 'Usuario',
             hideText: false,
             icon: Icons.home,
-            controller: textUserController,
+            controller: _textUserController,
           ),
           InputText(
             placeHolderText: 'Correo electrónico',
             hideText: false,
             icon: Icons.email,
-            controller: textEmailController,
+            controller: _textEmailController,
+            textInputType: TextInputType.emailAddress,
           ),
           InputText(
             placeHolderText: 'Contraseña',
             hideText: true,
             icon: Icons.lock,
-            controller: textPassController,
+            controller: _textPassController,
           ),
           Container(
             margin: EdgeInsets.only(top: 24, left: 27, right: 27),
             child: RaisedButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  var name = textNameController.text;
-                  var user = textUserController.text;
-                  var email = textEmailController.text;
-                  var pass = textPassController.text;
+                  var _name = _textNameController.text;
+                  var _user = _textUserController.text;
+                  var _email = _textEmailController.text;
+                  var _pass = _textPassController.text;
 
-                  var message = 'Processing Data';
-
-                  // Si el formulario es válido, queremos mostrar un Snackbar
-                  Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text(message)));
+                  register(
+                          name: _name,
+                          username: _user,
+                          password: _pass,
+                          email: _email)
+                      .then((response) => Scaffold.of(context).showSnackBar(
+                          SnackBar(content: Text(response.toString()))));
                 }
               },
               padding: EdgeInsets.symmetric(horizontal: 105, vertical: 18),

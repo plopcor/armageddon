@@ -52,13 +52,13 @@ class SingInForm extends StatefulWidget {
 
 class SingInFormState extends State<SingInForm> {
   final _formKey = GlobalKey<FormState>();
-  final textUserController = TextEditingController();
-  final textPassController = TextEditingController();
+  final _textUserController = TextEditingController();
+  final _textPassController = TextEditingController();
 
   @override
   void dispose() {
-    textUserController.dispose();
-    textPassController.dispose();
+    _textUserController.dispose();
+    _textPassController.dispose();
     super.dispose();
   }
 
@@ -73,24 +73,23 @@ class SingInFormState extends State<SingInForm> {
             icon: Icons.home,
             hideText: false,
             placeHolderText: 'Usuario',
-            controller: textUserController,
+            controller: _textUserController,
           ),
           InputText(
             icon: Icons.lock,
             hideText: true,
             placeHolderText: 'Contraseña',
-            controller: textPassController,
+            controller: _textPassController,
           ),
           Container(
             margin: EdgeInsets.only(top: 24, left: 27, right: 27),
             child: RaisedButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  var user = textUserController.text;
-                  var pass = textPassController.text;
+                  var _user = _textUserController.text;
+                  var _pass = _textPassController.text;
 
-                  login(username: user, password: pass).then((response) {
-                    /* Si el formulario es válido, queremos mostrar un Snackbar con la respuesta del servidor */
+                  login(username: _user, password: _pass).then((response) {
                     return Scaffold.of(context).showSnackBar(
                         SnackBar(content: Text(response.toString())));
                   });

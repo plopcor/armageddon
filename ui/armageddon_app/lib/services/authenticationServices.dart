@@ -12,7 +12,7 @@ Future<bool> login({String password, String username}) async {
   final _url = '$apiUrl/login';
 
   final _response = await http
-      .post(_url, body: {'usuario': '$username', 'contraseña': '$password'});
+      .post(_url, body: {'usuario': username, 'contraseña': password});
 
   if (_response.statusCode == 200) {
     Map<String, dynamic> _result = jsonDecode(_response.body);
@@ -22,15 +22,19 @@ Future<bool> login({String password, String username}) async {
 
     /* save user object */
     var _userBox = await Hive.openBox<User>('user');
-    _userBox.add(_user);
+    _userBox.putAt(0, _user);
 
-    String token = _result['token'].toString();
+    String _token = _result['token'].toString();
 
     /* save token */
     var _tokenBox = await Hive.openBox<String>('token');
-    _tokenBox.putAt(0, token);
+    _tokenBox.putAt(0, _token);
 
     log(_tokenBox.get(0));
+    log(_userBox.get(0).toString());
+
+    _tokenBox.close();
+    _userBox.close();
 
     return true;
   } else {
@@ -49,12 +53,54 @@ Future<bool> logout() async {
   log(_tokenBox.get(0));
 
   final _response = await http.get(_url,
-      headers: {'Accept': 'application/json', 'Authorization': "$_token"});
+      headers: {'Accept': 'application/json', 'Authorization': _token});
 
   log(jsonDecode(_response.body).toString());
+
+  _tokenBox.close();
 
   if (_response.statusCode == 200)
     return true;
   else
     return false;
+}
+
+/// Register - Send new user data throught POST
+Future<bool> register(
+    {String password, String username, String name, String email}) async {
+  final _url = '$apiUrl/register';
+
+  final _response = await http.post(_url, body: {
+    'nombre': name,
+    'usuario': username,
+    'contraseña': password,
+    'email': email
+  });
+
+  if (_response.statusCode == 200) {
+    Map<String, dynamic> _result = jsonDecode(_response.body);
+    _result = _result['data'];
+
+    User _user = User.fromJson(_result['usuario']);
+
+    /* save user object */
+    var _userBox = await Hive.openBox<User>('user');
+    _userBox.putAt(0, _user);
+
+    String _token = _result['token'].toString();
+
+    /* save token */
+    var _tokenBox = await Hive.openBox<String>('token');
+    _tokenBox.putAt(0, _token);
+
+    log(_tokenBox.get(0));
+    log(_userBox.get(0).toString());
+
+    _tokenBox.close();
+    _userBox.close();
+
+    return true;
+  } else {
+    return false;
+  }
 }

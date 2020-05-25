@@ -41,8 +41,14 @@ class InputText extends StatelessWidget {
   final bool hideText;
   final IconData icon;
   final TextEditingController controller;
+  final TextInputType textInputType;
 
-  InputText({this.placeHolderText, this.hideText, this.icon, this.controller});
+  InputText(
+      {this.placeHolderText,
+      this.hideText,
+      this.icon,
+      this.controller,
+      this.textInputType});
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +57,7 @@ class InputText extends StatelessWidget {
     return Padding(
       child: TextFormField(
         // focusNode: focusNode,
+        keyboardType: textInputType,
         controller: controller,
         validator: (value) {
           if (value.isEmpty) {
