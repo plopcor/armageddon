@@ -47,8 +47,16 @@ class RegisterFormState extends State<RegisterForm> {
   final textNameController = TextEditingController();
   final textUserController = TextEditingController();
   final textPassController = TextEditingController();
-  final textPass2Controller = TextEditingController();
   final textEmailController = TextEditingController();
+
+  @override
+  void dispose() {
+    textNameController.dispose();
+    textUserController.dispose();
+    textPassController.dispose();
+    textEmailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

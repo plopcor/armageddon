@@ -55,8 +55,6 @@ class SingInFormState extends State<SingInForm> {
   final textUserController = TextEditingController();
   final textPassController = TextEditingController();
 
-  var token;
-
   @override
   void dispose() {
     textUserController.dispose();
