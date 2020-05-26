@@ -16,5 +16,6 @@ class TestingSeeder extends Seeder
         $this->call(ProductosSeeder::class);
         $this->call(CategoriasSeeder::class);
         $this->call(ProductoCategoriaSeeder::class);
+        $this->call(SuscripcionesSeeder::class);
     }
 }

@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Suscripcion extends Model
 {
+    protected $table = 'suscripciones';
+
     protected $fillable = [
+        'id_usuario', 'id_tienda'
+    ];
+
+    protected $hidden = [
         'id_usuario', 'id_tienda'
     ];
 
