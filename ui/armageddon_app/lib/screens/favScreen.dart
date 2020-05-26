@@ -1,6 +1,9 @@
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/customExpansionPanelList.dart';
 import 'package:flutter/material.dart';
+import 'package:scrolling_page_indicator/scrolling_page_indicator.dart';
+
+// TODO: fix dot indicator
 
 class FavScreen extends StatelessWidget {
   @override
@@ -32,7 +35,6 @@ class FavScreen extends StatelessWidget {
 // stores ExpansionPanel state information
 class Item {
   Item({
-    this.expandedValue,
     this.headerValue,
     this.isExpanded = false,
   });
@@ -46,7 +48,6 @@ List<Item> generateItems(int numberOfItems) {
   return List.generate(numberOfItems, (int index) {
     return Item(
       headerValue: 'Tienda $index',
-      expandedValue: 'This is item number $index',
     );
   });
 }
@@ -60,7 +61,7 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   List<Item> _data = generateItems(8);
-  final _itemListController = PageController();
+  PageController _paginationController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +73,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   Widget _buildPanel() {
+    List<Widget> pedidos = [
+      RowData(),
+      RowData(),
+    ];
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: CustomExpansionPanelList(
@@ -102,20 +107,28 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     color: PrimaryPurple,
                   ),
                   child: Container(
-                    height: 150,
+                    height: 200,
                     child: Column(
                       children: <Widget>[
                         Container(
-                          height: 130,
+                          height: 160,
                           child: PageView(
-                            controller: PageController(
-                              initialPage: 0,
-                            ),
+                            controller: _paginationController,
                             scrollDirection: Axis.horizontal,
-                            children: <Widget>[
-                              RowData(),
-                              RowData(),
-                            ],
+                            children: pedidos,
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: ScrollingPageIndicator(
+                            dotColor: Colors.grey[400],
+                            dotSelectedColor: Colors.white,
+                            dotSize: 12,
+                            dotSelectedSize: 13,
+                            dotSpacing: 20,
+                            controller: _paginationController,
+                            itemCount: pedidos.length,
+                            orientation: Axis.horizontal,
                           ),
                         ),
                       ],
@@ -130,7 +143,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         bottomLeft: Radius.circular(17),
                       ),
                       color: Color(0xffFAFAFA)),
-                )
+                ),
               ],
             ),
             isExpanded: item.isExpanded,
