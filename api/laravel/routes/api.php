@@ -25,25 +25,111 @@ use Illuminate\Http\Request;
 // Rutas API (Version 1)
 Route::group(['prefix' => 'v1'], function () {
 
-    // @ Autenticacion
+    /**
+     * AUTENTICACION
+     */
     Route::post('/login', 'UsuarioController@login');
     Route::post('/register', 'UsuarioController@register');
     Route::get('/logout', 'UsuarioController@logout')->middleware('auth:api');
+    // TEST
     Route::get('/token', 'UsuarioController@tokenTest')->middleware('auth:api'); // Probar el token
 
-    // @ Tiendas
-    Route::get('/tiendas', 'TiendaController@listar');
-    Route::get('/tienda/{id}', 'TiendaController@ver');
-    Route::post('/tienda', 'TiendaController@crear');
 
-    // @ Productos
-    Route::get('/productos', 'ProductoController@listar');
-    Route::get('/producto/{id}', 'ProductoController@ver');
+    /**
+     * USUARIO
+     */
+    Route::group(['prefix' => 'usuario', 'middleware'=>'auth:api'], function () {
 
-    // @ Categorias
-    Route::get('/categorias', 'CategoriaController@listar');
-    Route::get('/categoria/{id}', 'CategoriaController@ver');
-    Route::get('/categoria/{id}/productos', 'CategoriaController@verProductos');
+        // Informacion
+        Route::get('/', 'UsuarioController@info');
+
+        // Subscripciones
+        Route::get('/suscripciones', 'SuscripcionController@listar');
+        Route::post('/suscripcion/{id}', 'SuscripcionController@crear');
+        Route::delete('/suscripcion/{id}', 'SuscripcionController@editar');
+
+        // Favoritos
+        Route::get('/favoritos', 'Controller@listar');
+        Route::get('/favorito/{id}', 'Controller@ver');
+        Route::post('/favorito', 'Controller@crear');
+        Route::put('/favorito/{id}', 'Controller@editar');
+        Route::delete('/favorito/{id}', 'Controller@eliminar');
+
+        // Pedidos
+        Route::get('/pedidos', 'Controller@listar');
+        Route::get('/pedido/{id}', 'Controller@ver');
+        //Route::post('/pedido', 'Controller@crear');
+        Route::put('/pedido/{id}', 'Controller@editar');
+        //Route::delete('//{id}', 'Controller@eliminar');
+
+    });
+
+
+    /**
+     * TIENDA - Propia (como propietario de la tienda)
+     */
+    Route::group(['prefix' => 'tienda', 'middleware' => 'auth:api'], function () {
+
+        // Tienda
+        Route::get('/', 'Controller@ver');          // Ver
+        Route::post('/', 'Controller@crear');       // Crear
+        Route::put('/', 'Controller@editar');       // Editar
+        Route::delete('/', 'Controller@eliminar');  // Eliminar
+
+        // Productos
+        Route::get('/productos', 'Controller@listar');              // Listar
+        Route::get('/producto/{idProducto}', 'Controller@ver');     // Ver
+        Route::post('/producto', 'Controller@crear');               // Crear
+        Route::put('/producto/{id}', 'Controller@editar');          // Editar
+        Route::delete('/producto/{id}', 'Controller@eliminar');     // Eliminar
+
+        // Categorias
+        Route::get('/categorias', 'Controller@listar');
+        Route::post('/categoria', 'Controller@crear');
+        Route::delete('/categoria/{id}', 'Controller@eliminar');
+
+        // Horario
+        Route::get('/horario', 'Controller@ver');
+        Route::post('/horario', 'Controller@crear');
+        Route::put('/horario', 'Controller@editar');
+        Route::delete('/horario', 'Controller@eliminar');
+
+        // Pedidos
+        Route::get('/pedidos', 'Controller@listar');
+        Route::get('/pedido/{id}', 'Controller@ver');
+
+    });
+
+    /**
+     * TIENDA - Otras (como usuario de la aplicacion)
+     */
+
+    // Tiendas
+    Route::get('/tiendas', 'TiendaController@listar')->middleware('auth:api');;
+
+    Route::group(['prefix' => 'tienda/{id}', 'middleware' => 'auth:api'], function () {
+
+        // Tienda
+        Route::get('/', 'Controller@ver');
+
+        // Productos
+        Route::get('/productos', 'Controller@listar');
+        Route::get('/producto/{id}', 'Controller@ver');
+
+        // Categorias
+        Route::get('/categorias', 'Controller@listar');
+
+        // Horario
+        Route::get('/horario', 'Controller@listar');
+
+        // Pedido
+        Route::get('/pedidos', 'Controller@listar');
+        Route::get('/pedido/{id}', 'Controller@ver');
+        Route::post('/pedido', 'Controller@crear');
+        Route::put('/pedido/{id}', 'Controller@editar');
+        Route::delete('/pedido/{id}', 'Controller@eliminar');
+
+    });
 
 });
 

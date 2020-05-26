@@ -1,4 +1,7 @@
 
+# Listar rutas
+php artisan route:list
+
 #### LOGIN
 POST => /login
 

@@ -71,7 +71,8 @@ class User extends Authenticatable
      */
     public function suscripciones()
     {
-        return $this->belongsToMany(Tienda::class, 'suscripciones', 'id_usuario', 'id_tienda');
+        return $this->hasMany(Suscripcion::class, 'id_usuario');
+        //return $this->belongsToMany(Tienda::class, 'suscripciones', 'id_usuario', 'id_tienda');
     }
 
 }
