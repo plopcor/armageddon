@@ -22,13 +22,20 @@ Future<bool> login({String password, String username}) async {
 
     /* save user object */
     var _userBox = await Hive.openBox<User>('user');
-    _userBox.putAt(0, _user);
+    if (_userBox.containsKey(0))
+      _userBox.putAt(0, _user);
+    else
+      _userBox.add(_user);
 
     String _token = _result['token'].toString();
 
     /* save token */
     var _tokenBox = await Hive.openBox<String>('token');
-    _tokenBox.putAt(0, _token);
+
+    if (_tokenBox.containsKey(0))
+      _tokenBox.putAt(0, _token);
+    else
+      _tokenBox.add(_token);
 
     log(_tokenBox.get(0));
     log(_userBox.get(0).toString());
@@ -87,13 +94,21 @@ Future<bool> register(
 
     /* save user object */
     var _userBox = await Hive.openBox<User>('user');
-    _userBox.putAt(0, _user);
+
+    if (_userBox.containsKey(0))
+      _userBox.putAt(0, _user);
+    else
+      _userBox.add(_user);
 
     String _token = _result['token'].toString();
 
     /* save token */
     var _tokenBox = await Hive.openBox<String>('token');
-    _tokenBox.putAt(0, _token);
+
+    if (_tokenBox.containsKey(0))
+      _tokenBox.putAt(0, _token);
+    else
+      _tokenBox.add(_token);
 
     log(_tokenBox.get(0));
     log(_userBox.get(0).toString());
