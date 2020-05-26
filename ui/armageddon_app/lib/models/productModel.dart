@@ -30,7 +30,9 @@ class Product {
         nombre: json["nombre"],
         imgPath: json["img_path"],
         esEspecifico: json["esEspecifico"],
-        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"],
       );
 
@@ -42,4 +44,8 @@ class Product {
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt,
       };
+  @override
+  String toString() {
+    return 'id: $id - name: $nombre';
+  }
 }
