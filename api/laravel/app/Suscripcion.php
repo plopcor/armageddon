@@ -16,6 +16,8 @@ class Suscripcion extends Model
         'id_usuario', 'id_tienda'
     ];
 
+    public $timestamps = false;
+
     /**
      * Usuario de la suscripcion
      */

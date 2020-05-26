@@ -46,7 +46,7 @@ Route::group(['prefix' => 'v1'], function () {
         // Subscripciones
         Route::get('/suscripciones', 'SuscripcionController@listar');
         Route::post('/suscripcion/{id}', 'SuscripcionController@crear');
-        Route::delete('/suscripcion/{id}', 'SuscripcionController@editar');
+        Route::delete('/suscripcion/{id}', 'SuscripcionController@eliminar');
 
         // Favoritos
         Route::get('/favoritos', 'Controller@listar');
@@ -80,13 +80,13 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/productos', 'Controller@listar');              // Listar
         Route::get('/producto/{idProducto}', 'Controller@ver');     // Ver
         Route::post('/producto', 'Controller@crear');               // Crear
-        Route::put('/producto/{id}', 'Controller@editar');          // Editar
-        Route::delete('/producto/{id}', 'Controller@eliminar');     // Eliminar
+        Route::put('/producto/{idProducto}', 'Controller@editar');          // Editar
+        Route::delete('/producto/{idProducto}', 'Controller@eliminar');     // Eliminar
 
         // Categorias
         Route::get('/categorias', 'Controller@listar');
         Route::post('/categoria', 'Controller@crear');
-        Route::delete('/categoria/{id}', 'Controller@eliminar');
+        Route::delete('/categoria/{idCategoria}', 'Controller@eliminar');
 
         // Horario
         Route::get('/horario', 'Controller@ver');
@@ -96,7 +96,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Pedidos
         Route::get('/pedidos', 'Controller@listar');
-        Route::get('/pedido/{id}', 'Controller@ver');
+        Route::get('/pedido/{idPedido}', 'Controller@ver');
 
     });
 
@@ -114,7 +114,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Productos
         Route::get('/productos', 'Controller@listar');
-        Route::get('/producto/{id}', 'Controller@ver');
+        Route::get('/producto/{idProducto}', 'Controller@ver');
 
         // Categorias
         Route::get('/categorias', 'Controller@listar');
@@ -124,10 +124,10 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Pedido
         Route::get('/pedidos', 'Controller@listar');
-        Route::get('/pedido/{id}', 'Controller@ver');
+        Route::get('/pedido/{idPedido}', 'Controller@ver');
         Route::post('/pedido', 'Controller@crear');
-        Route::put('/pedido/{id}', 'Controller@editar');
-        Route::delete('/pedido/{id}', 'Controller@eliminar');
+        Route::put('/pedido/{idPedido}', 'Controller@editar');
+        Route::delete('/pedido/{idPedido}', 'Controller@eliminar');
 
     });
 
