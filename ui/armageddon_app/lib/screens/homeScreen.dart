@@ -8,6 +8,20 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BackgroundColor,
+      bottomNavigationBar: BottomNavigationBar(items: [
+        BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            title: Text('Search'),
+            backgroundColor: Colors.white),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            title: Text('Favorite'),
+            backgroundColor: Colors.white),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            title: Text('Profile'),
+            backgroundColor: Colors.white)
+      ]),
       body: FutureBuilder<List<Product>>(
           future: getProducts(),
           builder: (context, snapshot) {
