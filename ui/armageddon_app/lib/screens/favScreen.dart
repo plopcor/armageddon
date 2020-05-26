@@ -60,6 +60,7 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   List<Item> _data = generateItems(8);
+  final _itemListController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -92,18 +93,42 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             body: Stack(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.only(top: 20),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(17),
-                      color: PrimaryPurple),
-                  child: ListTile(
-                    title: Text(item.headerValue),
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(17),
+                      bottomLeft: Radius.circular(17),
+                    ),
+                    color: PrimaryPurple,
+                  ),
+                  child: Container(
+                    height: 150,
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          height: 130,
+                          child: PageView(
+                            controller: PageController(
+                              initialPage: 0,
+                            ),
+                            scrollDirection: Axis.horizontal,
+                            children: <Widget>[
+                              RowData(),
+                              RowData(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Container(
                   height: 20,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(17),
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(17),
+                        bottomLeft: Radius.circular(17),
+                      ),
                       color: Color(0xffFAFAFA)),
                 )
               ],
@@ -111,6 +136,73 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             isExpanded: item.isExpanded,
           );
         }).toList(),
+      ),
+    );
+  }
+}
+
+class RowData extends StatelessWidget {
+  const RowData({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: 17),
+              StoreFavButton(),
+              SizedBox(height: 17),
+              StoreFavButton(),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: 17),
+              StoreFavButton(),
+              SizedBox(height: 17),
+              StoreFavButton(),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class StoreFavButton extends StatelessWidget {
+  const StoreFavButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: RaisedButton(
+        onPressed: () {},
+        padding: EdgeInsets.symmetric(horizontal: 26, vertical: 10),
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(17),
+          side: BorderSide(
+            color: Colors.white,
+          ),
+        ),
+        color: Colors.white,
+        child: Text(
+          'Pedido n',
+          style: TextStyle(
+            fontSize: 24,
+            color: Colors.black,
+          ),
+        ),
       ),
     );
   }

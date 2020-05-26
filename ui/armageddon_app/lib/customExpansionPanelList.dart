@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-const double _kPanelHeaderCollapsedHeight = 48.0;
-const double _kPanelHeaderExpandedHeight = 64.0;
-
 class CustomExpansionPanelList extends StatelessWidget {
   const CustomExpansionPanelList(
       {Key key,
@@ -26,8 +23,6 @@ class CustomExpansionPanelList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> items = <Widget>[];
-    const EdgeInsets kExpandedEdgeInsets = const EdgeInsets.symmetric(
-        vertical: _kPanelHeaderExpandedHeight - _kPanelHeaderCollapsedHeight);
 
     for (int index = 0; index < children.length; index += 1) {
       final Row header = new Row(
@@ -36,11 +31,7 @@ class CustomExpansionPanelList extends StatelessWidget {
             child: new AnimatedContainer(
               duration: animationDuration,
               curve: Curves.fastOutSlowIn,
-              margin: _isChildExpanded(index)
-                  ? kExpandedEdgeInsets
-                  : EdgeInsets.zero,
               child: new SizedBox(
-                height: _kPanelHeaderCollapsedHeight,
                 child: children[index].headerBuilder(
                   context,
                   children[index].isExpanded,
@@ -68,7 +59,7 @@ class CustomExpansionPanelList extends StatelessWidget {
           child: new Container(
             key: new _SaltedKey<BuildContext, int>(context, index * 2),
             child: new Material(
-              elevation: 2.0,
+              elevation: 1,
               borderRadius: new BorderRadius.all(new Radius.circular(17)),
               child: new Column(
                 children: <Widget>[
@@ -92,12 +83,6 @@ class CustomExpansionPanelList extends StatelessWidget {
           ),
         ),
       );
-
-      if (_isChildExpanded(index) && index != children.length - 1)
-        items.add(new Divider(
-          key: new _SaltedKey<BuildContext, int>(context, index * 2 + 1),
-          height: 15.0,
-        ));
     }
 
     return new Column(
