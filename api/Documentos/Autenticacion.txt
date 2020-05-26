@@ -5,3 +5,5 @@ https://laravel.com/docs/7.x/passport#protecting-routes
 # Enviar token para autenticacion en la API
 https://laravel.com/docs/7.x/passport#passing-the-access-token
 
+# Modificar mensaje de "Not authenticated"
+https://stackoverflow.com/questions/56231625/customize-laravel-passport-response-unauthenticated
