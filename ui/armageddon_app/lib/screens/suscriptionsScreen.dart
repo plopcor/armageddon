@@ -1,20 +1,46 @@
+import 'dart:developer';
+
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/customExpansionPanelList.dart';
+import 'package:armageddon_app/models/storeModel.dart';
+import 'package:armageddon_app/services/dataGetService.dart';
 import 'package:flutter/material.dart';
 import 'package:scrolling_page_indicator/scrolling_page_indicator.dart';
 
-// TODO: fix dot indicator
+// TODO: add dot indicator
 
 class FavScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BackgroundColor,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.subscriptions),
+              title: Text('Suscripciones'),
+              backgroundColor: Colors.white),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              title: Text('Favoritos'),
+              backgroundColor: Colors.white),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.people),
+              title: Text('Perfil'),
+              backgroundColor: Colors.white)
+        ],
+        onTap: (index) {
+          Navigator.pushNamed(context, "/home");
+        },
+      ),
       appBar: AppBar(
-        title: Text('Favoritos'),
-        actions: <Widget>[
+        title: Text('Suscripciones', style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        /*actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.search),
+              icon: Icon(Icons.search, color: Colors.black,),
               onPressed: () {
                 showSearch(
                   context: context,
@@ -23,11 +49,27 @@ class FavScreen extends StatelessWidget {
               }),
           Padding(
             padding: EdgeInsets.only(right: 24),
-            child: Center(child: Text('Buscar')),
+            child: Center(
+                child: Text('Buscar', style: TextStyle(color: Colors.black))),
           ),
-        ],
+        ],*/
       ),
-      body: MyStatefulWidget(),
+      body: FutureBuilder<List<Store>>(
+          future: getSuscriptions(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return Text("Error");
+              }
+
+              stores = snapshot.data;
+
+              return MyStatefulWidget(data: snapshot.data);
+            } else
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+          }),
     );
   }
 }
@@ -36,7 +78,7 @@ class FavScreen extends StatelessWidget {
 class Item {
   Item({
     this.headerValue,
-    this.isExpanded = false,
+    this.isExpanded: false,
   });
 
   String expandedValue;
@@ -44,24 +86,36 @@ class Item {
   bool isExpanded;
 }
 
-List<Item> generateItems(int numberOfItems) {
-  return List.generate(numberOfItems, (int index) {
+List<Store> stores;
+
+List<Store> getUltimateData() {
+  return stores;
+}
+
+List<Item> generateItems(List<Store> stores) {
+  return List.generate(stores.length, (int index) {
     return Item(
-      headerValue: 'Tienda $index',
+      headerValue: stores[index].nombre,
     );
   });
 }
 
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
-
+  final List<Store> data;
+  MyStatefulWidget({Key key, this.data}) : super(key: key);
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState(data);
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  List<Item> _data = generateItems(8);
+  final List<Store> stores;
+
+  _MyStatefulWidgetState(this.stores);
+
   PageController _paginationController = PageController(initialPage: 0);
+  List<Item> _data = generateItems(getUltimateData());
+
+  void test() {}
 
   @override
   Widget build(BuildContext context) {
@@ -73,17 +127,22 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   Widget _buildPanel() {
-    List<Widget> pedidos = [
-      RowData(),
-      RowData(),
-    ];
+    List<Widget> pedidos = [RowData(), RowData()];
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: CustomExpansionPanelList(
         expansionCallback: (int index, bool isExpanded) {
+          //   log('muchoantes' + _data[index].isExpanded.toString());
+
           setState(() {
-            _data[index].isExpanded = !isExpanded;
+            //  log('antes' + _data[index].isExpanded.toString());
+
+            _data[index].isExpanded = !_data[index].isExpanded;
+
+            //    log('dsepues' + _data[index].isExpanded.toString());
           });
+
+          //    log('safdsepues' + _data[index].isExpanded.toString());
         },
         children: _data.map<ExpansionPanel>((Item item) {
           return ExpansionPanel(

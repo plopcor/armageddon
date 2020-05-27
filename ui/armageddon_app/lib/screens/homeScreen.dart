@@ -8,20 +8,26 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BackgroundColor,
-      bottomNavigationBar: BottomNavigationBar(items: [
-        BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            title: Text('Search'),
-            backgroundColor: Colors.white),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            title: Text('Favorite'),
-            backgroundColor: Colors.white),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.people),
-            title: Text('Profile'),
-            backgroundColor: Colors.white)
-      ]),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.subscriptions),
+              title: Text('Suscripciones'),
+              backgroundColor: Colors.white),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              title: Text('Favoritos'),
+              backgroundColor: Colors.white),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.people),
+              title: Text('Perfil'),
+              backgroundColor: Colors.white)
+        ],
+        onTap: (index) {
+          Navigator.pushNamed(context, "/suscription");
+        },
+      ),
       body: FutureBuilder<List<Product>>(
           future: getProducts(),
           builder: (context, snapshot) {
@@ -123,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                     );
                   });
             } else
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
           }),
     );
   }
