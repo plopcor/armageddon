@@ -131,6 +131,17 @@ Route::group(['prefix' => 'v1'], function () {
 
     });
 
+
+    /**
+     * PRODUCTOS
+     */
+    Route::get('/productos', 'ProductoController@listar');      // Listar
+    Route::get('/producto/{id}', 'ProductoController@ver');     // Ver
+
+    /**
+     *
+     */
+
 });
 
 
