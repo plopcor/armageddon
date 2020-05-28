@@ -121,3 +121,15 @@ Future<bool> register(
     return false;
   }
 }
+
+/// isAuth - return true if token is ok
+Future<bool> isAuth() async {
+  var _tokenBox = await Hive.openBox<String>('token');
+
+  if (_tokenBox.containsKey(0))
+    return true;
+  else
+    return false;
+
+  //_tokenBox.close();
+}

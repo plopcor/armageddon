@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/productModel.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
-import 'package:armageddon_app/widgets.dart';
 import 'package:flutter/material.dart';
 
 class ShopScreen extends StatelessWidget {

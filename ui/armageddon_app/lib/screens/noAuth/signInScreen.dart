@@ -8,33 +8,36 @@ import 'package:flutter/material.dart';
 class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 100,
-          ),
-          Text(
-            'ARMAGEDDON',
-            overflow: TextOverflow.visible,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 39,
-              color: PrimaryPurple,
-              letterSpacing: 4,
+    return Scaffold(
+      backgroundColor: BackgroundColor,
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 100,
             ),
-          ),
-          SizedBox(
-            height: 150,
-          ),
-          SingInForm(),
-          RaisedButton(
-            onPressed: () {
-              logout().then((value) => log(value.toString()));
-            },
-            child: Text('Logout'),
-          ),
-        ],
+            Text(
+              'ARMAGEDDON',
+              overflow: TextOverflow.visible,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 39,
+                color: PrimaryPurple,
+                letterSpacing: 4,
+              ),
+            ),
+            SizedBox(
+              height: 150,
+            ),
+            SingInForm(),
+            RaisedButton(
+              onPressed: () {
+                logout().then((value) => log(value.toString()));
+              },
+              child: Text('Logout'),
+            ),
+          ],
+        ),
       ),
     );
   }

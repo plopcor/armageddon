@@ -3,7 +3,6 @@ import 'package:armageddon_app/customExpansionPanelList.dart';
 import 'package:armageddon_app/models/storeModel.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
 import 'package:flutter/material.dart';
-import 'package:scrolling_page_indicator/scrolling_page_indicator.dart';
 
 // TODO: add dot indicator
 
@@ -77,92 +76,77 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   PageController _paginationController = PageController(initialPage: 0);
   List<Item> _data = generateItems(getUltimateData());
-
-  void test() {}
+  List<Widget> pedidos = [RowData(), RowData()];
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        child: _buildPanel(),
-      ),
-    );
-  }
-
-  Widget _buildPanel() {
-    List<Widget> pedidos = [RowData(), RowData()];
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: CustomExpansionPanelList(
-        expansionCallback: (int index, bool isExpanded) {
-          setState(() {
-            _data[index].isExpanded = !_data[index].isExpanded;
-          });
-        },
-        children: _data.map<ExpansionPanel>((Item item) {
-          return ExpansionPanel(
-            headerBuilder: (BuildContext context, bool isExpanded) {
-              return ListTile(
-                title: Text(
-                  item.headerValue,
-                  style: TextStyle(fontSize: 20),
-                ),
-              );
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: CustomExpansionPanelList(
+            expansionCallback: (int index, bool isExpanded) {
+              setState(() {
+                _data[index].isExpanded = !_data[index].isExpanded;
+              });
             },
-            body: Stack(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(top: 20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(17),
-                      bottomLeft: Radius.circular(17),
+            children: _data.map<ExpansionPanel>((Item item) {
+              return ExpansionPanel(
+                headerBuilder: (BuildContext context, bool isExpanded) {
+                  return ListTile(
+                    title: Text(
+                      item.headerValue,
+                      style: TextStyle(fontSize: 20),
                     ),
-                    color: PrimaryPurple,
-                  ),
-                  child: Container(
-                    height: 200,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          height: 160,
-                          child: PageView(
-                            controller: _paginationController,
-                            scrollDirection: Axis.horizontal,
-                            children: pedidos,
-                          ),
+                  );
+                },
+                body: Stack(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.only(top: 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(17),
+                          bottomLeft: Radius.circular(17),
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: ScrollingPageIndicator(
-                            dotColor: Colors.grey[400],
-                            dotSelectedColor: Colors.white,
-                            dotSize: 12,
-                            dotSelectedSize: 13,
-                            dotSpacing: 20,
-                            controller: _paginationController,
-                            itemCount: pedidos.length,
-                            orientation: Axis.horizontal,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 20,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(17),
-                        bottomLeft: Radius.circular(17),
+                        color: PrimaryPurple,
                       ),
-                      color: Color(0xffFAFAFA)),
+                      child: Container(
+                        height: 200,
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              height: 160,
+                              child: PageView(
+                                controller: _paginationController,
+                                scrollDirection: Axis.horizontal,
+                                children: pedidos,
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: Text('Dots'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 20,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(17),
+                            bottomLeft: Radius.circular(17),
+                          ),
+                          color: Color(0xffFAFAFA)),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            isExpanded: item.isExpanded,
-          );
-        }).toList(),
+                isExpanded: item.isExpanded,
+              );
+            }).toList(),
+          ),
+        ),
       ),
     );
   }
@@ -232,31 +216,5 @@ class StoreFavButton extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class CustomSearchDelegate extends SearchDelegate {
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    // TODO: implement buildActions
-    return null;
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
-    return null;
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    return null;
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    return null;
   }
 }
