@@ -1,42 +1,21 @@
-import 'dart:developer';
-
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/customExpansionPanelList.dart';
 import 'package:armageddon_app/models/storeModel.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
-import 'package:armageddon_app/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:scrolling_page_indicator/scrolling_page_indicator.dart';
 
 // TODO: add dot indicator
 
-class FavScreen extends StatelessWidget {
+class SuscriptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: BackgroundColor,
-      bottomNavigationBar: MybottomNavigationBar(),
-      appBar: AppBar(
-        title: Text('Suscripciones', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        /*actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.search, color: Colors.black,),
-              onPressed: () {
-                showSearch(
-                  context: context,
-                  delegate: CustomSearchDelegate(),
-                );
-              }),
-          Padding(
-            padding: EdgeInsets.only(right: 24),
-            child: Center(
-                child: Text('Buscar', style: TextStyle(color: Colors.black))),
-          ),
-        ],*/
-      ),
-      body: FutureBuilder<List<Store>>(
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          height: 30,
+        ),
+        FutureBuilder<List<Store>>(
           future: getSuscriptions(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
@@ -51,7 +30,9 @@ class FavScreen extends StatelessWidget {
               return Center(
                 child: CircularProgressIndicator(),
               );
-          }),
+          },
+        ),
+      ],
     );
   }
 }

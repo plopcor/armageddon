@@ -6,30 +6,27 @@ import 'package:flutter/material.dart';
 class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: BackgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 100,
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 100,
+          ),
+          Text(
+            'ARMAGEDDON',
+            overflow: TextOverflow.visible,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 39,
+              color: PrimaryPurple,
+              letterSpacing: 4,
             ),
-            Text(
-              'ARMAGEDDON',
-              overflow: TextOverflow.visible,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 39,
-                color: PrimaryPurple,
-                letterSpacing: 4,
-              ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            RegisterForm(),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          RegisterForm(),
+        ],
       ),
     );
   }
@@ -107,7 +104,8 @@ class RegisterFormState extends State<RegisterForm> {
                           password: _pass,
                           email: _email)
                       .then((response) {
-                    if (response) Navigator.popAndPushNamed(context, '/suscription');
+                    if (response)
+                      Navigator.popAndPushNamed(context, '/suscription');
                   });
                 }
               },

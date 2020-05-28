@@ -8,36 +8,33 @@ import 'package:flutter/material.dart';
 class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: BackgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 100,
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 100,
+          ),
+          Text(
+            'ARMAGEDDON',
+            overflow: TextOverflow.visible,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 39,
+              color: PrimaryPurple,
+              letterSpacing: 4,
             ),
-            Text(
-              'ARMAGEDDON',
-              overflow: TextOverflow.visible,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 39,
-                color: PrimaryPurple,
-                letterSpacing: 4,
-              ),
-            ),
-            SizedBox(
-              height: 150,
-            ),
-            SingInForm(),
-            RaisedButton(
-              onPressed: () {
-                logout().then((value) => log(value.toString()));
-              },
-              child: Text('Logout'),
-            ),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 150,
+          ),
+          SingInForm(),
+          RaisedButton(
+            onPressed: () {
+              logout().then((value) => log(value.toString()));
+            },
+            child: Text('Logout'),
+          ),
+        ],
       ),
     );
   }
@@ -90,7 +87,8 @@ class SingInFormState extends State<SingInForm> {
                   var _pass = _textPassController.text;
 
                   login(username: _user, password: _pass).then((response) {
-                    if (response) Navigator.popAndPushNamed(context, '/suscription');
+                    if (response)
+                      Navigator.popAndPushNamed(context, '/suscription');
                   });
                 }
               },
