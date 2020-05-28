@@ -91,12 +91,12 @@ class UsuarioController extends APIController
     }
 
     /**
-     * Token prueba
+     * Verificar un token
      */
-    public function tokenTest(Request $request)
+    public function verificar_token()
     {
         $usuario = Auth::user()->usuario;
-        return $this->sendMessage("Usuario " . $usuario);
+        return $this->sendOk();
     }
 }
 

@@ -31,8 +31,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/login', 'UsuarioController@login');
     Route::post('/register', 'UsuarioController@register');
     Route::get('/logout', 'UsuarioController@logout')->middleware('auth:api');
-    // TEST
-    Route::get('/token', 'UsuarioController@tokenTest')->middleware('auth:api'); // Probar el token
+    Route::get('/token', 'UsuarioController@verificar_token')->middleware('auth:api'); // Probar el token
 
 
     /**
