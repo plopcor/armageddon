@@ -107,7 +107,8 @@ class RegisterFormState extends State<RegisterForm> {
                           password: _pass,
                           email: _email)
                       .then((response) {
-                    if (response) Navigator.popAndPushNamed(context, '/suscription');
+                    if (response)
+                      Navigator.popAndPushNamed(context, '/suscription');
                   });
                 }
               },
