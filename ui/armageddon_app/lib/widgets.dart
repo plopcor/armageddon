@@ -13,7 +13,7 @@ class StartButton extends StatelessWidget {
       margin: EdgeInsets.only(top: 24, left: 27, right: 27),
       child: RaisedButton(
         onPressed: () {
-          Navigator.pushNamed(context, routeName);
+          Navigator.popAndPushNamed(context, routeName);
         },
         padding: EdgeInsets.symmetric(horizontal: 105, vertical: 18),
         elevation: 0,
@@ -88,6 +88,54 @@ class InputText extends StatelessWidget {
         obscureText: hideText,
       ),
       padding: EdgeInsets.only(top: 24, left: 27, right: 27),
+    );
+  }
+}
+
+class MybottomNavigationBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 75,
+      padding: EdgeInsets.only(top: 5, bottom: 30),
+      color: Colors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.home,
+                size: 44,
+              ),
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/home');
+              }),
+          IconButton(
+              icon: Icon(
+                Icons.subscriptions,
+                size: 44,
+              ),
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/suscription');
+              }),
+          IconButton(
+              icon: Icon(
+                Icons.search,
+                size: 44,
+              ),
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/search');
+              }),
+          IconButton(
+              icon: Icon(
+                Icons.people,
+                size: 44,
+              ),
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, '/profile');
+              })
+        ],
+      ),
     );
   }
 }

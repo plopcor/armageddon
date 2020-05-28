@@ -90,7 +90,7 @@ class SingInFormState extends State<SingInForm> {
                   var _pass = _textPassController.text;
 
                   login(username: _user, password: _pass).then((response) {
-                    if (response) Navigator.pushReplacementNamed(context, '/suscription');
+                    if (response) Navigator.popAndPushNamed(context, '/suscription');
                   });
                 }
               },

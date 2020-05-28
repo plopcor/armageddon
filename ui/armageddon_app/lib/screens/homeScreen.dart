@@ -1,33 +1,15 @@
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/productModel.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
+import 'package:armageddon_app/widgets.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: MybottomNavigationBar(),
       backgroundColor: BackgroundColor,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.subscriptions),
-              title: Text('Suscripciones'),
-              backgroundColor: Colors.white),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              title: Text('Favoritos'),
-              backgroundColor: Colors.white),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.people),
-              title: Text('Perfil'),
-              backgroundColor: Colors.white)
-        ],
-        onTap: (index) {
-          Navigator.pushNamed(context, "/suscription");
-        },
-      ),
       body: FutureBuilder<List<Product>>(
           future: getProducts(),
           builder: (context, snapshot) {

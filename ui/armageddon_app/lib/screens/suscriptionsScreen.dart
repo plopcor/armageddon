@@ -4,6 +4,7 @@ import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/customExpansionPanelList.dart';
 import 'package:armageddon_app/models/storeModel.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
+import 'package:armageddon_app/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:scrolling_page_indicator/scrolling_page_indicator.dart';
 
@@ -14,26 +15,7 @@ class FavScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BackgroundColor,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.subscriptions),
-              title: Text('Suscripciones'),
-              backgroundColor: Colors.white),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              title: Text('Favoritos'),
-              backgroundColor: Colors.white),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.people),
-              title: Text('Perfil'),
-              backgroundColor: Colors.white)
-        ],
-        onTap: (index) {
-          Navigator.pushNamed(context, "/home");
-        },
-      ),
+      bottomNavigationBar: MybottomNavigationBar(),
       appBar: AppBar(
         title: Text('Suscripciones', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
@@ -132,17 +114,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: CustomExpansionPanelList(
         expansionCallback: (int index, bool isExpanded) {
-          //   log('muchoantes' + _data[index].isExpanded.toString());
-
           setState(() {
-            //  log('antes' + _data[index].isExpanded.toString());
-
             _data[index].isExpanded = !_data[index].isExpanded;
-
-            //    log('dsepues' + _data[index].isExpanded.toString());
           });
-
-          //    log('safdsepues' + _data[index].isExpanded.toString());
         },
         children: _data.map<ExpansionPanel>((Item item) {
           return ExpansionPanel(
