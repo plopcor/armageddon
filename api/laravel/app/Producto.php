@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Tienda;
+use App\ProductoTienda;
 
 class Producto extends Model
 {
@@ -25,6 +27,14 @@ class Producto extends Model
     public function tiendas()
     {
         return $this->belongsToMany(Tienda::class, 'producto_tienda', 'id_producto', 'id_tienda');
+    }
+
+    /**
+     * Productos en tiendas
+     */
+    public function productos()
+    {
+        return $this->hasMany(ProductoTienda::class, 'id_producto');
     }
 
 }

@@ -36,7 +36,9 @@ class Tienda extends Model
     public function productos()
     {
         // TODO
-        return $this->belongsToMany(Producto::class, 'producto_tienda', 'id_tienda', 'id_producto');
+//        return $this->belongsToMany(Producto::class, 'producto_tienda', 'id_tienda', 'id_producto');
+//        return $this->belongsToMany(ProductoTienda::class, 'producto_tienda', 'id_tienda');
+        return $this->hasMany(ProductoTienda::class, 'id_tienda');
     }
 
     /**

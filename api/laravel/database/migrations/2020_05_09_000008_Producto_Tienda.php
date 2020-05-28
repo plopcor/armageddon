@@ -19,6 +19,7 @@ class ProductoTienda extends Migration
             $table->integer('id_producto');
             $table->decimal('precio', 7, 2); //Hasta 99.999,99
             $table->boolean('disponible')->default(true);
+            $table->timestamps();
         });
     }
 

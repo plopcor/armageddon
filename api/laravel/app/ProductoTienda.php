@@ -6,13 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductoTienda extends Model
 {
+    protected $table = 'producto_tienda';
+
     protected $fillable = [
         'id_tienda', 'id_producto', 'precio', 'disponible'
     ];
 
     protected $casts = [
+        'precio' => 'float',
         'disponible' => 'boolean'
     ];
+
+
 
 //    /**
 //     * Disponible en la tienda
@@ -28,7 +33,7 @@ class ProductoTienda extends Model
      */
     public function tienda()
     {
-        return $this->belongsTo(Tienda::class, 'id_tienda');
+        return $this->hasOne(Tienda::class, 'id_tienda');
     }
 
     /**

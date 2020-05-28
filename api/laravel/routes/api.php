@@ -100,27 +100,27 @@ Route::group(['prefix' => 'v1'], function () {
 
     });
 
+    // Listar tiendas
+    Route::get('/tiendas', 'TiendasController@listar')->middleware('auth:api');;
+
     /**
      * TIENDA - Otras (como usuario de la aplicacion)
      */
 
-    // Tiendas
-    Route::get('/tiendas', 'TiendaController@listar')->middleware('auth:api');;
-
     Route::group(['prefix' => 'tienda/{id}', 'middleware' => 'auth:api'], function () {
 
         // Tienda
-        Route::get('/', 'Controller@ver');
+        Route::get('/', 'TiendasController@ver');
 
         // Productos
-        Route::get('/productos', 'Controller@listar');
-        Route::get('/producto/{idProducto}', 'Controller@ver');
+        Route::get('/productos', 'TiendasController@productos_listar');
+        Route::get('/producto/{idProducto}', 'TiendasController@productos_ver');
 
         // Categorias
-        Route::get('/categorias', 'Controller@listar');
+        Route::get('/categorias', 'TiendasController@categorias_listar');
 
         // Horario
-        Route::get('/horario', 'Controller@listar');
+        Route::get('/horario', 'TiendasController@horario_ver');
 
         // Pedido
         Route::get('/pedidos', 'Controller@listar');
@@ -141,6 +141,11 @@ Route::group(['prefix' => 'v1'], function () {
     /**
      *
      */
+
+    /**
+     * TEST
+     */
+    Route::get('/test', 'TiendasController@test');
 
 });
 

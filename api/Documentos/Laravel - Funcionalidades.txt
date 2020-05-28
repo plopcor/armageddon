@@ -4,6 +4,12 @@ https://laravel.com/docs/7.x/validation#available-validation-rules
 # Handle enums
 https://stackoverflow.com/questions/25705878/where-to-put-how-to-handle-enums-in-laravel
 
+# Check if model saved
+https://stackoverflow.com/questions/27877948/check-if-laravel-model-got-saved-or-query-got-executed
+
+# Add Attributes to object
+https://stackoverflow.com/questions/31474452/manually-add-item-to-existing-object-laravel-5
+
 # Traducir mensajes de validacion al español
 https://parzibyte.me/blog/2019/06/20/laravel-mensajes-validacion-espanol/
 
