@@ -124,12 +124,29 @@ Future<bool> register(
 
 /// isAuth - return true if token is ok
 Future<bool> isAuth() async {
+  final _url = '$apiUrl/token';
+  var _token;
+  bool verification = false;
+
   var _tokenBox = await Hive.openBox<String>('token');
 
-  if (_tokenBox.containsKey(0))
-    return true;
-  else
-    return false;
+  if (_tokenBox.containsKey(0)) {
+    _token = _tokenBox.get(0);
 
-  //_tokenBox.close();
+    final _response = await http.get(_url, headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $_token',
+    });
+
+    if (_response.statusCode == 200) {
+      verification =
+          jsonDecode(_response.body).toString().contains('true') ? true : false;
+
+      log(verification.toString());
+    }
+  }
+
+  _tokenBox.close();
+
+  return verification;
 }
