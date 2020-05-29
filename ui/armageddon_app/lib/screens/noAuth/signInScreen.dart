@@ -30,12 +30,6 @@ class SignInScreen extends StatelessWidget {
               height: 150,
             ),
             SingInForm(),
-            RaisedButton(
-              onPressed: () {
-                logout().then((value) => log(value.toString()));
-              },
-              child: Text('Logout'),
-            ),
           ],
         ),
       ),

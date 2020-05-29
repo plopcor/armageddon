@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:armageddon_app/constants.dart';
+import 'package:armageddon_app/models/orderModel.dart';
 import 'package:armageddon_app/models/productModel.dart';
 import 'package:armageddon_app/models/storeModel.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
@@ -70,6 +71,8 @@ class ShopScreen extends StatelessWidget {
                               return Text("Error");
                             }
 
+                            Order order = new Order(idTienda: store.id);
+
                             return Expanded(
                               child: Container(
                                 child: GridView.builder(
@@ -85,18 +88,23 @@ class ShopScreen extends StatelessWidget {
                                         children: <Widget>[
                                           GestureDetector(
                                             onTap: () {
-                                              log("Se ha clidao el broducto con id ---> " +
-                                                  product.id.toString());
-
+                                              order.productos.add(new Product(
+                                                  id: product.id,
+                                                  imgPath: product.imgPath));
+                                              SnackBarAction(
+                                                label: product.nombre +
+                                                    ' añadido al carrito',
+                                                onPressed: () {},
+                                              );
                                               //Add al carrito
                                             },
                                             child: Container(
                                               padding: EdgeInsets.all(0),
                                               decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          17)),
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(17),
+                                              ),
                                               child: Image.network(
                                                 product.imgPath,
                                                 height: 90,
