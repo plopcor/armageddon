@@ -3,6 +3,7 @@
 //     final user = userFromJson(jsonString);
 
 import 'dart:convert';
+
 import 'package:hive/hive.dart';
 
 part 'userModel.g.dart';
@@ -22,14 +23,12 @@ class User {
   @HiveField(3)
   String email;
   @HiveField(4)
-  dynamic emailVerifiedAt;
+  dynamic createdAt;
   @HiveField(5)
-  DateTime createdAt;
+  dynamic updatedAt;
   @HiveField(6)
-  DateTime updatedAt;
+  String avatar;
   @HiveField(7)
-  dynamic avatar;
-  @HiveField(8)
   int esTienda;
 
   User({
@@ -37,7 +36,6 @@ class User {
     this.nombre,
     this.usuario,
     this.email,
-    this.emailVerifiedAt,
     this.createdAt,
     this.updatedAt,
     this.avatar,
@@ -49,13 +47,8 @@ class User {
         nombre: json["nombre"],
         usuario: json["usuario"],
         email: json["email"],
-        emailVerifiedAt: json["email_verified_at"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
         avatar: json["avatar"],
         esTienda: json["esTienda"],
       );
@@ -65,15 +58,9 @@ class User {
         "nombre": nombre,
         "usuario": usuario,
         "email": email,
-        "email_verified_at": emailVerifiedAt,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt,
+        "updated_at": updatedAt,
         "avatar": avatar,
         "esTienda": esTienda,
       };
-
-  @override
-  String toString() {
-    return 'id: $id - usuario: $usuario';
-  }
 }

@@ -21,18 +21,17 @@ class UserAdapter extends TypeAdapter<User> {
       nombre: fields[1] as String,
       usuario: fields[2] as String,
       email: fields[3] as String,
-      emailVerifiedAt: fields[4] as dynamic,
-      createdAt: fields[5] as DateTime,
-      updatedAt: fields[6] as DateTime,
-      avatar: fields[7] as dynamic,
-      esTienda: fields[8] as int,
+      createdAt: fields[4] as dynamic,
+      updatedAt: fields[5] as dynamic,
+      avatar: fields[6] as String,
+      esTienda: fields[7] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -42,14 +41,12 @@ class UserAdapter extends TypeAdapter<User> {
       ..writeByte(3)
       ..write(obj.email)
       ..writeByte(4)
-      ..write(obj.emailVerifiedAt)
-      ..writeByte(5)
       ..write(obj.createdAt)
-      ..writeByte(6)
+      ..writeByte(5)
       ..write(obj.updatedAt)
-      ..writeByte(7)
+      ..writeByte(6)
       ..write(obj.avatar)
-      ..writeByte(8)
+      ..writeByte(7)
       ..write(obj.esTienda);
   }
 }

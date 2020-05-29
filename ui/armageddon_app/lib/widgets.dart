@@ -53,10 +53,8 @@ class InputText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var grey = Colors.grey[400];
-    // FocusNode focusNode = new FocusNode();
     return Padding(
       child: TextFormField(
-        // focusNode: focusNode,
         keyboardType: textInputType,
         controller: controller,
         validator: (value) {

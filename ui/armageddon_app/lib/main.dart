@@ -1,7 +1,6 @@
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/userModel.dart';
 import 'package:armageddon_app/root_screen.dart';
-import 'package:armageddon_app/screens/auth/ShopScreen.dart';
 import 'package:armageddon_app/screens/auth/favScreen.dart';
 import 'package:armageddon_app/screens/auth/profileScreen.dart';
 import 'package:armageddon_app/screens/auth/searchScreen.dart';
@@ -23,10 +22,9 @@ var routes = <String, WidgetBuilder>{
   '/welcome': (BuildContext context) => new StartScreen(),
   '/signIn': (BuildContext context) => new SignInScreen(),
   '/register': (BuildContext context) => new RegisterScreen(),
-  '/suscription': (BuildContext context) => new FavScreen(),
+  '/favProducts': (BuildContext context) => new FavScreen(),
   '/search': (BuildContext context) => new SearchScreen(),
   '/profile': (BuildContext context) => new ProfileScreen(),
-  '/shopDetail': (BuildContext context) => new ShopScreen(),
 };
 /* Creamos el tema de la app (colores, fuentes, etc..) */
 ThemeData buildTheme() {
