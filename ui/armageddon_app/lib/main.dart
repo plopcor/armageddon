@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/userModel.dart';
 import 'package:armageddon_app/root_screen.dart';
+import 'package:armageddon_app/screens/auth/favScreen.dart';
 import 'package:armageddon_app/screens/auth/profileScreen.dart';
 import 'package:armageddon_app/screens/auth/searchScreen.dart';
-import 'package:armageddon_app/screens/auth/suscriptionsScreen.dart';
 import 'package:armageddon_app/screens/noAuth/registerScreen.dart';
 import 'package:armageddon_app/screens/noAuth/signInScreen.dart';
 import 'package:armageddon_app/screens/noAuth/startScreen.dart';
@@ -24,7 +22,7 @@ var routes = <String, WidgetBuilder>{
   '/welcome': (BuildContext context) => new StartScreen(),
   '/signIn': (BuildContext context) => new SignInScreen(),
   '/register': (BuildContext context) => new RegisterScreen(),
-  '/suscription': (BuildContext context) => new SuscriptionScreen(),
+  '/suscription': (BuildContext context) => new FavScreen(),
   '/search': (BuildContext context) => new SearchScreen(),
   '/profile': (BuildContext context) => new ProfileScreen(),
 };
@@ -56,10 +54,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: PrimaryPurple,
-        hintColor: Colors.white,
-        backgroundColor: BackgroundColor
-      ),
+          primaryColor: PrimaryPurple,
+          hintColor: Colors.white,
+          backgroundColor: BackgroundColor),
       routes: routes,
       home: RootScreen(),
     );

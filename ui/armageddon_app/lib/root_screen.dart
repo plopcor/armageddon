@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/screens/auth/profileScreen.dart';
 import 'package:armageddon_app/screens/auth/searchScreen.dart';
-import 'package:armageddon_app/screens/auth/suscriptionsScreen.dart';
+import 'package:armageddon_app/screens/auth/favScreen.dart';
 import 'package:armageddon_app/screens/noAuth/startScreen.dart';
 import 'package:armageddon_app/services/authenticationServices.dart';
 import 'package:flutter/material.dart';
@@ -14,16 +12,6 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
-  Widget _waitingScreen() {
-    return Scaffold(
-      backgroundColor: BackgroundColor,
-      body: Container(
-        alignment: Alignment.center,
-        child: CircularProgressIndicator(),
-      ),
-    );
-  }
-
   @override
   Widget build(context) {
     return FutureBuilder<bool>(
@@ -52,10 +40,10 @@ class MyAuthApp extends StatefulWidget {
 }
 
 class _MyAuthAppState extends State<MyAuthApp> {
-  var _actualScreen = 0;
+  var _actualScreen = 1;
 
   var _pageOptions = [
-    SuscriptionScreen(),
+    FavScreen(),
     SearchScreen(),
     ProfileScreen(),
   ];
@@ -69,8 +57,8 @@ class _MyAuthAppState extends State<MyAuthApp> {
         currentIndex: _actualScreen,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.subscriptions),
-              title: Text('Suscripciones'),
+              icon: Icon(Icons.favorite),
+              title: Text('Favoritos'),
               backgroundColor: Colors.white),
           BottomNavigationBarItem(
               icon: Icon(Icons.search),
