@@ -1,4 +1,5 @@
 import 'package:armageddon_app/constants.dart';
+import 'package:armageddon_app/models/orderModel.dart';
 import 'package:armageddon_app/models/productModel.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,8 @@ import 'package:flutter/material.dart';
 class FavScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Product>>(
-        future: getProducts(),
+    return FutureBuilder<List<Order>>(
+        future: getFavOrders(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
@@ -17,11 +18,11 @@ class FavScreen extends StatelessWidget {
             return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
-                  Product product = snapshot.data[index];
+                  Order order = snapshot.data[index];
                   return Container(
                     margin: EdgeInsets.only(top: 27, left: 24, right: 24),
                     padding:
-                        EdgeInsets.only(left: 24, top: 24, right: 0, bottom: 8),
+                        EdgeInsets.only(left: 10, top: 24, right: 0, bottom: 8),
                     decoration: BoxDecoration(
                         color: PrimaryPurple,
                         borderRadius: BorderRadius.circular(17)),
@@ -32,43 +33,28 @@ class FavScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.all(1),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(17)),
-                                  child: Image.network(
-                                    product.imgPath,
-                                    height: 70,
-                                    width: 70,
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(1),
-                                  margin: EdgeInsets.symmetric(horizontal: 15),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(17)),
-                                  child: Image.network(
-                                    product.imgPath,
-                                    height: 70,
-                                    width: 70,
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(1),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(17)),
-                                  child: Image.network(
-                                    product.imgPath,
-                                    height: 70,
-                                    width: 70,
-                                  ),
-                                )
-                              ],
+                            Container(
+                              height: 77,
+                              width: 260,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: order.productos.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Container(
+                                      padding: EdgeInsets.all(1),
+                                      margin: EdgeInsets.only(left: 14),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(17)),
+                                      child: Image.network(
+                                        order.productos[index].imgPath,
+                                        height: 77,
+                                        width: 77,
+                                      ),
+                                    );
+                                  }),
                             ),
                             Container(
                               child: Icon(
@@ -90,13 +76,19 @@ class FavScreen extends StatelessWidget {
                         SizedBox(
                           height: 8,
                         ),
-                        Text(
-                          'Mañanas',
-                          style: TextStyle(color: Colors.white, fontSize: 23),
+                        Padding(
+                          padding: EdgeInsets.only(left: 14),
+                          child: Text(
+                            'Mañanas',
+                            style: TextStyle(color: Colors.white, fontSize: 23),
+                          ),
                         ),
-                        Text(
-                          '3 Productos',
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        Padding(
+                          padding: EdgeInsets.only(left: 14),
+                          child: Text(
+                            '3 Productos',
+                            style: TextStyle(color: Colors.white, fontSize: 12),
+                          ),
                         ),
                       ],
                     ),

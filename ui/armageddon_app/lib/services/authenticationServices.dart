@@ -150,3 +150,17 @@ Future<bool> isAuth() async {
 
   return verification;
 }
+
+Future<User> getUser() async {
+  /* take user */
+  var _userBox = await Hive.openBox<User>('user');
+
+  User _user;
+
+  if (_userBox.containsKey(0))
+    _user = _userBox.get(0);
+  else
+    _user = null;
+
+  return _user;
+}
