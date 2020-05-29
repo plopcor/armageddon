@@ -17,8 +17,7 @@ class Favoritos extends Migration
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->integer('id_usuario');
-            $table->integer('id_tienda');
-            $table->integer('id_productosFavoritos');
+            $table->integer('id_pedido');
         });
     }
 

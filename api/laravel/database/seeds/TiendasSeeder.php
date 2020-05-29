@@ -20,13 +20,15 @@ class TiendasSeeder extends Seeder
                 'nombre' => 'Cafe Esquina',
                 'id_propietario' => 5,
                 'longitud' => 41.555983,
-                'latitud' => 2.085601
+                'latitud' => 2.085601,
+                'imagen' => 'https://dosg.net/wp-content/uploads/2018/03/cafeteria.jpg'
             ],
             [
                 'nombre' => 'Panaderia Baker',
                 'id_propietario' => 6,
                 'longitud' => 41.554279,
-                'latitud' => 2.085989
+                'latitud' => 2.085989,
+                'imagen' => ''
             ]
         ];
 

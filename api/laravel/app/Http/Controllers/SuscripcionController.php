@@ -7,52 +7,40 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Tienda;
+use App\Traits;
 
 class SuscripcionController extends APIController
 {
+    use Traits\RecuperarConExcepciones;
+
     /**
      * Listar
      */
     public function listar()
     {
         $suscripciones = Auth::user()->suscripciones;
-        foreach($suscripciones as $suscripcion) {
-            $suscripcion->tienda;
-        }
         return $this->sendResponse($suscripciones);
     }
-
 
     /**
      * Crear
      */
     public function crear(Request $request)
     {
-        // Cojer ID de la tienda
-//        $validator = Validator::make($request->all(), [
-//            'id' => 'required|integer'
-//        ]);
-//
-//        if($validator->fails()){
-//            return $this->sendErrorBadRequest($validator->errors());
-//        }
-
-        // Comprovar que la tienda existe
-        $tienda = Tienda::where('id', $request->id)->first();
         $idUsuario = Auth::user()->id;
 
-        if($tienda == null) {
-            return $this->sendErrorNotFound("Tienda no encontrada");
-        }
+        // Comprovar que la tienda existe
+        $tienda = $this->recuperarTiendaById($request->id);
 
         // Comprovar que no esta suscrito ya
-        if(Suscripcion::where('id_usuario', $idUsuario)->where('id_tienda', $tienda->id)->first() == null) {
+        if(optional(Auth::user()->suscripciones()->where('id_tienda', $tienda->id)->first()) == null) {
 
-            // Crear nueva
+            // Crear suscripcion
             $suscripcion = Suscripcion::create([
                 'id_usuario' => $idUsuario, 'id_tienda' => $tienda->id
             ]);
 
+            // Guardar
             $guardado = $suscripcion->save();
             if(!$guardado) {
                 return $this->sendError(500, 'Error al crear o guardar la suscripcion');
@@ -71,14 +59,22 @@ class SuscripcionController extends APIController
     public function eliminar(Request $request)
     {
         // Comprovar que existe
-        $suscripcion = Suscripcion::where('id_usuario', Auth::user()->id)->where('id_tienda', $request->id)->first();
+        //$suscripcion = Suscripcion::where('id_usuario', Auth::user()->id)->where('id_tienda', $request->id)->first();
+        $suscripcion = optional(Auth::user()->suscripciones->where('id_tienda', $request->id)->first());
         if($suscripcion != null) {
 
             $suscripcion->delete();
             return $this->sendOk();
 
         } else {
-            return $this->sendErrorNotFound("Tienda no encontrada");
+            return $this->sendErrorNotFound("No existe esa suscripcion");
         }
     }
+
+//    public function test()
+//    {
+//        //$suscripcion = Suscripcion::where('id_usuario', Auth::user()->id)->where('id_tienda', 3)->first();
+//        $suscripcion = optional(Auth::user()->suscripciones->where('id_tienda', 3)->first())->id_usuario;
+//        return $this->sendResponse($suscripcion);
+//    }
 }

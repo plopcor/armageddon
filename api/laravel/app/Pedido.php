@@ -40,6 +40,7 @@ class Pedido extends Model
     public function productos() {
         // TODO
         // Ha de recuperar los productos de la tienda poniendo la cantidad y precio de la tabla producto_pedido
+        //$this->hasOne();
     }
 
     /**

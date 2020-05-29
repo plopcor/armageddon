@@ -16,7 +16,7 @@ class ProductoPedido extends Migration
         Schema::create('producto_pedido', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('id_pedido');
-            $table->integer('id_producto_tienda');
+            $table->integer('id_producto');
             $table->integer('cantidad');
             $table->decimal('precio_unidad', 8, 2); //Hasta 999.999,99
         });

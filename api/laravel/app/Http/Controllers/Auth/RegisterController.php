@@ -69,8 +69,6 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            //poner el booleano de check en professor
-            'professor' =>$check,
             'password' => Hash::make($data['password']),
         ]);
     }

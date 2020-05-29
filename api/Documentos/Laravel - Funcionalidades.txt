@@ -1,3 +1,6 @@
+# Eager loading (cargar sub-relaciones y datos adicionales)
+https://laravel.com/docs/7.x/eloquent-relationships#eager-loading
+
 # Validacion de peticiones
 https://laravel.com/docs/7.x/validation#available-validation-rules
 

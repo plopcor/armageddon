@@ -16,6 +16,11 @@ class Suscripcion extends Model
         'id_usuario', 'id_tienda'
     ];
 
+    // Cargar relaciones
+    protected $with = [
+        'tienda'
+    ];
+
     public $timestamps = false;
 
     /**
@@ -31,6 +36,5 @@ class Suscripcion extends Model
     public function tienda() {
         return $this->belongsTo(Tienda::class, 'id_tienda');
     }
-
 
 }

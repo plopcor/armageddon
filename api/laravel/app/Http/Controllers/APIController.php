@@ -117,4 +117,12 @@ class APIController extends Controller
         return $this->sendError(404, $message);
     }
 
+    /**
+     * Return 500 Database error response (para cuando no guarda en la BD)
+     */
+    public function sendErrorDatabase($message = 'No se ha podido modificar el recurso en la base de datos')
+    {
+        return $this->sendError(500, $message);
+    }
+
 }

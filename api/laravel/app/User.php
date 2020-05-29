@@ -6,6 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use App\Pedido;
+use App\Favorito;
+use App\Tienda;
 
 class User extends Authenticatable
 {
@@ -60,10 +63,11 @@ class User extends Authenticatable
     public function tienda()
     {
         if($this->esTienda) {
-            return $this->hasOne('App\Tienda', 'id_propietario');
+            return $this->hasOne(Tienda::class, 'id_propietario');
         } else {
-            return false;
+            return null;
         }
+        return null;
     }
 
     /**
@@ -73,6 +77,23 @@ class User extends Authenticatable
     {
         return $this->hasMany(Suscripcion::class, 'id_usuario');
         //return $this->belongsToMany(Tienda::class, 'suscripciones', 'id_usuario', 'id_tienda');
+    }
+
+    /**
+     * Pedidos
+     */
+    public function pedidos()
+    {
+        return $this->hasMany(Pedido::class, 'id_usuario');
+    }
+
+    /**
+     * Favoritos
+     */
+    public function favoritos()
+    {
+        //return $this->belongsToMany(Pedido::class, 'favoritos', 'id_usuario', 'id_favorito');
+        return $this->hasMany(Favorito::class, 'id_usuario');
     }
 
 }

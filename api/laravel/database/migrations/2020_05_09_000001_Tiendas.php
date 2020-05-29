@@ -19,6 +19,7 @@ class Tiendas extends Migration
             $table->integer('id_propietario')->index();
             $table->decimal('longitud', 10, 7);
             $table->decimal('latitud', 10, 7);
+            $table->string('imagen');
             $table->timestamps();
         });
     }

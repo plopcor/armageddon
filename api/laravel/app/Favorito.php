@@ -1,5 +1,4 @@
 <?php
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -7,24 +6,28 @@ use Illuminate\Database\Eloquent\Model;
 class Favorito extends Model
 {
     protected $fillable = [
-        'nombre', 'id_usuario', 'id_tienda', 'id_productosFavoritos'
+        'nombre', 'id_usuario', 'id_pedido'
     ];
 
     /**
-     * Productos del Favorito
+     * Usuarios
      */
-    public function productos()
+
+    /**
+     * Pedido
+     */
+    public function pedido()
     {
-        // TODO => Cantidad
-        return $this->belongsToMany(ProductoTienda::class, 'producto_favorito', 'id_favorito', 'id_productoTienda');
+        return $this->belongsTo(Pedido::class, 'id_pedido');
     }
 
     /**
-     * Tienda del Favorito
+     * Tienda
      */
     public function tienda()
     {
-        return $this->belongsTo(Tienda::class, 'id_tienda');
+        //return $this->hasOne(Tienda::class, 'id_tienda', )
+        // TODO => Test
+        return $this->belongsTo(Pedido::class, 'id_pedido')->tienda;
     }
-
 }

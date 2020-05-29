@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Favorito;
 use Illuminate\Http\Request;
 use Auth;
 use DB;
@@ -9,26 +10,11 @@ use App\User;
 use App\Tienda;
 use App\ProductoTienda;
 use App\Producto;
+use Illuminate\Support\Facades\Validator;
 
 
 class TiendasController extends APIController
 {
-
-    private function recuperarTiendaById($idTienda)
-    {
-        // Recuperar la tienda por ID
-        $tienda = Tienda::where('id', $idTienda)->first();
-
-        if($tienda == null) {
-            $this->sendErrorNotFound("Tienda no encontrada")->send();
-            exit();
-        }
-
-        return $tienda;
-    }
-
-    // ------------------------------------------------------------------
-
     /**
      * Listar
      */
@@ -75,5 +61,77 @@ class TiendasController extends APIController
     }
 
 
+    // ------------------------------------------------------------------
+    // Pedidos
+    // ------------------------------------------------------------------
+
+    /**
+     * Listar
+     */
+    public function pedidos_listar(Request $request)
+    {
+        // TODO => Test
+        $tienda = $this->recuperarTiendaById($request->id);
+        $pedidos = Auth::user()->pedidos->where('id_tienda', $tienda->id);
+        //$pedidos = Pedido::where('id_tienda', $tienda->id);
+
+        return $this->sendResponse($pedidos);
+    }
+
+    /**
+     * Ver
+     */
+    public function pedidos_ver()
+    {
+        // TODO
+    }
+
+
+
+
+
+    // ------------------------------------------------------------------
+    // Pedidos Favoritos
+    // ------------------------------------------------------------------
+
+    /**
+     * Listar pedidos favoritos de la Tienda
+     */
+    public function favoritos_listar(Request $request)
+    {
+        $tienda = $this->recuperarTiendaById($request->id);
+        $favoritos = Auth::user()->favoritos->where('id_tienda', $tienda->id)->load('pedido');
+
+        return $this->sendResponse($favoritos);
+    }
+
+    /**
+     * Crear / Añadir pedido a favoritos
+     */
+    public function favoritos_crear(Request $request)
+    {
+
+    }
+
+
+    public function test()
+    {
+
+        $tienda = $this->recuperarTiendaById(2);
+        $productos = $tienda->productos;
+        return $this->sendResponse($productos);
+
+
+        //$p = Producto::where('id', 3)->first();
+
+        // Devolver todos los productos de las tiendas
+        //$tienda = $this->recuperarTiendaById(1);
+        //$productos = ProductoTienda::where('id_tienda', 1)->get();
+        //return $this->sendResponse($productos);
+    }
+
+    /**
+     *
+     */
 
 }
