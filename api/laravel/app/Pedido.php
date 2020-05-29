@@ -63,5 +63,9 @@ class Pedido extends Model
     /**
      * Pago del pedido
      */
-    // TODO
+    public function pago()
+    {
+        // TODO
+    }
+
 }

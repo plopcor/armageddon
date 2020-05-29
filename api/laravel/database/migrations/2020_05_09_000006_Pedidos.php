@@ -20,6 +20,7 @@ class Pedidos extends Migration
             $table->string('estado'); //TODO
             //$table->enum('estado', ['', 'PROCESO', '']);
             $table->dateTime('recogida', 0);
+            $table->string('codigo_qr')->nullable();
             $table->timestamps();
         });
     }

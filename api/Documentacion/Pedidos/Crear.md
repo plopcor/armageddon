@@ -13,8 +13,8 @@ Crear un pedido con productos de la tienda
 ```json
 {
   "productos" = [
-    [ "id": "[id producto] <Integer>", "cantidad": "<Integer>" ],
-    [ "id": "[id producto] <Integer>", "cantidad": "<Integer>" ]
+    [ "id": "<ID Producto | Integer>", "cantidad": "<Integer>" ],
+    [ "id": "<ID Producto | Integer>", "cantidad": "<Integer>" ]
   ]
 }
 ```
@@ -42,9 +42,9 @@ Devuelve el pedido
 
 #### [400 Bad Request](../General/Errores.md#400-bad-request)
 
-#### 404 Not Found
-
-Uno de los productos seleccionados no esta en esta Tienda
+#### [404 Not Found](../General/Errores.md#404-not-found)
+Mensajes:
+* Uno de los productos seleccionados no existe en la Tienda
 
 
 #### [500 Internal Server Error](../General/Errores.md#500-internal-server-error)
