@@ -46,8 +46,8 @@ class Pedido extends Model
      * Productos del pedido
      */
     public function productos() {
-        return $this->belongsToMany(ProductoTienda::class, 'producto_pedido', 'id_pedido', 'id_producto')->withPivot('cantidad', 'precio_unidad');
         // Ha de recuperar los productos de la tienda poniendo la cantidad y precio de la tabla producto_pedido
+        return $this->belongsToMany(ProductoTienda::class, 'producto_pedido', 'id_pedido', 'id_producto')->withPivot('cantidad', 'precio_unidad')->with('producto');
     }
 
     public function getCantidadAttribute($value)
