@@ -40,7 +40,7 @@ class MyAuthApp extends StatefulWidget {
 }
 
 class _MyAuthAppState extends State<MyAuthApp> {
-  var _actualScreen = 1;
+  var _actualScreen = 0;
 
   var _pageOptions = [
     FavScreen(),
