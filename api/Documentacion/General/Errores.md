@@ -45,4 +45,23 @@ Login sin enviar los parametros "usuario" ni "contraseña"
 }
 ```
 
+
+
+#### 500 Internal Server Error
+
+Error al crear o guardar el recurso en la base de datos
+
+**Codigo** : `500 Internal Server Error`
+
+**Contenido** :
+
+```json
+{
+    "success": false,
+    "message": "No se ha podido modificar el recurso en la base de datos"
+}
+```
+
+
+
 ## Notas

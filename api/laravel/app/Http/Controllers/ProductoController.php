@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\ProductoTienda;
 use Illuminate\Http\Request;
-use App\Producto;
 
 class ProductoController extends APIController
 {
-    /*
-     * Listar productos
+    /**
+     * Listar
      */
     public function listar()
     {
-        return $this->sendResponse(Producto::all());
+        return $this->sendResponse(ProductoTienda::all()->load('producto'));
     }
 
-    /*
-     * Ver producto especifico
+    /**
+     * Ver
      */
     public function ver(Request $Request)
     {
-        $producto = Producto::findOrFail($Request->id);
+        $producto = ProductoTienda::findOrFail($Request->id)->load('producto');
         return $this->sendResponse($producto);
     }
 

@@ -25,6 +25,15 @@ class PedidoController extends APIController
     }
 
     /**
+     * Ver
+     */
+    public function ver(Request $request)
+    {
+        $pedido = Auth::user()->pedidos->where('id_pedido', $request->id);
+        return $pedido;
+    }
+
+    /**
      * Crear
      */
     public function pedidos_crear(Request $request)
@@ -32,8 +41,8 @@ class PedidoController extends APIController
 
         $validator = Validator::make($request->all(), [
             'productos' => 'required|array|min:1',
-            '*.id' => 'required|integer',
-            '*.cantidad' => 'required|integer',
+            'productos.*.id' => 'required|integer',
+            'productos.*.cantidad' => 'required|integer',
         ]);
 
         if($validator->fails()){
@@ -45,12 +54,17 @@ class PedidoController extends APIController
         $productosTienda = $tienda->productos;
 
         // Generar Pedido
-        $pedido = new Pedido;
-        $pedido->id_usuario = Auth::user()->id;
-        $pedido->id_tienda = $tienda->id;
-        $pedido->estado = "CREADO";
-
-        return $this->sendResponse($pedido);
+        $pedido = Pedido::create([
+            'id_usuario' => Auth::user()->id,
+            'id_tienda' => $tienda->id,
+            'estado' => "CREADO",
+            'recogida' => date("Y-m-d H:i:s")
+        ]);
+//        $pedido = new Pedido;
+//        $pedido->id = 2;
+//        $pedido->id_usuario = Auth::user()->id;
+//        $pedido->id_tienda = $tienda->id;
+//        $pedido->estado = "CREADO";
 
         // Recuperar Productos de la comanda
         foreach($request->productos as $comanda) {
@@ -66,11 +80,10 @@ class PedidoController extends APIController
 //            }
 
             // Añadir al Pedido
-            $pedido->productos()->attach($producto);
+            $pedido->productos()->attach($producto, ['cantidad' => $comanda['cantidad'], 'precio_unidad' => $producto->precio]);
         }
 
-        // TODO
-
+        return $this->sendResponse($pedido);
     }
 
 

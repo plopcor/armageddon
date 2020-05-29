@@ -75,4 +75,29 @@ class TiendaPropiaController extends APIController
         // TODO
     }
 
+
+    // ------------------------------------------------------------------
+    // Productos
+    // ------------------------------------------------------------------
+    /**
+     * Listar
+     */
+    public function productos_listar(Request $request)
+    {
+        $tienda = $this->recuperarTiendaPropia();
+        $productos = $tienda->productos;
+        return $this->sendResponse($productos);
+    }
+
+    /**
+     * Crear
+     */
+    public function productos_crear(Request $request)
+    {
+        // TODO
+//        $tienda = $this->recuperarTiendaPropia();
+//        $productos = $tienda->productos;
+//        return $this->sendResponse($productos);
+    }
+
 }

@@ -74,9 +74,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::delete('/', 'TiendaPropiaController@eliminar');  // Eliminar
 
         // Productos
-        Route::get('/productos', 'Controller@listar');              // Listar
-        Route::get('/producto/{idProducto}', 'Controller@ver');     // Ver
-        Route::post('/producto', 'Controller@crear');               // Crear
+        Route::get('/productos', 'TiendaPropiaController@productos_listar');// Listar
+        Route::get('/producto/{idProducto}', 'Controller@ver');             // Ver
+        Route::post('/producto', 'TiendaPropiaController@productos_crear'); // Crear
         Route::put('/producto/{idProducto}', 'Controller@editar');          // Editar
         Route::delete('/producto/{idProducto}', 'Controller@eliminar');     // Eliminar
 
@@ -122,7 +122,7 @@ Route::group(['prefix' => 'v1'], function () {
         // Pedidos
         Route::get('/pedidos', 'TiendasController@pedidos_listar');     // Listar (Pedidos realizados en la Tienda)
         //Route::get('/pedido/{idPedido}', 'TiendasController@pedidos_ver');            ===> v1/usuario/pedido/{id}
-        Route::post('/pedido', 'TiendasController@pedidos_crear');      // Crear (Pedido en esa Tienda)
+        Route::post('/pedido', 'PedidoController@pedidos_crear');      // Crear (Pedido en esa Tienda)
         //Route::put('/pedido/{idPedido}', 'TiendasController@pedidos_editar');         ===> v1/usuario/pedido/{id}
         //Route::delete('/pedido/{idPedido}', 'TiendasController@pedidos_eliminar');    ===> v1/usuario/pedido/{id}/
 
