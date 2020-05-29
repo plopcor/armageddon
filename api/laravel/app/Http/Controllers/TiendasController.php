@@ -11,10 +11,13 @@ use App\Tienda;
 use App\ProductoTienda;
 use App\Producto;
 use Illuminate\Support\Facades\Validator;
+use App\Traits;
 
 
 class TiendasController extends APIController
 {
+    use Traits\RecuperarConExcepciones;
+
     /**
      * Listar
      */
@@ -41,7 +44,7 @@ class TiendasController extends APIController
     public function productos_listar(Request $request)
     {
         $tienda = $this->recuperarTiendaById($request->id);
-        $productos = $tienda->productos;
+        $productos = $tienda->productos->load('producto');
         return $this->sendResponse($productos);
     }
 
