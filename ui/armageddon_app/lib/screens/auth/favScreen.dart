@@ -1,5 +1,6 @@
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/orderModel.dart';
+import 'package:armageddon_app/screens/auth/ListProducts.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
 import 'package:flutter/material.dart';
 
@@ -39,69 +40,76 @@ class _MyOrderListState extends State<MyOrderList> {
         itemBuilder: (context, index) {
           Order order = widget.data[index];
           int orderLength = order.productos.length;
-          return Container(
-            margin: EdgeInsets.only(top: 27, left: 24, right: 24),
-            padding: EdgeInsets.only(left: 10, top: 24, right: 0, bottom: 8),
-            decoration: BoxDecoration(
-                color: PrimaryPurple, borderRadius: BorderRadius.circular(17)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      height: 77,
-                      width: 260,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: orderLength,
-                          itemBuilder: (BuildContext context, int index) {
-                            if (index > 3)
-                              setState(() {
-                                isBiggerThanthree = true;
-                              });
+          return GestureDetector(
+            //order.productos
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => new ListProducts(
+                    productos: order.productos,
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              margin: EdgeInsets.only(top: 27, left: 24, right: 24),
+              padding: EdgeInsets.only(left: 10, top: 24, right: 0, bottom: 8),
+              decoration: BoxDecoration(
+                  color: PrimaryPurple,
+                  borderRadius: BorderRadius.circular(17)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        height: 77,
+                        width: 260,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: orderLength,
+                            itemBuilder: (BuildContext context, int index) {
+                              if (index > 3)
+                                setState(() {
+                                  isBiggerThanthree = true;
+                                });
 
-                            if (index < 3) {
-                              return Container(
-                                padding: EdgeInsets.all(1),
-                                margin: EdgeInsets.only(left: 14),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(17)),
-                                child: Image.network(
-                                  order.productos[index].imgPath,
-                                  height: 77,
-                                  width: 77,
-                                ),
-                              );
-                            } else {
-                              return Container();
-                            }
-                          }),
+                              if (index < 3) {
+                                return Container(
+                                  padding: EdgeInsets.all(1),
+                                  margin: EdgeInsets.only(left: 14),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(17)),
+                                  child: Image.network(
+                                    order.productos[index].imgPath,
+                                    height: 77,
+                                    width: 77,
+                                  ),
+                                );
+                              } else {
+                                return Container();
+                              }
+                            }),
+                      ),
+                      buildContainer(isBiggerThanthree),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 14),
+                    child: Text(
+                      '$orderLength Productos',
+                      style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
-                    buildContainer(isBiggerThanthree),
-                  ],
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 14),
-                  child: Text(
-                    'Mañanas',
-                    style: TextStyle(color: Colors.white, fontSize: 23),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 14),
-                  child: Text(
-                    '$orderLength Productos',
-                    style: TextStyle(color: Colors.white, fontSize: 12),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         });

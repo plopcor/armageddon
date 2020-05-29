@@ -93,11 +93,12 @@ class ProfileButton extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => Scaffold(
-                          backgroundColor: BackgroundColor,
-                          appBar: AppBar(),
-                          body: new FavScreen(),
-                        )),
+                  builder: (context) => Scaffold(
+                    backgroundColor: BackgroundColor,
+                    appBar: AppBar(),
+                    body: new FavScreen(),
+                  ),
+                ),
               );
             else
               Navigator.popAndPushNamed(context, routeName);
