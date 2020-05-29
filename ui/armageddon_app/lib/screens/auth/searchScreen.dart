@@ -78,12 +78,41 @@ class _MySearchState extends State<MySearch> {
                   ),
                 ],
               ),
-              MySearchBar(_searchBarProductController)
+              Bar(
+                searchBarProductController: _searchBarProductController,
+                searchBarStoreController: _searchBarStoreController,
+                actualSearch: _actualSearch,
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class Bar extends StatefulWidget {
+  final SearchBarController<Product> searchBarProductController;
+  final SearchBarController<Store> searchBarStoreController;
+  final int actualSearch;
+
+  Bar(
+      {this.searchBarProductController,
+      this.searchBarStoreController,
+      this.actualSearch});
+
+  @override
+  _BarState createState() => _BarState();
+}
+
+class _BarState extends State<Bar> {
+  Widget build(BuildContext context) {
+    log(widget.actualSearch.toString());
+
+    if (widget.actualSearch == 0)
+      return MySearchBar(widget.searchBarProductController);
+    else
+      return MySearchBart(widget.searchBarStoreController);
   }
 }
 
@@ -142,6 +171,77 @@ class _MySearchBarState extends State<MySearchBar> {
                 child: Align(
                   child: Text(
                     product.nombre,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  alignment: Alignment.bottomCenter,
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class MySearchBart extends StatefulWidget {
+  final SearchBarController<Store> _controller;
+
+  MySearchBart(this._controller);
+
+  @override
+  _MySearchBartState createState() => _MySearchBartState();
+}
+
+class _MySearchBartState extends State<MySearchBart> {
+  Future<List<Store>> _getAllStores(String text) async {
+    List<Store> filterStores = [];
+    await Future.delayed(Duration(seconds: 2));
+
+    await getSuscriptions().then((value) => value.forEach((element) {
+          if (element.nombre.toLowerCase().contains(text.toLowerCase())) {
+            filterStores.add(element);
+          }
+        }));
+
+    return filterStores;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: SafeArea(
+        child: SearchBar<Store>(
+          searchBarPadding: EdgeInsets.symmetric(horizontal: 10),
+          headerPadding: EdgeInsets.symmetric(horizontal: 10),
+          listPadding: EdgeInsets.symmetric(horizontal: 10),
+          onSearch: _getAllStores,
+          searchBarController: widget._controller,
+          cancellationWidget: Text("Cancelar"),
+          emptyWidget: Text("Vacio"),
+          indexedScaledTileBuilder: (int index) => ScaledTile.count(1, 1),
+          onCancelled: () {
+            print("Cancelado");
+          },
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          crossAxisCount: 2,
+          onItemFound: (Store store, int index) {
+            return Card(
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(null, scale: 0.2),
+                    fit: BoxFit.fitWidth,
+                    alignment: Alignment.topCenter,
+                  ),
+                ),
+                child: Align(
+                  child: Text(
+                    store.nombre,
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,

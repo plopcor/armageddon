@@ -26,6 +26,38 @@ Future<List<Product>> getProducts() async {
   return products;
 }
 
+Future<List<Store>> getStores() async {
+  final _url = '$apiUrl/tiendas';
+
+  /* take token */
+  var _tokenBox = await Hive.openBox<String>('token');
+  String _token = _tokenBox.get(0);
+
+  log(_tokenBox.get(0));
+
+  final _response = await http.get(_url, headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer $_token',
+  });
+  List<Store> stores;
+
+  log(jsonDecode(_response.body).toString());
+
+  _tokenBox.close();
+
+  if (_response.statusCode == 200) {
+    Map<String, dynamic> _result = jsonDecode(_response.body);
+
+    stores = (_result['data'] as List)
+        .map((e) => new Store.fromJson(e['tienda']))
+        .toList();
+  }
+
+  log(stores.toString());
+
+  return stores;
+}
+
 Future<List<Store>> getSuscriptions() async {
   final _url = '$apiUrl/usuario/suscripciones';
 
