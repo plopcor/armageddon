@@ -40,7 +40,7 @@ class FavoritoController extends APIController
         if($favorito == null) {
 
             $favorito = Favorito::create([
-                'nombre' => '',
+                'nombre' => 'Fav.',
                 'id_usuario' => Auth::user()->id,
                 'id_pedido' => $pedido->id
             ]);

@@ -17,9 +17,9 @@ class Tiendas extends Migration
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->integer('id_propietario')->index();
-            $table->decimal('longitud', 10, 7);
-            $table->decimal('latitud', 10, 7);
-            $table->string('imagen');
+            $table->decimal('longitud', 10, 7)->nullable();
+            $table->decimal('latitud', 10, 7)->nullable();
+            $table->string('imagen')->nullable();
             $table->timestamps();
         });
     }

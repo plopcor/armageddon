@@ -8,7 +8,7 @@ class Tienda extends Model
 {
 
     protected $fillable = [
-        'nombre', 'longitud', 'latitud', 'imagen'
+        'nombre', 'id_propietario', 'longitud', 'latitud', 'imagen'
     ];
 
     /**

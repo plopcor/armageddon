@@ -68,10 +68,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'tienda', 'middleware' => 'auth:api'], function () {
 
         // Tienda
-        Route::get('/', 'Controller@ver');          // Ver
-        Route::post('/', 'Controller@crear');       // Crear
-        Route::put('/', 'Controller@editar');       // Editar
-        Route::delete('/', 'Controller@eliminar');  // Eliminar
+        Route::get('/', 'TiendaPropiaController@ver');          // Ver
+        Route::post('/', 'TiendaPropiaController@crear');       // Crear
+        Route::put('/', 'TiendaPropiaController@editar');       // Editar
+        Route::delete('/', 'TiendaPropiaController@eliminar');  // Eliminar
 
         // Productos
         Route::get('/productos', 'Controller@listar');              // Listar

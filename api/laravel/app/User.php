@@ -62,12 +62,7 @@ class User extends Authenticatable
      */
     public function tienda()
     {
-        if($this->esTienda) {
-            return $this->hasOne(Tienda::class, 'id_propietario');
-        } else {
-            return null;
-        }
-        return null;
+        return $this->hasOne(Tienda::class, 'id_propietario');
     }
 
     /**
