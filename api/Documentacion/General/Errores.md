@@ -45,6 +45,22 @@ Login sin enviar los parametros "usuario" ni "contraseña"
 }
 ```
 
+#### 404 Not Found
+
+No se ha encontrado un recurso necessario para completar la accion
+
+**Codigo** : `404 Not Found`
+
+**Contenido** :
+
+*ATENCION: El mensaje puede canviar para explicar que recurso no ha encontrado*
+
+```json
+{
+    "success": false,
+    "message": "No se ha encontrado el recurso",
+}
+```
 
 
 #### 500 Internal Server Error

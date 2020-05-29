@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Favorito;
 use App\Suscripcion;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Validator;
@@ -29,8 +30,8 @@ class PedidoController extends APIController
      */
     public function ver(Request $request)
     {
-        $pedido = Auth::user()->pedidos->where('id_pedido', $request->id);
-        return $pedido;
+        $pedido = $this->recuperarPedidoPropioById($request->id);
+        return $this->sendResponse($pedido);
     }
 
     /**
@@ -60,11 +61,6 @@ class PedidoController extends APIController
             'estado' => "CREADO",
             'recogida' => date("Y-m-d H:i:s")
         ]);
-//        $pedido = new Pedido;
-//        $pedido->id = 2;
-//        $pedido->id_usuario = Auth::user()->id;
-//        $pedido->id_tienda = $tienda->id;
-//        $pedido->estado = "CREADO";
 
         // Recuperar Productos de la comanda
         foreach($request->productos as $comanda) {
@@ -86,55 +82,40 @@ class PedidoController extends APIController
         return $this->sendResponse($pedido);
     }
 
+    /**
+     * Pagar
+     */
+    public function pagar(Request $request)
+    {
+        $pedido = $this->recuperarPedidoPropioByIdSinEager($request->id)->load('tienda');
+        //$pedido = $this->recuperarPedidoPropioById($request->id);
 
-//    /**
-//     * Crear
-//     */
-//    public function crear(Request $request)
-//    {
-//        // Recuperar pedido
-//        $pedido = Auth::user()->pedidos->find($request->id);
-//        if($pedido == null) {
-//            return $this->sendErrorNotFound("No existe el pedido con ID " . $request->id);
-//        }
-//
-//        // Comprovar si ya existe el favorito
-//        $favorito = Auth::user()->favoritos->where('id_pedido')->first();
-//        if($favorito == null) {
-//
-//            $favorito = Favorito::create([
-//                'nombre' => '',
-//                'id_usuario' => Auth::user()->id,
-//                'id_pedido' => $pedido->id
-//            ]);
-//
-//            if($favorito->save()) {
-//                return $this->sendOk();
-//            } else {
-//                return $this->sendErrorDatabase();
-//            }
-//        }
-//
-//        return $this->sendOk();
-//    }
+        // Si no esta pagado
+        if($pedido->estado != "PAGADO") {
+            $pedido->estado = "PAGADO";
+        }
 
-//    /**
-//     * Eliminar
-//     */
-//    public function eliminar(Request $request)
-//    {
-//        $favorito = Auth::user()->favoritos->find($request->id);
-//        if($favorito != null) {
-//
-//            // Eliminar
-//            if($favorito->delete()) {
-//                return $this->sendOk();
-//            } else {
-//                return $this->sendErrorDatabase();
-//            }
-//
-//        } else {
-//            return $this->sendErrorNotFound("No existe un favorito con ID " . $request->id);
-//        }
-//    }
+        // Generar Codigo QR
+        if($pedido->codigo_qr == null) {
+
+            // Generar codigo QR
+            $datos = $pedido->id;
+            $fichero = '/qrcodes/' . md5($pedido->id) . ".png";
+            $ruta = public_path($fichero);
+
+            QrCode::margin(0)->format('png')->size(400)->color(112, 118, 227)->generate($datos, $ruta);
+            //QrCode::margin(0)->format('png')->size(400)->color(112, 118, 227)->generate('Hallo', $ruta);
+
+            $pedido->codigo_qr = $fichero;
+        }
+
+        // Guardar
+        if($pedido->save()) {
+            return $this->sendResponse($pedido);
+        } else {
+            return $this->sendErrorDatabase();
+        }
+
+    }
+
 }

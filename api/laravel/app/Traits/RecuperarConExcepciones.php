@@ -1,5 +1,6 @@
 <?php
 namespace App\Traits;
+use App\Pedido;
 use App\Tienda;
 use Auth;
 
@@ -41,7 +42,28 @@ trait RecuperarConExcepciones {
     }
 
     /**
-     *
+     * Pedido by ID
      */
+    public function recuperarPedidoPropioById($idPedido)
+    {
+        $pedido = Auth::user()->pedidos->where('id', $idPedido)->first();
+        if($pedido == null) {
+            $this->sendErrorNotFound("No existe el pedido")->send();
+            exit();
+        }
+
+        return $pedido;
+    }
+
+    public function recuperarPedidoPropioByIdSinEager($idPedido)
+    {
+        $pedido = Pedido::setEagerLoads([])->where('id_usuario', Auth::user()->id)->where('id', $idPedido)->first();
+        if($pedido == null) {
+            $this->sendErrorNotFound("No existe el pedido")->send();
+            exit();
+        }
+
+        return $pedido;
+    }
 
 }

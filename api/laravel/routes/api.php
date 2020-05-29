@@ -53,11 +53,11 @@ Route::group(['prefix' => 'v1'], function () {
         Route::delete('/favorito/{id}', 'FavoritoController@eliminar');     // Eliminar (Quitar Pedido de Favoritos)
 
         // Pedidos
-        Route::get('/pedidos', 'PedidoController@listar');
-        Route::get('/pedido/{id}', 'PedidoController@ver');
-        //Route::post('/pedido', 'Controller@crear');
-        Route::put('/pedido/{id}', 'PedidoController@editar');
+        Route::get('/pedidos', 'PedidoController@listar');          // Listar
+        Route::get('/pedido/{id}', 'PedidoController@ver');         // Ver
+        Route::put('/pedido/{id}', 'PedidoController@editar');      // Editar
         //Route::delete('//{id}', 'Controller@eliminar');
+        Route::post('/pedido/{id}/pagar', 'PedidoController@pagar'); // Pagar y generar QR
 
     });
 
@@ -139,17 +139,6 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/productos', 'ProductoController@listar');      // Listar
     Route::get('/producto/{id}', 'ProductoController@ver');     // Ver
 
-    /**
-     *
-     */
-
-    /**
-     * TEST
-     */
-    Route::get('/test', 'TiendasController@test');
-
 });
-
-
 
 
