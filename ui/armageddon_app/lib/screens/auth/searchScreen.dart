@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/productModel.dart';
 import 'package:armageddon_app/models/storeModel.dart';
+import 'package:armageddon_app/screens/auth/ShopScreen.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flappy_search_bar/scaled_tile.dart';
@@ -169,11 +170,14 @@ class _MySearchBarState extends State<MySearchBar> {
                   ),
                 ),
                 child: Align(
-                  child: Text(
-                    product.nombre,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      product.nombre,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   alignment: Alignment.bottomCenter,
@@ -201,7 +205,7 @@ class _MySearchBartState extends State<MySearchBart> {
     List<Store> filterStores = [];
     await Future.delayed(Duration(seconds: 2));
 
-    await getSuscriptions().then((value) => value.forEach((element) {
+    await getStores().then((value) => value.forEach((element) {
           if (element.nombre.toLowerCase().contains(text.toLowerCase())) {
             filterStores.add(element);
           }
@@ -230,26 +234,42 @@ class _MySearchBartState extends State<MySearchBart> {
           crossAxisSpacing: 10,
           crossAxisCount: 2,
           onItemFound: (Store store, int index) {
-            return Card(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(null, scale: 0.2),
-                    fit: BoxFit.fitWidth,
-                    alignment: Alignment.topCenter,
-                  ),
-                ),
-                child: Align(
-                  child: Text(
-                    store.nombre,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
+            return GestureDetector(
+              child: Card(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "https://imgmedia.lbb.in/media/2018/08/5b898c57fe22575b86710050_1535741015631.jpg",
+                          scale: 0.2),
+                      fit: BoxFit.fitWidth,
+                      alignment: Alignment.topCenter,
                     ),
                   ),
-                  alignment: Alignment.bottomCenter,
+                  child: Align(
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 8),
+                      child: Text(
+                        store.nombre,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    alignment: Alignment.bottomCenter,
+                  ),
                 ),
               ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ShopScreen(
+                        store: store,
+                      ),
+                    ));
+              },
             );
           },
         ),
