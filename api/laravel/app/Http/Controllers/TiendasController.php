@@ -39,7 +39,7 @@ class TiendasController extends APIController
     // Productos
     // ------------------------------------------------------------------
     /**
-     * Listar
+     * Listar productos
      */
     public function productos_listar(Request $request)
     {
@@ -49,7 +49,7 @@ class TiendasController extends APIController
     }
 
     /**
-     * Ver
+     * Ver producto
      */
     public function productos_ver(Request $request)
     {
@@ -63,6 +63,13 @@ class TiendasController extends APIController
         return $this->sendResponse($producto);
     }
 
+    // ------------------------------------------------------------------
+    // Horario
+    // ------------------------------------------------------------------
+    public function horario_ver()
+    {
+        // TODO
+    }
 
     // ------------------------------------------------------------------
     // Pedidos
@@ -113,7 +120,7 @@ class TiendasController extends APIController
      */
     public function favoritos_crear(Request $request)
     {
-
+        // TODO
     }
 
 

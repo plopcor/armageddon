@@ -56,7 +56,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/pedidos', 'PedidoController@listar');          // Listar
         Route::get('/pedido/{id}', 'PedidoController@ver');         // Ver
         Route::put('/pedido/{id}', 'PedidoController@editar');      // Editar
-        //Route::delete('//{id}', 'Controller@eliminar');
+        //Route::put('/pedido/{id}', 'PedidoController@editar');    // Editar
+        //Route::delete('/pedido/{id}', 'PedidoController@eliminar');
         Route::post('/pedido/{id}/pagar', 'PedidoController@pagar'); // Pagar y generar QR
 
     });
@@ -74,26 +75,27 @@ Route::group(['prefix' => 'v1'], function () {
         Route::delete('/', 'TiendaPropiaController@eliminar');  // Eliminar
 
         // Productos
-        Route::get('/productos', 'TiendaPropiaController@productos_listar');// Listar
-        Route::get('/producto/{idProducto}', 'Controller@ver');             // Ver
-        Route::post('/producto', 'TiendaPropiaController@productos_crear'); // Crear
-        Route::put('/producto/{idProducto}', 'Controller@editar');          // Editar
-        Route::delete('/producto/{idProducto}', 'Controller@eliminar');     // Eliminar
+        Route::get('/productos', 'TiendaPropiaController@productos_listar');                    // Listar
+        Route::get('/producto/{idProducto}', 'TiendaPropiaController@productos_ver');           // Ver
+        Route::post('/producto', 'TiendaPropiaController@productos_crear');                     // Crear
+        Route::put('/producto/{idProducto}', 'TiendaPropiaController@productos_editar');        // Editar
+        Route::delete('/producto/{idProducto}', 'TiendaPropiaController@productos_eliminar');   // Eliminar
 
         // Categorias
-        Route::get('/categorias', 'Controller@listar');
-        Route::post('/categoria', 'Controller@crear');
-        Route::delete('/categoria/{idCategoria}', 'Controller@eliminar');
+        Route::get('/categorias', 'TiendaPropiaController@categorias_listar');
+        Route::post('/categoria', 'TiendaPropiaController@categorias_crear');
+        Route::delete('/categoria/{idCategoria}', 'ConTiendaPropiaControllertroller@categorias_eliminar');
 
         // Horario
-        Route::get('/horario', 'Controller@ver');
-        Route::post('/horario', 'Controller@crear');
-        Route::put('/horario', 'Controller@editar');
-        Route::delete('/horario', 'Controller@eliminar');
+        Route::get('/horario', 'TiendaPropiaController@horario_ver');
+        Route::post('/horario', 'TiendaPropiaController@horario_crear');
+        Route::put('/horario', 'TiendaPropiaController@horario_editar');
+        Route::delete('/horario', 'TiendaPropiaController@horario_eliminar');
 
         // Pedidos
-        Route::get('/pedidos', 'Controller@listar');
-        Route::get('/pedido/{idPedido}', 'Controller@ver');
+        Route::get('/pedidos', 'TiendaPropiaController@pedidos_listar');
+        Route::get('/pedido/{idPedido}', 'TiendaPropiaController@pedidos_ver');
+        Route::delete('/pedido/{idPedido}', 'TiendaPropiaController@pedidos_eliminar');
 
     });
 

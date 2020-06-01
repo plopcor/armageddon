@@ -98,5 +98,16 @@ class UsuarioController extends APIController
         $usuario = Auth::user()->usuario;
         return $this->sendOk();
     }
+
+
+    //------------------------------------------
+    /**
+     * Ver
+     */
+    public function ver()
+    {
+        return $this->sendResponse(Auth::user());
+    }
+
 }
 

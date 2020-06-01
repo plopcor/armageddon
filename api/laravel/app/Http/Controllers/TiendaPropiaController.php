@@ -75,12 +75,20 @@ class TiendaPropiaController extends APIController
         // TODO
     }
 
+    /**
+     * Eliminar
+     */
+    public function eliminar(Request $request)
+    {
+        // ¿¿ TODO ??
+    }
+
 
     // ------------------------------------------------------------------
     // Productos
     // ------------------------------------------------------------------
     /**
-     * Listar
+     * Listar productos
      */
     public function productos_listar(Request $request)
     {
@@ -90,7 +98,15 @@ class TiendaPropiaController extends APIController
     }
 
     /**
-     * Crear
+     * Ver producto
+     */
+    public function productos_ver(Request $request)
+    {
+        // TODO
+    }
+
+    /**
+     * Crear producto
      */
     public function productos_crear(Request $request)
     {
@@ -98,6 +114,22 @@ class TiendaPropiaController extends APIController
 //        $tienda = $this->recuperarTiendaPropia();
 //        $productos = $tienda->productos;
 //        return $this->sendResponse($productos);
+    }
+
+    /**
+     * Editar producto
+     */
+    public function productos_editar(Request $request)
+    {
+        // TODO
+    }
+
+    /**
+     * Eliminar producto
+     */
+    public function productos_eliminar(Request $request)
+    {
+        // TODO
     }
 
 }
