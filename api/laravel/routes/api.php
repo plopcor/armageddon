@@ -28,10 +28,10 @@ Route::group(['prefix' => 'v1'], function () {
     /**
      * AUTENTICACION
      */
-    Route::post('/login', 'UsuarioController@login');
-    Route::post('/register', 'UsuarioController@register');
-    Route::get('/logout', 'UsuarioController@logout')->middleware('auth:api');
-    Route::get('/token', 'UsuarioController@verificar_token')->middleware('auth:api'); // Probar el token
+    Route::post('/login', 'AutenticacionController@login');
+    Route::post('/register', 'AutenticacionController@register');
+    Route::get('/logout', 'AutenticacionController@logout')->middleware('auth:api');
+    Route::get('/token', 'AutenticacionController@verificar_token')->middleware('auth:api'); // Probar el token
 
 
     /**
