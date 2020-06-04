@@ -32,6 +32,7 @@ class ProfileScreen extends StatelessWidget {
                           fontSize: 24.0,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
                         ),
                       ),
                       SizedBox(height: 24),
