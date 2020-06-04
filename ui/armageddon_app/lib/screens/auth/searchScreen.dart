@@ -160,7 +160,11 @@ class _MySearchBarState extends State<MySearchBar> {
           crossAxisSpacing: 10,
           crossAxisCount: 2,
           onItemFound: (Product product, int index) {
-            return Card(
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(17),
+                border: Border.all(color: Colors.grey[400]),
+              ),
               child: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(

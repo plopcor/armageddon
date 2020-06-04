@@ -14,67 +14,64 @@ class ProfileScreen extends StatelessWidget {
             if (snapshot.hasError) {
               return Text("Error");
             }
-            return Stack(
+            return Column(
               children: <Widget>[
+                SizedBox(height: 40),
                 Container(
+                  padding: EdgeInsets.symmetric(vertical: 24),
                   margin: EdgeInsets.symmetric(horizontal: 27),
                   decoration: BoxDecoration(
                     color: PrimaryPurple,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(19),
-                        bottomRight: Radius.circular(19)),
+                    borderRadius: BorderRadius.circular(19),
                   ),
-                  height: 300,
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        'PERFIL',
+                        style: new TextStyle(
+                          fontSize: 24.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 24),
+                      Center(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: Image(
+                            fit: BoxFit.fitHeight,
+                            height: 122,
+                            width: 122,
+                            image: NetworkImage(snapshot.data.avatar),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        snapshot.data.nombre,
+                        style: new TextStyle(
+                          fontSize: 24.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    SizedBox(height: 40),
-                    Text(
-                      'PERFIL',
-                      style: new TextStyle(
-                        fontSize: 24.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    ProfileButton(
+                      text: 'Historial Pedidos',
+                      type: true,
+                      routeName: '/favProducts',
                     ),
-                    SizedBox(height: 24),
-                    Center(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(40),
-                        child: Image(
-                          fit: BoxFit.fitHeight,
-                          height: 122,
-                          width: 122,
-                          image: NetworkImage(snapshot.data.avatar),
-                        ),
-                      ),
+                    ProfileButton(
+                      text: 'Editar Perfil',
+                      type: true,
+                      routeName: '',
                     ),
-                    SizedBox(height: 20),
-                    Text(
-                      snapshot.data.nombre,
-                      style: new TextStyle(
-                        fontSize: 24.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 30),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        ProfileButton(
-                          text: 'Historial Pedidos',
-                          type: true,
-                          routeName: '/favProducts',
-                        ),
-                        ProfileButton(
-                          text: 'Editar Perfil',
-                          type: true,
-                          routeName: '',
-                        ),
-                        ProfileButton(text: 'Cerrar Sesión', type: false),
-                      ],
-                    ),
+                    ProfileButton(text: 'Cerrar Sesión', type: false),
                   ],
                 ),
               ],
