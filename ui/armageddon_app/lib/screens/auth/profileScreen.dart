@@ -14,55 +14,67 @@ class ProfileScreen extends StatelessWidget {
             if (snapshot.hasError) {
               return Text("Error");
             }
-            return Column(
+            return Stack(
               children: <Widget>[
-                SizedBox(
-                  height: 40,
-                ),
-                Text(
-                  'PERFIL',
-                  style: new TextStyle(
-                    fontSize: 24.0,
-                    color: Colors.grey[400],
-                    fontWeight: FontWeight.bold,
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 27),
+                  decoration: BoxDecoration(
+                    color: PrimaryPurple,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(19),
+                        bottomRight: Radius.circular(19)),
                   ),
+                  height: 300,
                 ),
-                SizedBox(height: 20),
-                Center(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(40),
-                    child: Image(
-                      fit: BoxFit.fitHeight,
-                      height: 122,
-                      width: 122,
-                      image: NetworkImage(snapshot.data.avatar),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  snapshot.data.nombre,
-                  style: new TextStyle(
-                    fontSize: 24.0,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 30),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    ProfileButton(
-                      text: 'Historial Pedidos',
-                      type: true,
-                      routeName: '/favProducts',
+                    SizedBox(height: 40),
+                    Text(
+                      'PERFIL',
+                      style: new TextStyle(
+                        fontSize: 24.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    ProfileButton(
-                      text: 'Editar Perfil',
-                      type: true,
-                      routeName: '',
+                    SizedBox(height: 24),
+                    Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(40),
+                        child: Image(
+                          fit: BoxFit.fitHeight,
+                          height: 122,
+                          width: 122,
+                          image: NetworkImage(snapshot.data.avatar),
+                        ),
+                      ),
                     ),
-                    ProfileButton(text: 'Cerrar Sesión', type: false),
+                    SizedBox(height: 20),
+                    Text(
+                      snapshot.data.nombre,
+                      style: new TextStyle(
+                        fontSize: 24.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        ProfileButton(
+                          text: 'Historial Pedidos',
+                          type: true,
+                          routeName: '/favProducts',
+                        ),
+                        ProfileButton(
+                          text: 'Editar Perfil',
+                          type: true,
+                          routeName: '',
+                        ),
+                        ProfileButton(text: 'Cerrar Sesión', type: false),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -86,6 +98,17 @@ class ProfileButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 24, left: 27, right: 27),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(17),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[400].withOpacity(0.3),
+            spreadRadius: 0.5,
+            blurRadius: 6,
+            offset: Offset(0, 1),
+          ),
+        ],
+      ),
       child: RaisedButton(
         onPressed: () {
           if (type == true) {
@@ -115,9 +138,6 @@ class ProfileButton extends StatelessWidget {
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(17),
-          side: BorderSide(
-            color: Colors.white,
-          ),
         ),
         color: Colors.white,
         child: Row(

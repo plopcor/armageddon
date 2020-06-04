@@ -40,9 +40,6 @@ Future<bool> login({String password, String username}) async {
     log(_tokenBox.get(0));
     log(_userBox.get(0).toString());
 
-    _tokenBox.close();
-    _userBox.close();
-
     return true;
   } else {
     return false;
@@ -65,8 +62,6 @@ Future<bool> logout() async {
   });
 
   log(jsonDecode(_response.body).toString());
-
-  _tokenBox.close();
 
   if (_response.statusCode == 200)
     return true;
@@ -113,9 +108,6 @@ Future<bool> register(
     log(_tokenBox.get(0));
     log(_userBox.get(0).toString());
 
-    _tokenBox.close();
-    _userBox.close();
-
     return true;
   } else {
     return false;
@@ -145,9 +137,6 @@ Future<bool> isAuth() async {
       log(verification.toString());
     }
   }
-
-  _tokenBox.close();
-
   return verification;
 }
 

@@ -88,15 +88,18 @@ class ShopScreen extends StatelessWidget {
                                         children: <Widget>[
                                           GestureDetector(
                                             onTap: () {
-                                              order.productos.add(new Product(
-                                                  id: product.id,
-                                                  imgPath: product.imgPath));
-                                              SnackBarAction(
-                                                label: product.nombre +
-                                                    ' añadido al carrito',
-                                                onPressed: () {},
+                                              final snackBar = SnackBar(
+                                                  content: Text(product.nombre +
+                                                      ' añadido al carrito'));
+
+                                              Scaffold.of(context)
+                                                  .showSnackBar(snackBar);
+
+                                              order.productos.add(
+                                                new Product(
+                                                    id: product.id,
+                                                    imgPath: product.imgPath),
                                               );
-                                              //Add al carrito
                                             },
                                             child: Container(
                                               padding: EdgeInsets.all(0),

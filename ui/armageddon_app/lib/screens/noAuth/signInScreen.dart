@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/services/authenticationServices.dart';
 import 'package:armageddon_app/widgets.dart';
