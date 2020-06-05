@@ -218,35 +218,48 @@ class _MySearchBarProductsState extends State<MySearchBarProducts> {
           onCancelled: () {
             print("Cancelado");
           },
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
+          mainAxisSpacing: 17,
+          crossAxisSpacing: 17,
           crossAxisCount: 2,
           onItemFound: (Product product, int index) {
             return Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(17),
-                border: Border.all(color: Colors.grey),
-              ),
-              child: Container(
-                decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(product.imgPath, scale: 0.2),
                     fit: BoxFit.fitWidth,
                     alignment: Alignment.topCenter,
                   ),
-                ),
-                child: Align(
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: 8),
-                    child: Text(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(17),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey[400].withOpacity(0.3),
+                      spreadRadius: 0.5,
+                      blurRadius: 6,
+                      offset: Offset(0, 1),
+                    ),
+                  ]),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
                       product.nombre,
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                  alignment: Alignment.bottomCenter,
+                    Text(
+                      /*TODO change to real priceF */
+                      product.id.toString() + ' €',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             );

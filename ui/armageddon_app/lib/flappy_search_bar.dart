@@ -427,7 +427,7 @@ class _SearchBarState<T> extends State<SearchBar<T>>
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 17),
             child: _buildContent(context),
           ),
         ),
