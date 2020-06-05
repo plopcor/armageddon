@@ -7,6 +7,7 @@ import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flappy_search_bar/scaled_tile.dart';
 import 'package:flappy_search_bar/search_bar_style.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 class SearchScreen extends StatelessWidget {
   @override
@@ -30,6 +31,33 @@ class _MySearchState extends State<MySearch> {
   var _searchOptions = ['PRODUCTOS', 'TIENDAS'];
 
   Future<List<Product>> productos = getProducts();
+
+  Future<LocationData> testLocationPermision() async {
+    Location location = new Location();
+    LocationData _locationData;
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return null;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return null;
+      }
+    }
+
+    _locationData = await location.getLocation();
+
+    return _locationData;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +105,23 @@ class _MySearchState extends State<MySearch> {
                     ),
                   ),
                 ],
+              ),
+              FutureBuilder(
+                future: testLocationPermision(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<LocationData> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    String latitude = snapshot.data.latitude.toString();
+                    String longitude = snapshot.data.longitude.toString();
+                    return Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(top: 20),
+                      child: Text(
+                          'Latitude: ' + latitude + ' longitude: ' + longitude, style: TextStyle(fontSize: 16),),
+                    );
+                  } else
+                    return Container();
+                },
               ),
               MySearchBarController(
                 searchBarProductController: _searchBarProductController,
