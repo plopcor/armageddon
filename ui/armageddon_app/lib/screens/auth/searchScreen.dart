@@ -3,7 +3,7 @@ import 'package:armageddon_app/models/productModel.dart';
 import 'package:armageddon_app/models/storeModel.dart';
 import 'package:armageddon_app/screens/auth/ShopScreen.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
-import 'package:flappy_search_bar/flappy_search_bar.dart';
+import 'package:armageddon_app/flappy_search_bar.dart';
 import 'package:flappy_search_bar/scaled_tile.dart';
 import 'package:flappy_search_bar/search_bar_style.dart';
 import 'package:flutter/material.dart';
