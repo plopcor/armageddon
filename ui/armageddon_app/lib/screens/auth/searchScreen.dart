@@ -157,7 +157,7 @@ class _MySearchBarProductsState extends State<MySearchBarProducts> {
               color: PrimaryPurple,
             ),
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(15),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Text('Cancelar', style: TextStyle(color: Colors.white)),
@@ -176,7 +176,7 @@ class _MySearchBarProductsState extends State<MySearchBarProducts> {
             return Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(17),
-                border: Border.all(color: Colors.grey[400]),
+                border: Border.all(color: Colors.grey),
               ),
               child: Container(
                 decoration: BoxDecoration(
