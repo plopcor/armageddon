@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/productModel.dart';
 import 'package:armageddon_app/models/storeModel.dart';
@@ -7,6 +5,7 @@ import 'package:armageddon_app/screens/auth/ShopScreen.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flappy_search_bar/scaled_tile.dart';
+import 'package:flappy_search_bar/search_bar_style.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -39,7 +38,7 @@ class _MySearchState extends State<MySearch> {
       child: Scaffold(
         backgroundColor: BackgroundColor,
         body: Padding(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(27),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -143,12 +142,28 @@ class _MySearchBarProductsState extends State<MySearchBarProducts> {
     return Expanded(
       child: SafeArea(
         child: SearchBar<Product>(
+          searchBarStyle: SearchBarStyle(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
           searchBarPadding: EdgeInsets.symmetric(horizontal: 10),
           headerPadding: EdgeInsets.symmetric(horizontal: 10),
           listPadding: EdgeInsets.symmetric(horizontal: 10),
           onSearch: _getAllProducts,
           searchBarController: widget._controller,
-          cancellationWidget: Text("Cancelar"),
+          cancellationWidget: Container(
+            alignment: Alignment.centerRight,
+            height: 56,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(34),
+              color: PrimaryPurple,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text('Cancelar', style: TextStyle(color: Colors.white)),
+              ),
+            ),
+          ),
           emptyWidget: Text("Vacio"),
           indexedScaledTileBuilder: (int index) => ScaledTile.count(1, 1),
           onCancelled: () {

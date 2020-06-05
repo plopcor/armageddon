@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/orderModel.dart';
 import 'package:armageddon_app/models/productModel.dart';
