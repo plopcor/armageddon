@@ -79,7 +79,7 @@ class _MySearchState extends State<MySearch> {
                   ),
                 ],
               ),
-              Bar(
+              MySearchBarController(
                 searchBarProductController: _searchBarProductController,
                 searchBarStoreController: _searchBarStoreController,
                 actualSearch: _actualSearch,
@@ -92,41 +92,39 @@ class _MySearchState extends State<MySearch> {
   }
 }
 
-class Bar extends StatefulWidget {
+class MySearchBarController extends StatefulWidget {
   final SearchBarController<Product> searchBarProductController;
   final SearchBarController<Store> searchBarStoreController;
   final int actualSearch;
 
-  Bar(
+  MySearchBarController(
       {this.searchBarProductController,
       this.searchBarStoreController,
       this.actualSearch});
 
   @override
-  _BarState createState() => _BarState();
+  _MySearchBarControllerState createState() => _MySearchBarControllerState();
 }
 
-class _BarState extends State<Bar> {
+class _MySearchBarControllerState extends State<MySearchBarController> {
   Widget build(BuildContext context) {
-    log(widget.actualSearch.toString());
-
     if (widget.actualSearch == 0)
-      return MySearchBar(widget.searchBarProductController);
+      return MySearchBarProducts(widget.searchBarProductController);
     else
-      return MySearchBart(widget.searchBarStoreController);
+      return MySearchBarStores(widget.searchBarStoreController);
   }
 }
 
-class MySearchBar extends StatefulWidget {
+class MySearchBarProducts extends StatefulWidget {
   final SearchBarController<Product> _controller;
 
-  MySearchBar(this._controller);
+  MySearchBarProducts(this._controller);
 
   @override
-  _MySearchBarState createState() => _MySearchBarState();
+  _MySearchBarProductsState createState() => _MySearchBarProductsState();
 }
 
-class _MySearchBarState extends State<MySearchBar> {
+class _MySearchBarProductsState extends State<MySearchBarProducts> {
   Future<List<Product>> _getAllProducts(String text) async {
     List<Product> filterProducts = [];
     await Future.delayed(Duration(seconds: 2));
@@ -195,16 +193,16 @@ class _MySearchBarState extends State<MySearchBar> {
   }
 }
 
-class MySearchBart extends StatefulWidget {
+class MySearchBarStores extends StatefulWidget {
   final SearchBarController<Store> _controller;
 
-  MySearchBart(this._controller);
+  MySearchBarStores(this._controller);
 
   @override
-  _MySearchBartState createState() => _MySearchBartState();
+  _MySearchBarStoresState createState() => _MySearchBarStoresState();
 }
 
-class _MySearchBartState extends State<MySearchBart> {
+class _MySearchBarStoresState extends State<MySearchBarStores> {
   Future<List<Store>> _getAllStores(String text) async {
     List<Store> filterStores = [];
     await Future.delayed(Duration(seconds: 2));
@@ -267,12 +265,11 @@ class _MySearchBartState extends State<MySearchBart> {
               ),
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ShopScreen(
-                        store: store,
-                      ),
-                    ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ShopScreen(store: store),
+                  ),
+                );
               },
             );
           },
