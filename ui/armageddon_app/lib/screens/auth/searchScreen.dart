@@ -111,13 +111,17 @@ class _MySearchState extends State<MySearch> {
                 builder: (BuildContext context,
                     AsyncSnapshot<LocationData> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
+                    if (!snapshot.hasData)
+                      return Text('Permiso ubicación denegado');
                     String latitude = snapshot.data.latitude.toString();
                     String longitude = snapshot.data.longitude.toString();
                     return Container(
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(top: 20),
                       child: Text(
-                          'Latitude: ' + latitude + ' longitude: ' + longitude, style: TextStyle(fontSize: 16),),
+                        'Latitude: ' + latitude + ' longitude: ' + longitude,
+                        style: TextStyle(fontSize: 16),
+                      ),
                     );
                   } else
                     return Container();
