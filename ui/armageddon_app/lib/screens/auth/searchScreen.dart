@@ -72,7 +72,7 @@ class _MySearchState extends State<MySearch> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.grey[400],
+                        color: Colors.grey,
                       ),
                     ),
                   ),
