@@ -192,7 +192,8 @@ class _MySearchBarProductsState extends State<MySearchBarProducts> {
       child: SafeArea(
         child: SearchBar<Product>(
           searchBarStyle: SearchBarStyle(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          ),
           searchBarPadding: EdgeInsets.symmetric(horizontal: 10),
           headerPadding: EdgeInsets.symmetric(horizontal: 10),
           listPadding: EdgeInsets.symmetric(horizontal: 10),
@@ -213,7 +214,33 @@ class _MySearchBarProductsState extends State<MySearchBarProducts> {
               ),
             ),
           ),
-          emptyWidget: Text("Vacio"),
+          /* TODO put location here */
+          header: null,
+          emptyWidget: Container(
+            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 34),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(17),
+              gradient: LinearGradient(
+                colors: [PrimaryPurple, Color(0xFFB5B0E7)],
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey[400].withOpacity(0.3),
+                  spreadRadius: 3,
+                  blurRadius: 6,
+                  offset: Offset(0, 1),
+                ),
+              ],
+            ),
+            child: Text(
+              '¡Uy! ¡No he encontrado nada!',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ),
           indexedScaledTileBuilder: (int index) => ScaledTile.count(1, 1),
           onCancelled: () {
             print("Cancelado");
@@ -222,44 +249,48 @@ class _MySearchBarProductsState extends State<MySearchBarProducts> {
           crossAxisSpacing: 17,
           crossAxisCount: 2,
           onItemFound: (Product product, int index) {
-            return Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(product.imgPath, scale: 0.2),
-                    fit: BoxFit.fitWidth,
-                    alignment: Alignment.topCenter,
+            return GestureDetector(
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => new Detail())),
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(product.imgPath, scale: 0.2),
+                      fit: BoxFit.fitWidth,
+                      alignment: Alignment.topCenter,
+                    ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(17),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[400].withOpacity(0.3),
+                        spreadRadius: 0.5,
+                        blurRadius: 6,
+                        offset: Offset(0, 1),
+                      ),
+                    ]),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Text(
+                        product.nombre,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        /* TODO change to real price */
+                        product.id.toString() + ' €',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(17),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey[400].withOpacity(0.3),
-                      spreadRadius: 0.5,
-                      blurRadius: 6,
-                      offset: Offset(0, 1),
-                    ),
-                  ]),
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      product.nombre,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      /*TODO change to real priceF */
-                      product.id.toString() + ' €',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
                 ),
               ),
             );

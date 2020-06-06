@@ -342,15 +342,33 @@ class _SearchBarState<T> extends State<SearchBar<T>>
     if (_error != null) {
       return _error;
     } else if (_loading) {
-      return widget.loader;
+      return Expanded(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 17),
+          child: widget.loader,
+        ),
+      );
     } else if (_searchQueryController.text.length < widget.minimumChars) {
       if (widget.placeHolder != null) return widget.placeHolder;
-      return _buildListView(
-          widget.suggestions, widget.buildSuggestion ?? widget.onItemFound);
+      return Expanded(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 17),
+          child: _buildListView(
+              widget.suggestions, widget.buildSuggestion ?? widget.onItemFound),
+        ),
+      );
     } else if (_list.isNotEmpty) {
-      return _buildListView(_list, widget.onItemFound);
+      return Expanded(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 17),
+          child: _buildListView(_list, widget.onItemFound),
+        ),
+      );
     } else {
-      return widget.emptyWidget;
+      return Padding(
+        padding: const EdgeInsets.only(top: 17),
+        child: widget.emptyWidget,
+      );
     }
   }
 
@@ -358,79 +376,70 @@ class _SearchBarState<T> extends State<SearchBar<T>>
   Widget build(BuildContext context) {
     final widthMax = MediaQuery.of(context).size.width;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 0),
-          child: Container(
-            height: 60,
-            width: widthMax,
-            child: Stack(
-              alignment: Alignment.centerLeft,
-              children: <Widget>[
-                GestureDetector(
-                  onTap: _cancel,
-                  child: AnimatedOpacity(
-                    opacity: _animate ? 1.0 : 0,
-                    curve: Curves.easeIn,
-                    duration: Duration(milliseconds: _animate ? 1000 : 0),
-                    child: AnimatedContainer(
-                      duration: Duration(milliseconds: 200),
-                      width:
-                          _animate ? MediaQuery.of(context).size.width * 1 : 0,
-                      child: widget.cancellationWidget,
+        Container(
+          height: 60,
+          width: widthMax,
+          child: Stack(
+            alignment: Alignment.centerLeft,
+            children: <Widget>[
+              GestureDetector(
+                onTap: _cancel,
+                child: AnimatedOpacity(
+                  opacity: _animate ? 1.0 : 0,
+                  curve: Curves.easeIn,
+                  duration: Duration(milliseconds: _animate ? 1000 : 0),
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    width: _animate ? MediaQuery.of(context).size.width * 1 : 0,
+                    child: widget.cancellationWidget,
+                  ),
+                ),
+              ),
+              AnimatedContainer(
+                duration: Duration(milliseconds: 200),
+                width: _animate ? widthMax * .68 : widthMax,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(34),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey[400].withOpacity(0.3),
+                      spreadRadius: 0.5,
+                      blurRadius: 6,
+                      offset: Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: widget.searchBarStyle.padding,
+                  child: Theme(
+                    child: TextField(
+                      controller: _searchQueryController,
+                      onChanged: _onTextChanged,
+                      style: widget.textStyle,
+                      decoration: InputDecoration(
+                        icon: widget.icon,
+                        border: InputBorder.none,
+                        hintText: widget.hintText,
+                        hintStyle: widget.hintStyle,
+                      ),
+                    ),
+                    data: Theme.of(context).copyWith(
+                      primaryColor: widget.iconActiveColor,
                     ),
                   ),
                 ),
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 200),
-                  width: _animate ? widthMax * .68 : widthMax,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(34),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey[400].withOpacity(0.3),
-                        spreadRadius: 0.5,
-                        blurRadius: 6,
-                        offset: Offset(0, 1),
-                      ),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: widget.searchBarStyle.padding,
-                    child: Theme(
-                      child: TextField(
-                        controller: _searchQueryController,
-                        onChanged: _onTextChanged,
-                        style: widget.textStyle,
-                        decoration: InputDecoration(
-                          icon: widget.icon,
-                          border: InputBorder.none,
-                          hintText: widget.hintText,
-                          hintStyle: widget.hintStyle,
-                        ),
-                      ),
-                      data: Theme.of(context).copyWith(
-                        primaryColor: widget.iconActiveColor,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
         Padding(
           padding: widget.headerPadding,
           child: widget.header ?? Container(),
         ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 17),
-            child: _buildContent(context),
-          ),
-        ),
+        _buildContent(context),
       ],
     );
   }
