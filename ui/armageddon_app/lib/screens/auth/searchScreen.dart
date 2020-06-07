@@ -254,21 +254,22 @@ class _MySearchBarProductsState extends State<MySearchBarProducts> {
                   MaterialPageRoute(builder: (context) => new Detail())),
               child: Container(
                 decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(product.imgPath, scale: 0.2),
-                      fit: BoxFit.fitWidth,
-                      alignment: Alignment.topCenter,
+                  image: DecorationImage(
+                    image: NetworkImage(product.imgPath, scale: 0.2),
+                    fit: BoxFit.fitWidth,
+                    alignment: Alignment.topCenter,
+                  ),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(17),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey[400].withOpacity(0.3),
+                      spreadRadius: 0.5,
+                      blurRadius: 6,
+                      offset: Offset(0, 1),
                     ),
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(17),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey[400].withOpacity(0.3),
-                        spreadRadius: 0.5,
-                        blurRadius: 6,
-                        offset: Offset(0, 1),
-                      ),
-                    ]),
+                  ],
+                ),
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Column(
