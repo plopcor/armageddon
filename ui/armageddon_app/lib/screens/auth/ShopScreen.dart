@@ -301,19 +301,47 @@ class __floatingPanelState extends State<_floatingPanel> {
         ],
       ),
       margin: const EdgeInsets.all(24.0),
-      child: Center(
-        child: ListView.builder(
-            itemCount: widget.items.length,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    widget.items.removeAt(index);
-                  });
-                },
-                child: Item(text: widget.items[index].nombre),
-              );
-            }),
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView.builder(
+                itemCount: widget.items.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        widget.items.removeAt(index);
+                      });
+                    },
+                    child: Item(text: widget.items[index].nombre),
+                  );
+                }),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 27, vertical: 24),
+            child: RaisedButton(
+              onPressed: () {
+                Navigator.popAndPushNamed(context, null);
+              },
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(17),
+                side: BorderSide(
+                  color: PrimaryPurple,
+                ),
+              ),
+              color: PrimaryPurple,
+              child: Text(
+                'Finalizar Compra',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
