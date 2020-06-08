@@ -33,7 +33,8 @@ class SuscripcionController extends APIController
         $tienda = $this->recuperarTiendaById($request->id);
 
         // Comprovar que no esta suscrito ya
-        if(optional(Auth::user()->suscripciones()->where('id_tienda', $tienda->id)->first()) == null) {
+        $suscripcion = Auth::user()->suscripciones()->where('id_tienda', $tienda->id)->first();
+        if($suscripcion == null) {
 
             // Crear suscripcion
             $suscripcion = Suscripcion::create([
@@ -41,14 +42,14 @@ class SuscripcionController extends APIController
             ]);
 
             // Guardar
-            $guardado = $suscripcion->save();
-            if(!$guardado) {
-                return $this->sendError(500, 'Error al crear o guardar la suscripcion');
+            if($suscripcion->save()) {
+                return $this->sendOk();
+            } else {
+                return $this->sendErrorDatabase();
             }
 
-            return $this->sendOk();
-
         } else {
+            //return $this->sendOk();
             return $this->sendMessage("El usuario ja esta suscrito");
         }
     }
@@ -59,22 +60,17 @@ class SuscripcionController extends APIController
     public function eliminar(Request $request)
     {
         // Comprovar que existe
-        //$suscripcion = Suscripcion::where('id_usuario', Auth::user()->id)->where('id_tienda', $request->id)->first();
-        $suscripcion = optional(Auth::user()->suscripciones->where('id_tienda', $request->id)->first());
+        $suscripcion = Auth::user()->suscripciones->find($request->id);
         if($suscripcion != null) {
 
-            $suscripcion->delete();
-            return $this->sendOk();
+            if($suscripcion->delete()) {
+                return $this->sendOk();
+            } else {
+                return $this->sendErrorDatabase();
+            }
 
         } else {
-            return $this->sendErrorNotFound("No existe esa suscripcion");
+            return $this->sendErrorNotFound("No existe la suscripcion");
         }
     }
-
-//    public function test()
-//    {
-//        //$suscripcion = Suscripcion::where('id_usuario', Auth::user()->id)->where('id_tienda', 3)->first();
-//        $suscripcion = optional(Auth::user()->suscripciones->where('id_tienda', 3)->first())->id_usuario;
-//        return $this->sendResponse($suscripcion);
-//    }
 }

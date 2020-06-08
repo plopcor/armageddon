@@ -34,14 +34,21 @@ class UsuarioController extends APIController
             return $this->sendErrorBadRequest($validator->errors());
         }
 
-        // Actualizar datos
-        $user = Auth::user();
-        if(!empty($request->nombre)) {
-            $user->nombre = $request->nombre;
+        // Cojer datos
+        $data = [];
+        if($request->nombre) {
+            $data['nombre'] = $request->nombre;
         }
         if(!empty($request->email)) {
-            $user->nombre = $request->nombre;
+            $data['email'] = $request->email;
         }
+        if(!empty($request->avatar)) {
+            $data['avatar'] = $request->avatar;
+        }
+
+        // Actualizar datos
+        $user = Auth::user();
+        $user->update($data);
 
         // Guardar
         if ($user->save()) {

@@ -13,15 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
-// AGRUPAR Y USAR MIDDLEWARE
-//Route::middleware('auth:api')->group( function () {
-//    Route::get('/productos', 'ProductoController@listar');
-//});
-
 // Rutas API (Version 1)
 Route::group(['prefix' => 'v1'], function () {
 
@@ -39,13 +30,15 @@ Route::group(['prefix' => 'v1'], function () {
      */
     Route::group(['prefix' => 'usuario', 'middleware'=>'auth:api'], function () {
 
-        // Informacion
-        Route::get('/', 'UsuarioController@info');
+        // Perfil
+        Route::get('/', 'UsuarioController@ver');       // Ver
+        Route::put('/', 'UsuarioController@editar');    // Editar
+        //Route::delete('/', 'UsuarioController@editar');    // Eliminar
 
         // Subscripciones
-        Route::get('/suscripciones', 'SuscripcionController@listar');
-        //Route::post('/suscripcion/{id}', 'SuscripcionController@crear'); ===> /v1/tienda/{id}/suscripcion
-        Route::delete('/suscripcion/{id}', 'SuscripcionController@eliminar');
+        Route::get('/suscripciones', 'SuscripcionController@listar');           // Listar
+        //Route::post('/suscripcion/{id}', 'SuscripcionController@crear'); ===> Movido a "Tiendas": /tienda/{id}/suscripcion
+        Route::delete('/suscripcion/{id}', 'SuscripcionController@eliminar');   // Eliminar
 
         // Favoritos
         Route::get('/favoritos', 'FavoritoController@listar');              // Listar
@@ -101,6 +94,9 @@ Route::group(['prefix' => 'v1'], function () {
 
     // Listar tiendas
     Route::get('/tiendas', 'TiendasController@listar')->middleware('auth:api');;
+    // Filtrar
+    Route::get('/tiendas/filtrar', 'TiendasController@filtrar')->middleware('auth:api');;
+
 
     /**
      * TIENDA - Otras (como usuario de la aplicacion)
@@ -132,14 +128,18 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/pedidos/favoritos', 'TiendasController@favoritos_listar');             // Listar (Pedidos Favoritos de la tienda)
         //Route::post('/pedido/{idPedido}/favorito', 'TiendasController@favoritos_crear');  ===> /v1/usuario/pedidos/{id}/favorito  // Crear (Pedido Favorito)
 
+        // Suscripcion
+        Route::post('/suscripcion', 'SuscripcionController@crear');
+
     });
 
 
     /**
      * PRODUCTOS
      */
-    Route::get('/productos', 'ProductoController@listar');      // Listar
-    Route::get('/producto/{id}', 'ProductoController@ver');     // Ver
+    Route::get('/productos', 'ProductoController@listar');          // Listar
+    Route::get('/producto/{id}', 'ProductoController@ver');         // Ver
+    Route::get('/productos/filtrar', 'ProductoController@testFiltrar');  // Filtrar
 
 });
 
