@@ -16,39 +16,49 @@ class ProfileScreen extends StatelessWidget {
             }
             return Column(
               children: <Widget>[
-                SizedBox(
-                  height: 40,
-                ),
-                Text(
-                  'PERFIL',
-                  style: new TextStyle(
-                    fontSize: 24.0,
-                    color: Colors.grey[400],
-                    fontWeight: FontWeight.bold,
+                SizedBox(height: 40),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 24),
+                  margin: EdgeInsets.symmetric(horizontal: 27),
+                  decoration: BoxDecoration(
+                    color: PrimaryPurple,
+                    borderRadius: BorderRadius.circular(19),
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        'PERFIL',
+                        style: new TextStyle(
+                          fontSize: 24.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2,
+                        ),
+                      ),
+                      SizedBox(height: 24),
+                      Center(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(40),
+                          child: Image(
+                            fit: BoxFit.fitHeight,
+                            height: 122,
+                            width: 122,
+                            image: NetworkImage(snapshot.data.avatar),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        snapshot.data.nombre,
+                        style: new TextStyle(
+                          fontSize: 24.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 20),
-                Center(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(40),
-                    child: Image(
-                      fit: BoxFit.fitHeight,
-                      height: 122,
-                      width: 122,
-                      image: NetworkImage(snapshot.data.avatar),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  snapshot.data.nombre,
-                  style: new TextStyle(
-                    fontSize: 24.0,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 30),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
@@ -86,6 +96,17 @@ class ProfileButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 24, left: 27, right: 27),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(17),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[400].withOpacity(0.3),
+            spreadRadius: 0.5,
+            blurRadius: 6,
+            offset: Offset(0, 1),
+          ),
+        ],
+      ),
       child: RaisedButton(
         onPressed: () {
           if (type == true) {
@@ -115,9 +136,6 @@ class ProfileButton extends StatelessWidget {
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(17),
-          side: BorderSide(
-            color: Colors.white,
-          ),
         ),
         color: Colors.white,
         child: Row(

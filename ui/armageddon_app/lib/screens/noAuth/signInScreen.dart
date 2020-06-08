@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:armageddon_app/constants.dart';
+import 'package:armageddon_app/root_screen.dart';
 import 'package:armageddon_app/services/authenticationServices.dart';
 import 'package:armageddon_app/widgets.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +84,10 @@ class SingInFormState extends State<SingInForm> {
 
                   login(username: _user, password: _pass).then((response) {
                     if (response)
-                      Navigator.popAndPushNamed(context, '/suscription');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => RootScreen()),
+                      );
                   });
                 }
               },

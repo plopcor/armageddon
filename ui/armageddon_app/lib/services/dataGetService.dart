@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/orderModel.dart';
 import 'package:armageddon_app/models/productModel.dart';
 import 'package:armageddon_app/models/storeModel.dart';
-import 'package:hive/hive.dart';
+import 'package:armageddon_app/services/authenticationServices.dart';
 import 'package:http/http.dart' as http;
 
+/// getProducts - Get All products throught GET
 Future<List<Product>> getProducts() async {
   final _url = '$apiUrl/productos';
 
@@ -23,17 +23,15 @@ Future<List<Product>> getProducts() async {
         .toList();
   }
 
-  log(products.toString());
-
   return products;
 }
 
+/// getFavOrders - Get All favourite orders of login user throught GET
 Future<List<Order>> getFavOrders() async {
   final _url = '$apiUrl/usuario/pedidos';
 
   /* take token */
-  var _tokenBox = await Hive.openBox<String>('token');
-  String _token = _tokenBox.get(0);
+  String _token = await getToken();
 
   final _response = await http.get(_url, headers: {
     'Accept': 'application/json',
@@ -44,7 +42,6 @@ Future<List<Order>> getFavOrders() async {
 
   if (_response.statusCode == 200) {
     Map<String, dynamic> _result = jsonDecode(_response.body);
-    log(_result.toString());
     orders =
         (_result['data'] as List).map((e) => new Order.fromJson(e)).toList();
   }
@@ -52,24 +49,18 @@ Future<List<Order>> getFavOrders() async {
   return orders;
 }
 
+/// getStores - Get All stores throught GET
 Future<List<Store>> getStores() async {
   final _url = '$apiUrl/tiendas';
 
   /* take token */
-  var _tokenBox = await Hive.openBox<String>('token');
-  String _token = _tokenBox.get(0);
-
-  log(_tokenBox.get(0));
+  String _token = await getToken();
 
   final _response = await http.get(_url, headers: {
     'Accept': 'application/json',
     'Authorization': 'Bearer $_token',
   });
   List<Store> stores;
-
-  log(jsonDecode(_response.body).toString());
-
-  _tokenBox.close();
 
   if (_response.statusCode == 200) {
     Map<String, dynamic> _result = jsonDecode(_response.body);
@@ -78,17 +69,15 @@ Future<List<Store>> getStores() async {
         (_result['data'] as List).map((e) => new Store.fromJson(e)).toList();
   }
 
-  log(stores.toString());
-
   return stores;
 }
 
+/// getProductsByStoreId - Get products by store id throught GET
 Future<List<Product>> getProductsByStoreId(int id) async {
   final _url = '$apiUrl/tienda/$id/productos';
 
   /* take token */
-  var _tokenBox = await Hive.openBox<String>('token');
-  String _token = _tokenBox.get(0);
+  String _token = await getToken();
 
   final _response = await http.get(_url, headers: {
     'Accept': 'application/json',
@@ -103,30 +92,21 @@ Future<List<Product>> getProductsByStoreId(int id) async {
         .map((e) => new Product.fromJson(e['producto']))
         .toList();
   }
-
-  log(products.toString());
-
   return products;
 }
 
+/// getSuscriptions - Get All suscriptions of login user to a store throught GET
 Future<List<Store>> getSuscriptions() async {
   final _url = '$apiUrl/usuario/suscripciones';
 
   /* take token */
-  var _tokenBox = await Hive.openBox<String>('token');
-  String _token = _tokenBox.get(0);
-
-  log(_tokenBox.get(0));
+  String _token = await getToken();
 
   final _response = await http.get(_url, headers: {
     'Accept': 'application/json',
     'Authorization': 'Bearer $_token',
   });
   List<Store> stores;
-
-  log(jsonDecode(_response.body).toString());
-
-  _tokenBox.close();
 
   if (_response.statusCode == 200) {
     Map<String, dynamic> _result = jsonDecode(_response.body);
@@ -135,8 +115,6 @@ Future<List<Store>> getSuscriptions() async {
         .map((e) => new Store.fromJson(e['tienda']))
         .toList();
   }
-
-  log(stores.toString());
 
   return stores;
 }

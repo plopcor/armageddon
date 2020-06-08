@@ -40,7 +40,9 @@ class MyAuthApp extends StatefulWidget {
 }
 
 class _MyAuthAppState extends State<MyAuthApp> {
-  var _actualScreen = 0;
+  //TODO set _actualScreen to 0
+
+  var _actualScreen = 1;
 
   var _pageOptions = [
     FavScreen(),
@@ -54,9 +56,13 @@ class _MyAuthAppState extends State<MyAuthApp> {
       backgroundColor: BackgroundColor,
       body: _pageOptions[_actualScreen],
       bottomNavigationBar: BottomNavigationBar(
+        showUnselectedLabels: false,
+        elevation: 0,
+        backgroundColor: BackgroundColor,
         currentIndex: _actualScreen,
         items: [
           BottomNavigationBarItem(
+              activeIcon: Icon(Icons.favorite_border),
               icon: Icon(Icons.favorite),
               title: Text('Favoritos'),
               backgroundColor: Colors.white),
@@ -65,6 +71,7 @@ class _MyAuthAppState extends State<MyAuthApp> {
               title: Text('Buscar'),
               backgroundColor: Colors.white),
           BottomNavigationBarItem(
+              activeIcon: Icon(Icons.people_outline),
               icon: Icon(Icons.people),
               title: Text('Perfil'),
               backgroundColor: Colors.white)

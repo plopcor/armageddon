@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/userModel.dart';
@@ -21,27 +20,13 @@ Future<bool> login({String password, String username}) async {
     User _user = User.fromJson(_result['usuario']);
 
     /* save user object */
-    var _userBox = await Hive.openBox<User>('user');
-    if (_userBox.containsKey(0))
-      _userBox.putAt(0, _user);
-    else
-      _userBox.add(_user);
+    await saveUser(_user);
 
+    /* get token from _result*/
     String _token = _result['token'].toString();
 
     /* save token */
-    var _tokenBox = await Hive.openBox<String>('token');
-
-    if (_tokenBox.containsKey(0))
-      _tokenBox.putAt(0, _token);
-    else
-      _tokenBox.add(_token);
-
-    log(_tokenBox.get(0));
-    log(_userBox.get(0).toString());
-
-    _tokenBox.close();
-    _userBox.close();
+    await saveToken(_token);
 
     return true;
   } else {
@@ -54,19 +39,12 @@ Future<bool> logout() async {
   final _url = '$apiUrl/logout';
 
   /* take token */
-  var _tokenBox = await Hive.openBox<String>('token');
-  String _token = _tokenBox.get(0);
-
-  log(_tokenBox.get(0));
+  String _token = await getToken();
 
   final _response = await http.get(_url, headers: {
     'Accept': 'application/json',
     'Authorization': 'Bearer $_token',
   });
-
-  log(jsonDecode(_response.body).toString());
-
-  _tokenBox.close();
 
   if (_response.statusCode == 200)
     return true;
@@ -93,28 +71,13 @@ Future<bool> register(
     User _user = User.fromJson(_result['usuario']);
 
     /* save user object */
-    var _userBox = await Hive.openBox<User>('user');
+    await saveUser(_user);
 
-    if (_userBox.containsKey(0))
-      _userBox.putAt(0, _user);
-    else
-      _userBox.add(_user);
-
+    /* get token from _result*/
     String _token = _result['token'].toString();
 
     /* save token */
-    var _tokenBox = await Hive.openBox<String>('token');
-
-    if (_tokenBox.containsKey(0))
-      _tokenBox.putAt(0, _token);
-    else
-      _tokenBox.add(_token);
-
-    log(_tokenBox.get(0));
-    log(_userBox.get(0).toString());
-
-    _tokenBox.close();
-    _userBox.close();
+    await saveToken(_token);
 
     return true;
   } else {
@@ -128,11 +91,9 @@ Future<bool> isAuth() async {
   var _token;
   bool verification = false;
 
-  var _tokenBox = await Hive.openBox<String>('token');
+  _token = await getToken();
 
-  if (_tokenBox.containsKey(0)) {
-    _token = _tokenBox.get(0);
-
+  if (_token != null) {
     final _response = await http.get(_url, headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $_token',
@@ -141,20 +102,13 @@ Future<bool> isAuth() async {
     if (_response.statusCode == 200) {
       verification =
           jsonDecode(_response.body).toString().contains('true') ? true : false;
-
-      log(verification.toString());
     }
   }
-
-  _tokenBox.close();
-
   return verification;
 }
 
 Future<User> getUser() async {
-  /* take user */
   var _userBox = await Hive.openBox<User>('user');
-
   User _user;
 
   if (_userBox.containsKey(0))
@@ -163,4 +117,37 @@ Future<User> getUser() async {
     _user = null;
 
   return _user;
+}
+
+Future<bool> saveUser(User _user) async {
+  if (_user != null) {
+    var _userBox = await Hive.openBox<User>('user');
+
+    if (_userBox.containsKey(0))
+      _userBox.putAt(0, _user);
+    else
+      _userBox.add(_user);
+    return true;
+  } else
+    return false;
+}
+
+Future<bool> saveToken(_token) async {
+  if (_token.toString().isNotEmpty) {
+    var _tokenBox = await Hive.openBox<String>('token');
+
+    if (_tokenBox.containsKey(0))
+      _tokenBox.putAt(0, _token);
+    else
+      _tokenBox.add(_token);
+    return true;
+  } else
+    return false;
+}
+
+Future<String> getToken() async {
+  var _tokenBox = await Hive.openBox<String>('token');
+  String _token;
+  if (_tokenBox.containsKey(0)) _token = _tokenBox.get(0);
+  return _token;
 }
