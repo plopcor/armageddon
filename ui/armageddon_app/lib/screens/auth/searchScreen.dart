@@ -330,13 +330,56 @@ class _MySearchBarStoresState extends State<MySearchBarStores> {
     return Expanded(
       child: SafeArea(
         child: SearchBar<Store>(
+          searchBarStyle: SearchBarStyle(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          ),
           searchBarPadding: EdgeInsets.symmetric(horizontal: 10),
           headerPadding: EdgeInsets.symmetric(horizontal: 10),
           listPadding: EdgeInsets.symmetric(horizontal: 10),
           onSearch: _getAllStores,
           searchBarController: widget._controller,
-          cancellationWidget: Text("Cancelar"),
-          emptyWidget: Text("Vacio"),
+          cancellationWidget: Container(
+            alignment: Alignment.centerRight,
+            height: 56,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(34),
+              color: PrimaryPurple,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text('Cancelar', style: TextStyle(color: Colors.white)),
+              ),
+            ),
+          ),
+          /* TODO put location here */
+          header: null,
+          emptyWidget: Container(
+            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 34),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(17),
+              gradient: LinearGradient(
+                colors: [PrimaryPurple, Color(0xFFB5B0E7)],
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey[400].withOpacity(0.3),
+                  spreadRadius: 3,
+                  blurRadius: 6,
+                  offset: Offset(0, 1),
+                ),
+              ],
+            ),
+            child: Text(
+              '¡Uy! ¡No he encontrado nada!',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ),
           indexedScaledTileBuilder: (int index) => ScaledTile.count(1, 1),
           onCancelled: () {
             print("Cancelado");

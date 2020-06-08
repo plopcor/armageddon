@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/orderModel.dart';
 import 'package:armageddon_app/models/productModel.dart';
 import 'package:armageddon_app/models/storeModel.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
 import 'package:flutter/material.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class ShopScreen extends StatelessWidget {
   final Store store;
@@ -14,7 +17,13 @@ class ShopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Stack(
+      body: SlidingUpPanel(
+      backdropEnabled: true,
+      renderPanelSheet: false,
+      panel: _floatingPanel(),
+      collapsed: _floatingCollapsed(),
+      body: 
+      Stack(
         fit: StackFit.loose,
         children: <Widget>[
           //Fondo
@@ -86,18 +95,15 @@ class ShopScreen extends StatelessWidget {
                                         children: <Widget>[
                                           GestureDetector(
                                             onTap: () {
-                                              final snackBar = SnackBar(
-                                                  content: Text(product.nombre +
-                                                      ' añadido al carrito'));
-
-                                              Scaffold.of(context)
-                                                  .showSnackBar(snackBar);
-
-                                              order.productos.add(
-                                                new Product(
-                                                    id: product.id,
-                                                    imgPath: product.imgPath),
+                                              order.productos.add(new Product(
+                                                  id: product.id,
+                                                  imgPath: product.imgPath));
+                                              SnackBarAction(
+                                                label: product.nombre +
+                                                    ' añadido al carrito',
+                                                onPressed: () {},
                                               );
+                                              //Add al carrito
                                             },
                                             child: Container(
                                               padding: EdgeInsets.all(0),
@@ -226,6 +232,49 @@ class ShopScreen extends StatelessWidget {
           )
         ],
       ),
+    ),
+
+
+      
+      
     );
   }
+}
+
+
+
+Widget _floatingCollapsed(){
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.blueGrey,
+      borderRadius: BorderRadius.only(topLeft: Radius.circular(24.0), topRight: Radius.circular(24.0)),
+    ),
+    margin: const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0),
+    child: Center(
+      child: Text(
+        "This is the collapsed Widget",
+        style: TextStyle(color: Colors.white),
+      ),
+    ),
+  );
+}
+
+Widget _floatingPanel(){
+  return Container(
+    
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(24.0)),
+      boxShadow: [
+        BoxShadow(
+          blurRadius: 7.0,
+          //color: Colors.white,
+        ),
+      ]
+    ),
+    margin: const EdgeInsets.all(24.0),
+    child: Center(
+      child: Text("PENE"),
+    ),
+  );
 }
