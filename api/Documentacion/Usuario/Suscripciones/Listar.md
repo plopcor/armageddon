@@ -4,7 +4,7 @@ Listar todas las suscripciones del usuario actual
 
 **URL** : `/usuario/suscripcion/{idTienda}`
 
-**Metodo** : `DELETE`
+**Metodo** : `GET`
 
 **Auth requerida** : SI
 
@@ -52,19 +52,7 @@ Listar todas las suscripciones del usuario actual
 #### [400 Bad Request](../General/Errores.md#400-bad-request)
 
 #### 404 Not Found
-
-La tienda especificada no existe
-
-**Codigo** : `404 Not Found`
-
-**Contenido** :
-
-```json
-{
-    "success": false,
-    "message": "Tienda no encontrada",
-}
-```
-
+Mensajes:
+* La Tienda especificada no existe
 
 ## Notas

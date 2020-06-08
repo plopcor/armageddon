@@ -12,9 +12,9 @@ Crear un pedido con productos de la tienda
 
 ```json
 {
-  "productos" = [
-    [ "id": "<ID Producto | Integer>", "cantidad": "<Integer>" ],
-    [ "id": "<ID Producto | Integer>", "cantidad": "<Integer>" ]
+  "productos" : [
+    [ "id": "<ID ProductoTienda | Integer>", "cantidad": "<Integer>" ],
+    [ "id": "<ID ProductoTienda | Integer>", "cantidad": "<Integer>" ]
   ]
 }
 ```

@@ -72,7 +72,38 @@ class TiendaPropiaController extends APIController
     {
         $tienda = $this->recuperarTiendaPropia();
 
-        // TODO
+        // Validar datos
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'string',
+            'longitud' => 'numeric|between:-180,180',
+            'latitud' => 'numeric|between:-90,90',
+            'imagen' => 'url',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendErrorBadRequest($validator->errors());
+        }
+
+        // Comprovar datos a actualizar
+        if(!empty($request->nombre)) {
+            $tienda->nombre = $request->nombre;
+        }
+        if(!empty($request->longitud)) {
+            $tienda->longitud = $request->longitud;
+        }
+        if(!empty($request->latitud)) {
+            $tienda->latitud = $request->latitud;
+        }
+        if(!empty($request->imagen)) {
+            $tienda->imagen = $request->imagen;
+        }
+
+        // Actualizar tienda
+        if($tienda->save()){
+            return $this->sendOk();
+        } else {
+            return $this->sendErrorDatabase();
+        }
     }
 
     /**
@@ -93,7 +124,7 @@ class TiendaPropiaController extends APIController
     public function productos_listar(Request $request)
     {
         $tienda = $this->recuperarTiendaPropia();
-        $productos = $tienda->productos;
+        $productos = $tienda->productos->with('producto');
         return $this->sendResponse($productos);
     }
 

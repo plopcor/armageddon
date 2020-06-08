@@ -23,7 +23,8 @@ class TiendasController extends APIController
      */
     public function listar()
     {
-        return $this->sendResponse(Tienda::all());
+        $tiendas = Tienda::all();
+        return $this->sendResponse($tiendas);
     }
 
     /**
@@ -33,6 +34,30 @@ class TiendasController extends APIController
     {
         $tienda = $this->recuperarTiendaById($request->id);
         return $this->sendResponse($tienda);
+    }
+
+    /**
+     * Filtrar por localizacion
+     */
+    public function filtrar(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'longitud' => 'required_with:latitud|numeric|between:-180,180',
+            'latitud' => 'required_with:latitud|numeric|between:-90,90',
+            'radio' => 'numeric',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendErrorBadRequest($validator->errors());
+        }
+
+        // Default Radio
+        $request['radio'] = $request->radio ?? 5;
+
+        // Filtrar tiendas por localizacion
+        $tiendas = Tienda::cercaDe($request, $request->radio)->get();
+
+        return $this->sendResponse($tiendas);
     }
 
     // ------------------------------------------------------------------
@@ -59,6 +84,10 @@ class TiendasController extends APIController
         if($producto == null) {
             return $this->sendErrorNotFound("La tienda no contiene este producto");
         }
+//        else {
+//              // Cargar producto base (con los datos como nombre, imagen, etc)
+//            $producto->with('producto');
+//        }
 
         return $this->sendResponse($producto);
     }

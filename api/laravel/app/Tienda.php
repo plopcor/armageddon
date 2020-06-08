@@ -48,4 +48,23 @@ class Tienda extends Model
     {
         return $this->belongsToMany(Categoria::class, 'tienda_categoria', 'id_tienda', 'id_categoria');
     }
+
+
+    /**
+     * Filtrar por geolocalizacion (latitud y longitud)
+     */
+    public function scopecercaDe($query, $geo, $radio)
+    {
+        // Latitud
+        $minLatitud = $geo->latitud - ($radio*0.018);
+        $maxLatitud = $geo->latitud + ($radio*0.018);
+
+        // Longitud
+        $minLongitud = $geo->longitud - ($radio*0.018);
+        $maxLongitud = $geo->longitud + ($radio*0.018);
+
+        return $query
+            ->whereBetween('latitud', [$minLatitud, $maxLatitud])
+            ->whereBetween('longitud', [$minLongitud, $maxLongitud]);
+    }
 }

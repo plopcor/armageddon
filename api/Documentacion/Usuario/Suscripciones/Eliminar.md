@@ -1,16 +1,16 @@
-# Crear
+# Eliminar
 
-Crear una suscripcion a una Tienda si no existe
+Eliminar una suscripcion existente
 
-**URL** : `/tienda/{idTienda}/suscripcion`
+**URL** : `/usuario/suscripcion/{idSuscripcion}`
 
-**Metodo** : `POST`
+**Metodo** : `DELETE`
 
 **Auth requerida** : SI
 
 **Datos** :
 
-* {idTienda}: ID de la Tienda a la que suscribirse
+* {idSuscripcion}: ID de la Suscripcion a eliminar
 
 ## Respuesta Correcta
 
@@ -43,5 +43,7 @@ Mensajes:
 * La Tienda especificada no existe
 
 #### [500 Internal Server Error](../General/Errores.md#500-internal-server-error)
+Mensajes:
+* Error al crear o guardar la suscripcion en la base de datos
 
 ## Notas
