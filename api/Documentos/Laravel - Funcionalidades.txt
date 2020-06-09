@@ -7,6 +7,9 @@ https://laravel.com/docs/7.x/eloquent-relationships#eager-loading
 - Recordar la session del usuario
 https://laravel.com/docs/7.x/authentication#authenticating-users
 
+# Iconos
+https://icons.getbootstrap.com/
+
 # Validacion de peticiones
 https://laravel.com/docs/7.x/validation#available-validation-rules
 

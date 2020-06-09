@@ -32,15 +32,18 @@ class FavoritoController extends APIController
         // Recuperar pedido
         $pedido = Auth::user()->pedidos->find($request->id);
         if($pedido == null) {
-            return $this->sendErrorNotFound("No existe el pedido con ID " . $request->id);
+            return $this->sendErrorNotFound("No existe el pedido especificado");
         }
 
         // Comprovar si ya existe el favorito
-        $favorito = Auth::user()->favoritos->where('id_pedido')->first();
+        $favorito = Auth::user()->favoritos->where('id_pedido', $pedido->id)->first();
         if($favorito == null) {
 
+//            $nombre = "Fav. " . Auth::user()->favoritos->count() + 1;
+            $nombre = !empty($request->nombre) ? $request->nombre : "Favorito";
+
             $favorito = Favorito::create([
-                'nombre' => 'Fav.',
+                'nombre' => $nombre,
                 'id_usuario' => Auth::user()->id,
                 'id_pedido' => $pedido->id
             ]);
@@ -50,9 +53,10 @@ class FavoritoController extends APIController
             } else {
                 return $this->sendErrorDatabase();
             }
-        }
 
-        return $this->sendOk();
+        } else {
+            return $this->sendErrorConflict("Ya se ha añadido a Favoritos");
+        }
     }
 
     /**
@@ -71,7 +75,7 @@ class FavoritoController extends APIController
             }
 
         } else {
-            return $this->sendErrorNotFound("No existe un favorito con ID " . $request->id);
+            return $this->sendErrorNotFound("El Favorito especificado no existe");
         }
     }
 }
