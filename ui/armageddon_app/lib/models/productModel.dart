@@ -15,6 +15,8 @@ class Product {
   int esEspecifico;
   DateTime createdAt;
   dynamic updatedAt;
+  int idTienda;
+  double precio;
 
   Product({
     this.id,
@@ -23,6 +25,8 @@ class Product {
     this.esEspecifico,
     this.createdAt,
     this.updatedAt,
+    this.idTienda,
+    this.precio,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
