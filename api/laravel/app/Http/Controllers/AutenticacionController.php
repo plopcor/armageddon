@@ -87,5 +87,14 @@ class AutenticacionController extends APIController
         return $this->sendOk();
     }
 
+    /**
+     * Ver tokens propios
+     */
+    public function listar_tokens()
+    {
+        $tokens = Auth::user()->accessTokens()->get();
+        return $this->sendResponse($tokens);
+    }
+
 }
 

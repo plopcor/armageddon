@@ -118,6 +118,14 @@ class APIController extends Controller
     }
 
     /**
+     * Return 409 Conflict error response
+     */
+    public function sendErrorConflict($message = 'El recurso ya existe')
+    {
+        return $this->sendError(409, $message);
+    }
+
+    /**
      * Return 500 Database error response (para cuando no guarda en la BD)
      */
     public function sendErrorDatabase($message = 'No se ha podido modificar el recurso en la base de datos')

@@ -39,6 +39,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'esTienda' => 'boolean',
     ];
 
     /**
@@ -89,6 +90,14 @@ class User extends Authenticatable
     {
         //return $this->belongsToMany(Pedido::class, 'favoritos', 'id_usuario', 'id_favorito');
         return $this->hasMany(Favorito::class, 'id_usuario');
+    }
+
+    /**
+     * Tokens de acceso creados
+     */
+    public function accessTokens()
+    {
+        return $this->hasMany('App\OauthAccessToken');
     }
 
 }

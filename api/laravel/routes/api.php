@@ -23,6 +23,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('/register', 'AutenticacionController@register');
     Route::get('/logout', 'AutenticacionController@logout')->middleware('auth:api');
     Route::get('/token', 'AutenticacionController@verificar_token')->middleware('auth:api'); // Probar el token
+    Route::get('/tokens', 'AutenticacionController@listar_tokens')->middleware('auth:api');  // Listar los tokens vigentes
 
 
     /**

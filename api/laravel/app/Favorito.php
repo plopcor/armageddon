@@ -9,6 +9,8 @@ class Favorito extends Model
         'nombre', 'id_usuario', 'id_pedido'
     ];
 
+    public $timestamps = false;
+
     /**
      * Usuarios
      */
