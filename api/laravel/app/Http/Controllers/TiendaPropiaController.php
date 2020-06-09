@@ -124,7 +124,7 @@ class TiendaPropiaController extends APIController
     public function productos_listar(Request $request)
     {
         $tienda = $this->recuperarTiendaPropia();
-        $productos = $tienda->productos->with('producto');
+        $productos = $tienda->productos->load('producto');
         return $this->sendResponse($productos);
     }
 

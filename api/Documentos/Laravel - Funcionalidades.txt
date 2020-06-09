@@ -1,6 +1,12 @@
 # Eager loading (cargar sub-relaciones y datos adicionales)
 https://laravel.com/docs/7.x/eloquent-relationships#eager-loading
 
+# Login de usuarios
+- Poner condiciones (como que el usuario este activo, etc)
+- Cambiar el metodo de login (en vez de usar el "email", usar "usuario" por ejemplo)
+- Recordar la session del usuario
+https://laravel.com/docs/7.x/authentication#authenticating-users
+
 # Validacion de peticiones
 https://laravel.com/docs/7.x/validation#available-validation-rules
 
