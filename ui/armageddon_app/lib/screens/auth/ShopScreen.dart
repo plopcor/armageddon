@@ -1,17 +1,23 @@
-import 'dart:developer';
-
 import 'package:armageddon_app/constants.dart';
-import 'package:armageddon_app/models/orderModel.dart';
+import 'package:armageddon_app/models/cartModel.dart';
 import 'package:armageddon_app/models/productModel.dart';
 import 'package:armageddon_app/models/storeModel.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
+import 'package:armageddon_app/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class ShopScreen extends StatelessWidget {
+class ShopScreen extends StatefulWidget {
   final Store store;
 
   ShopScreen({Key key, @required this.store}) : super(key: key);
+
+  @override
+  _ShopScreenState createState() => _ShopScreenState();
+}
+
+class _ShopScreenState extends State<ShopScreen> {
+  List<Producto> items = [];
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,9 @@ class ShopScreen extends StatelessWidget {
       body: SlidingUpPanel(
         backdropEnabled: true,
         renderPanelSheet: false,
-        panel: _floatingPanel(),
+        panel: _floatingPanel(
+          items: items,
+        ),
         collapsed: _floatingCollapsed(),
         body: Stack(
           fit: StackFit.loose,
@@ -68,15 +76,13 @@ class ShopScreen extends StatelessWidget {
 
                       //lista productos
                       FutureBuilder<List<Product>>(
-                          future: getProductsByStoreId(store.id),
+                          future: getProductsByStoreId(widget.store.id),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
                               if (snapshot.hasError) {
                                 return Text("Error");
                               }
-
-                              Order order = new Order(idTienda: store.id);
 
                               return Expanded(
                                 child: Container(
@@ -93,9 +99,13 @@ class ShopScreen extends StatelessWidget {
                                           children: <Widget>[
                                             GestureDetector(
                                               onTap: () {
-                                                order.productos.add(new Product(
-                                                    id: product.id,
-                                                    imgPath: product.imgPath));
+                                                String cantidad = "1";
+                                                setState(() {
+                                                  items.add(new Producto(
+                                                      id: product.id.toString(),
+                                                      nombre: product.nombre,
+                                                      cantidad: cantidad));
+                                                });
                                                 SnackBarAction(
                                                   label: product.nombre +
                                                       ' añadido al carrito',
@@ -151,7 +161,7 @@ class ShopScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 15, right: 90),
                         child: Text(
-                          store.nombre,
+                          widget.store.nombre,
                           style: new TextStyle(
                             fontSize: 20.0,
                             color: Colors.black,
@@ -206,13 +216,14 @@ class ShopScreen extends StatelessWidget {
               child: Container(
                 height: 80,
                 decoration: new BoxDecoration(
-                    color: PrimaryPurple,
-                    borderRadius: new BorderRadius.only(
-                      topLeft: const Radius.circular(30.0),
-                      topRight: const Radius.circular(30.0),
-                      bottomLeft: const Radius.circular(30.0),
-                      bottomRight: const Radius.circular(30.0),
-                    )),
+                  color: PrimaryPurple,
+                  borderRadius: new BorderRadius.only(
+                    topLeft: const Radius.circular(30.0),
+                    topRight: const Radius.circular(30.0),
+                    bottomLeft: const Radius.circular(30.0),
+                    bottomRight: const Radius.circular(30.0),
+                  ),
+                ),
                 child: new Column(
                   children: <Widget>[
                     //Indormación tienda
@@ -251,32 +262,87 @@ Widget _floatingCollapsed() {
     decoration: BoxDecoration(
       color: Colors.blueGrey,
       borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24.0), topRight: Radius.circular(24.0)),
+        topLeft: Radius.circular(24.0),
+        topRight: Radius.circular(24.0),
+      ),
     ),
     margin: const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0),
     child: Center(
       child: Text(
-        "This is the collapsed Widget",
+        "Carrito de compra",
         style: TextStyle(color: Colors.white),
       ),
     ),
   );
 }
 
-Widget _floatingPanel() {
-  return Container(
-    decoration: BoxDecoration(
+class _floatingPanel extends StatefulWidget {
+  final List<Producto> items;
+  _floatingPanel({this.items});
+
+  @override
+  __floatingPanelState createState() => __floatingPanelState();
+}
+
+class __floatingPanelState extends State<_floatingPanel> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(24.0)),
         boxShadow: [
           BoxShadow(
-            blurRadius: 7.0,
-            //color: Colors.white,
+            color: Colors.black.withOpacity(0.3),
+            spreadRadius: 0.5,
+            blurRadius: 6,
+            offset: Offset(0, 1),
           ),
-        ]),
-    margin: const EdgeInsets.all(24.0),
-    child: Center(
-      child: Text("PENE"),
-    ),
-  );
+        ],
+      ),
+      margin: const EdgeInsets.all(24.0),
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView.builder(
+                itemCount: widget.items.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        widget.items.removeAt(index);
+                      });
+                    },
+                    child: Item(text: widget.items[index].nombre),
+                  );
+                }),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 27, vertical: 24),
+            child: RaisedButton(
+              onPressed: () {
+                Navigator.popAndPushNamed(context, null);
+              },
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(17),
+                side: BorderSide(
+                  color: PrimaryPurple,
+                ),
+              ),
+              color: PrimaryPurple,
+              child: Text(
+                'Finalizar Compra',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

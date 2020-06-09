@@ -1,4 +1,5 @@
 import 'package:armageddon_app/constants.dart';
+import 'package:armageddon_app/models/cartModel.dart';
 import 'package:flutter/material.dart';
 
 class StartButton extends StatelessWidget {
@@ -86,6 +87,29 @@ class InputText extends StatelessWidget {
         obscureText: hideText,
       ),
       padding: EdgeInsets.only(top: 24, left: 27, right: 27),
+    );
+  }
+}
+
+class Item extends StatelessWidget {
+  final String text;
+  final String imgPath;
+  Item({this.text, this.imgPath});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 24, left: 27, right: 27),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            text,
+            style: TextStyle(fontSize: 24, color: Colors.black),
+          ),
+          Icon(Icons.delete),
+        ],
+      ),
     );
   }
 }
