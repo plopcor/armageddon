@@ -38,6 +38,11 @@ Añadir un pedido a Favoritos
 Mensajes:
 * El Pedido especificado no existe
 
+#### [409 Conflict](../General/Errores.md#409-conflict)
+Motivo:
+* El Pedido ja esta añadido a Favoritos
+
+
 #### [500 Internal Server Error](../General/Errores.md#500-internal-server-error)
 
 ## Notas
