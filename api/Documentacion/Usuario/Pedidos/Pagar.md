@@ -25,7 +25,7 @@ Devuelve el pedido con la tienda donde se ha realizado
         "id_tienda": 1,
         "estado": "PAGADO",
         "recogida": "2020-12-30 00:00:00",
-        "codigo_qr": "qrcodes/a87ff679a2f3e71d9181a67b7542122c.png",
+        "codigo_qr": "/qrcodes/a87ff679a2f3e71d9181a67b7542122c.png",
         "created_at": "2020-12-30 00:00:00",
         "updated_at": "2020-12-30 00:00:0",
         "tienda": {
