@@ -26,6 +26,8 @@ Future<bool> crearPedido(int idTienda, Cart cart) async {
     body: data.toString(),
   );
 
+  print(_response.statusCode.toString());
+
   if (_response.statusCode == 200) {
     return true;
   } else {

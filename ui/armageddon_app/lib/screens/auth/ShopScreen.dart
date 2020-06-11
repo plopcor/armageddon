@@ -102,12 +102,24 @@ class _FloatingPanelState extends State<_FloatingPanel> {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 27, vertical: 24),
             child: RaisedButton(
-              onPressed: () {
+              onPressed: () async {
                 /*TODO Finalizar pedido */
-                crearPedido(widget.store.id, widget.cart);
-                //widget.items.
-                //Navigator.push(context,
-                //    MaterialPageRoute(builder: (context) => QRScreen()));
+                var _result = await crearPedido(widget.store.id, widget.cart);
+                if (_result) {
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Pedido Creado'),
+                    ),
+                  );
+                } else {
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Error al crear pedido'),
+                    ),
+                  );
+                }
+                await Future.delayed(Duration(seconds: 2));
+                Navigator.of(context).pop();
               },
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
               elevation: 0,
