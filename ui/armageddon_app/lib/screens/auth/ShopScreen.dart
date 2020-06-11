@@ -3,6 +3,7 @@ import 'package:armageddon_app/models/cartModel.dart';
 import 'package:armageddon_app/models/productModel.dart';
 import 'package:armageddon_app/models/storeModel.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
+import 'package:armageddon_app/services/dataPutService.dart';
 import 'package:armageddon_app/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -16,7 +17,6 @@ class ShopScreen extends StatefulWidget {
   _ShopScreenState createState() => _ShopScreenState();
 }
 
-/*TODO _FloatingCollapsedState */
 class _FloatingCollapsed extends StatefulWidget {
   final Cart cart;
 
@@ -52,10 +52,10 @@ class __FloatingCollapsedState extends State<_FloatingCollapsed> {
   }
 }
 
-/*TODO _FloatingPanel */
 class _FloatingPanel extends StatefulWidget {
   final Cart cart;
-  _FloatingPanel({this.cart});
+  final Store store;
+  _FloatingPanel({this.cart, this.store});
 
   @override
   _FloatingPanelState createState() => _FloatingPanelState();
@@ -103,6 +103,8 @@ class _FloatingPanelState extends State<_FloatingPanel> {
             margin: EdgeInsets.symmetric(horizontal: 27, vertical: 24),
             child: RaisedButton(
               onPressed: () {
+                /*TODO Finalizar pedido */
+                crearPedido(widget.store.id, widget.cart);
                 //widget.items.
                 //Navigator.push(context,
                 //    MaterialPageRoute(builder: (context) => QRScreen()));
@@ -137,7 +139,10 @@ class _ShopScreenState extends State<ShopScreen> {
       body: SlidingUpPanel(
         backdropEnabled: true,
         renderPanelSheet: false,
-        panel: _FloatingPanel(cart: cart),
+        panel: _FloatingPanel(
+          cart: cart,
+          store: widget.store,
+        ),
         collapsed: _FloatingCollapsed(cart: cart),
         body: Stack(
           fit: StackFit.loose,

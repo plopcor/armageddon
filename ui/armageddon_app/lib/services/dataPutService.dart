@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:armageddon_app/constants.dart';
-import 'package:armageddon_app/models/productModel.dart';
+import 'package:armageddon_app/models/cartModel.dart';
 import 'package:armageddon_app/services/authenticationServices.dart';
 import 'package:http/http.dart' as http;
 
 /// crearPedido - Post All list products throught POST
-Future<void> crearPedido(int idTienda, List<Product> productos) async {
+Future<void> crearPedido(int idTienda, Cart cart) async {
   final _url = '$apiUrl/tienda/{$idTienda}/pedido';
 
   /* take token */
@@ -17,7 +17,7 @@ Future<void> crearPedido(int idTienda, List<Product> productos) async {
 
   Map<String, dynamic> data() => {
         "productos": List<dynamic>.from(
-          productos.map(
+          cart.productos.map(
             (x) => x.toJson(),
           ),
         ),
@@ -34,6 +34,7 @@ Future<void> crearPedido(int idTienda, List<Product> productos) async {
 
   if (_response.statusCode == 200) {
     Map<String, dynamic> _result = jsonDecode(_response.body);
-    print(_result);
+    String qr = _result['codigo_qr'];
+    print(qr);
   }
 }
