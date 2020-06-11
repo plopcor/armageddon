@@ -55,7 +55,7 @@ class Cart {
       );
 
   Map<String, dynamic> toJson() => {
-        "productos": List<dynamic>.from(productos.map((x) => x.toJson())),
+        json.encode("productos"): json.encode(productos),
       };
 }
 
@@ -86,6 +86,5 @@ class Producto {
   Map<String, dynamic> toJson() => {
         "id": id,
         "cantidad": cantidad,
-        "nombre": nombre,
       };
 }
