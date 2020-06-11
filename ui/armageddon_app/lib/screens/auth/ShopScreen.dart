@@ -16,6 +16,15 @@ class ShopScreen extends StatefulWidget {
   _ShopScreenState createState() => _ShopScreenState();
 }
 
+/*TODO _FloatingCollapsedState */
+class _FloatingCollapsed extends StatefulWidget {
+  final Cart cart;
+
+  _FloatingCollapsed({this.cart});
+  @override
+  __FloatingCollapsedState createState() => __FloatingCollapsedState();
+}
+
 class __FloatingCollapsedState extends State<_FloatingCollapsed> {
   @override
   Widget build(BuildContext context) {
@@ -29,31 +38,24 @@ class __FloatingCollapsedState extends State<_FloatingCollapsed> {
       ),
       margin: const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 0.0),
       child: Center(
-        child: Text(
-          "En le carrito hay: " + widget.items.length.toString(),
-          style: TextStyle(color: Colors.white),
+        child: FutureBuilder(
+          future: widget.cart.length(),
+          builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+            return Padding(
+              padding: const EdgeInsets.all(27.0),
+              child: Icon(Icons.shopping_cart, color: Colors.white),
+            );
+          },
         ),
       ),
     );
   }
 }
 
-class _FloatingCollapsed extends StatefulWidget {
-  final List<Producto> items;
-  _FloatingCollapsed({
-    Key key,
-    this.items,
-  }) : super(key: key);
-  @override
-  __FloatingCollapsedState createState() => __FloatingCollapsedState();
-}
-
+/*TODO _FloatingPanel */
 class _FloatingPanel extends StatefulWidget {
-  final List<Producto> items;
-  _FloatingPanel({
-    Key key,
-    this.items,
-  }) : super(key: key);
+  final Cart cart;
+  _FloatingPanel({this.cart});
 
   @override
   _FloatingPanelState createState() => _FloatingPanelState();
@@ -79,24 +81,31 @@ class _FloatingPanelState extends State<_FloatingPanel> {
       child: Column(
         children: <Widget>[
           Expanded(
-            child: ListView.builder(
-                itemCount: widget.items.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        widget.items.removeAt(index);
-                      });
-                    },
-                    child: Item(text: widget.items[index].nombre),
-                  );
-                }),
+            child: Container(
+              margin: EdgeInsets.only(top: 20),
+              child: ListView.builder(
+                  itemCount: widget.cart.productos.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          widget.cart.deleteProduct(index);
+                        });
+                      },
+                      child: Item(
+                          text: widget.cart.productos[index].nombre,
+                          cantidad: widget.cart.productos[index].cantidad),
+                    );
+                  }),
+            ),
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 27, vertical: 24),
             child: RaisedButton(
               onPressed: () {
-                Navigator.popAndPushNamed(context, null);
+                //widget.items.
+                //Navigator.push(context,
+                //    MaterialPageRoute(builder: (context) => QRScreen()));
               },
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
               elevation: 0,
@@ -109,10 +118,7 @@ class _FloatingPanelState extends State<_FloatingPanel> {
               color: PrimaryPurple,
               child: Text(
                 'Finalizar Compra',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                ),
+                style: TextStyle(fontSize: 24, color: Colors.white),
               ),
             ),
           ),
@@ -123,7 +129,7 @@ class _FloatingPanelState extends State<_FloatingPanel> {
 }
 
 class _ShopScreenState extends State<ShopScreen> {
-  List<Producto> items = [];
+  Cart cart = Cart(productos: new List<Producto>());
 
   @override
   Widget build(BuildContext context) {
@@ -131,8 +137,8 @@ class _ShopScreenState extends State<ShopScreen> {
       body: SlidingUpPanel(
         backdropEnabled: true,
         renderPanelSheet: false,
-        panel: _FloatingPanel(items: items),
-        collapsed: _FloatingCollapsed(items: items),
+        panel: _FloatingPanel(cart: cart),
+        collapsed: _FloatingCollapsed(cart: cart),
         body: Stack(
           fit: StackFit.loose,
           children: <Widget>[
@@ -204,19 +210,22 @@ class _ShopScreenState extends State<ShopScreen> {
                                           children: <Widget>[
                                             GestureDetector(
                                               onTap: () {
-                                                String cantidad = "1";
+                                                int cantidad = 1;
                                                 setState(() {
-                                                  items.add(new Producto(
-                                                      id: product.id.toString(),
-                                                      nombre: product.nombre,
-                                                      cantidad: cantidad));
+                                                  Producto p = new Producto(
+                                                    id: product.id,
+                                                    nombre: product.nombre,
+                                                    cantidad: cantidad,
+                                                  );
+                                                  cart.addProduct(p);
                                                 });
                                                 Scaffold.of(context)
                                                     .showSnackBar(
                                                   SnackBar(
-                                                    content: Text(product
-                                                            .nombre +
-                                                        ' añadido al carrito'),
+                                                    content: Text(
+                                                      product.nombre +
+                                                          ' añadido al carrito',
+                                                    ),
                                                   ),
                                                 );
                                                 //Add al carrito

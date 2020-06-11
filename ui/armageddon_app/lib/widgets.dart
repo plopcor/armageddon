@@ -1,5 +1,4 @@
 import 'package:armageddon_app/constants.dart';
-import 'package:armageddon_app/models/cartModel.dart';
 import 'package:flutter/material.dart';
 
 class StartButton extends StatelessWidget {
@@ -94,7 +93,8 @@ class InputText extends StatelessWidget {
 class Item extends StatelessWidget {
   final String text;
   final String imgPath;
-  Item({this.text, this.imgPath});
+  final int cantidad;
+  Item({this.text, this.imgPath, this.cantidad});
 
   @override
   Widget build(BuildContext context) {
@@ -105,6 +105,10 @@ class Item extends StatelessWidget {
         children: <Widget>[
           Text(
             text,
+            style: TextStyle(fontSize: 24, color: Colors.black),
+          ),
+          Text(
+            'x' + cantidad.toString(),
             style: TextStyle(fontSize: 24, color: Colors.black),
           ),
           Icon(Icons.delete),

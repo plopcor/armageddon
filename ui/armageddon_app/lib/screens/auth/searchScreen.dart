@@ -256,9 +256,8 @@ class _MySearchBarProductsState extends State<MySearchBarProducts> {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => new ShopScreen(
-                        store: snapshot.data,
-                      ),
+                      builder: (context) =>
+                          new ShopScreen(store: snapshot.data),
                     ),
                   ),
                   child: Container(
