@@ -10,7 +10,7 @@ class Producto extends Model
 {
 
     protected $fillable = [
-        'nombre', 'img_path'
+        'nombre', 'img_path', 'esEspecifico'
     ];
 
     /**

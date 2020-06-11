@@ -1,6 +1,6 @@
 # Crear
 
-Crear la tienda si aun no tiene
+Crear una nueva tienda
 
 **URL** : `/tienda`
 
@@ -42,20 +42,9 @@ Crear la tienda si aun no tiene
 
 #### [400 Bad Request](../General/Errores.md#400-bad-request)
 
-#### 409 Conflict
-
-Ya tienes una tienda creada
-
-**Codigo** : `409 Conflict`
-
-**Contenido** :
-
-```json
-{
-    "success": false,
-    "message": "Ya tienes una tienda"
-}
-```
+#### [409 Conflict](../General/Errores.md#409-conflict)
+Mensajes:
+* Ya tienes una tienda creada
 
 #### [500 Internal Server Error](../General/Errores.md#500-internal-server-error)
 

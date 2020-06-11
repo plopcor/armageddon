@@ -31,9 +31,13 @@ Devuelve el pedido
 {
     "success": true,
     "data": {
-        "id_usuario": 2,
+        "id_usuario": 1,
         "id_tienda": 1,
-        "estado": "CREADO"
+        "estado": "CREADO",
+        "recogida": "2020-06-11 18:58:13",
+        "updated_at": "2020-06-11 18:58:13",
+        "created_at": "2020-06-11 18:58:13",
+        "id": 5
     }
 }
 ```
@@ -44,8 +48,8 @@ Devuelve el pedido
 
 #### [404 Not Found](../General/Errores.md#404-not-found)
 Mensajes:
+* La tienda no existe
 * Uno de los productos seleccionados no existe en la Tienda
-
 
 #### [500 Internal Server Error](../General/Errores.md#500-internal-server-error)
 

@@ -34,7 +34,6 @@ Route::group(['prefix' => 'v1'], function () {
         // Perfil
         Route::get('/', 'UsuarioController@ver');       // Ver
         Route::put('/', 'UsuarioController@editar');    // Editar
-        //Route::delete('/', 'UsuarioController@editar');    // Eliminar
 
         // Subscripciones
         Route::get('/suscripciones', 'SuscripcionController@listar');           // Listar
@@ -71,7 +70,7 @@ Route::group(['prefix' => 'v1'], function () {
         // Productos
         Route::get('/productos', 'TiendaPropiaController@productos_listar');                    // Listar
         Route::get('/producto/{idProducto}', 'TiendaPropiaController@productos_ver');           // Ver
-        Route::post('/producto', 'TiendaPropiaController@productos_crear');                     // Crear
+        Route::post('/producto', 'TiendaPropiaController@productos_añadir');                    // Crear / Añadir
         Route::put('/producto/{idProducto}', 'TiendaPropiaController@productos_editar');        // Editar
         Route::delete('/producto/{idProducto}', 'TiendaPropiaController@productos_eliminar');   // Eliminar
 
@@ -138,9 +137,10 @@ Route::group(['prefix' => 'v1'], function () {
     /**
      * PRODUCTOS
      */
-    Route::get('/productos', 'ProductoController@listar');          // Listar
-    Route::get('/producto/{id}', 'ProductoController@ver');         // Ver
-    Route::get('/productos/filtrar', 'ProductoController@testFiltrar');  // Filtrar
+    Route::get('/productos', 'ProductoController@listar');              // Listar
+    Route::get('/productos/base', 'ProductoController@listar_base');    // Listar base
+    Route::get('/producto/{id}', 'ProductoController@ver');             // Ver
+    Route::get('/productos/filtrar', 'ProductoController@testFiltrar'); // Filtrar
 
 });
 
