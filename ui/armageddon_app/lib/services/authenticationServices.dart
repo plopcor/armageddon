@@ -19,6 +19,8 @@ Future<bool> login({String password, String username}) async {
 
     User _user = User.fromJson(_result['usuario']);
 
+    print(_user.esTienda.toString());
+
     /* save user object */
     await saveUser(_user);
 

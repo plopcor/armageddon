@@ -2,18 +2,52 @@
 //
 //     final cart = cartFromJson(jsonString);
 
+/* {
+  "productos" : [
+    { "id": "<ID ProductoTienda | Integer>", "cantidad": "<Integer>" },
+    { "id": "<ID ProductoTienda | Integer>", "cantidad": "<Integer>" }
+  ]
+} */
+
 import 'dart:convert';
 
 Cart cartFromJson(String str) => Cart.fromJson(json.decode(str));
 
-String cartToJson(Cart data) => json.encode(data.toJson());
+String cartToJson(Cart cart) => json.encode(cart.toJson());
 
 class Cart {
+  Cart({this.productos});
+
   List<Producto> productos;
 
-  Cart({
-    this.productos,
-  });
+  addProduct(Producto p) {
+    if (productos == null) {
+      productos = [];
+    }
+
+    var index = productos.indexWhere((element) => element.compare(p));
+
+    if (index != -1)
+      ++productos[index].cantidad;
+    else
+      productos.add(p);
+  }
+
+  deleteProduct(int index) {
+    if (productos.isNotEmpty) {
+      if (productos[index].cantidad > 1)
+        --productos[index].cantidad;
+      else
+        productos.removeAt(index);
+    }
+  }
+
+  Future<int> length() async {
+    if (productos == null) {
+      productos = [];
+    }
+    return productos.length;
+  }
 
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(
         productos: List<Producto>.from(
@@ -23,36 +57,35 @@ class Cart {
   Map<String, dynamic> toJson() => {
         "productos": List<dynamic>.from(productos.map((x) => x.toJson())),
       };
-
-  List<Producto> getProductos() {
-    return productos;
-  }
 }
 
 class Producto {
-  String id;
-  String cantidad;
-  String nombre;
-  String imgPath;
-
   Producto({
     this.id,
     this.cantidad,
     this.nombre,
-    this.imgPath,
   });
+
+  int id;
+  int cantidad;
+  String nombre;
 
   factory Producto.fromJson(Map<String, dynamic> json) => Producto(
         id: json["id"],
         cantidad: json["cantidad"],
         nombre: json["nombre"],
-        imgPath: json["imgPath"],
       );
+
+  bool compare(Producto p) {
+    if (p.nombre == this.nombre)
+      return true;
+    else
+      return false;
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "cantidad": cantidad,
         "nombre": nombre,
-        "imgPath": imgPath,
       };
 }

@@ -29,7 +29,7 @@ class User {
   @HiveField(6)
   String avatar;
   @HiveField(7)
-  int esTienda;
+  bool esTienda;
 
   User({
     this.id,
@@ -42,16 +42,18 @@ class User {
     this.esTienda,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
-        nombre: json["nombre"],
-        usuario: json["usuario"],
-        email: json["email"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-        avatar: json["avatar"],
-        esTienda: json["esTienda"],
-      );
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json["id"],
+      nombre: json["nombre"],
+      usuario: json["usuario"],
+      email: json["email"],
+      createdAt: json["created_at"],
+      updatedAt: json["updated_at"],
+      avatar: json["avatar"],
+      esTienda: json["esTienda"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,

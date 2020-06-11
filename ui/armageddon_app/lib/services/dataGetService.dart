@@ -18,9 +18,12 @@ Future<List<Product>> getProducts() async {
   if (_response.statusCode == 200) {
     Map<String, dynamic> _result = jsonDecode(_response.body);
 
-    products = (_result['data'] as List)
-        .map((e) => new Product.fromJson(e['producto']))
-        .toList();
+    products = (_result['data'] as List).map((e) {
+      Product p = Product.fromJson(e['producto']);
+      p.idTienda = e['id_tienda'];
+      p.precio = e['precio'].toDouble();
+      return p;
+    }).toList();
   }
 
   return products;
@@ -70,6 +73,27 @@ Future<List<Store>> getStores() async {
   }
 
   return stores;
+}
+
+Future<Store> getStoreById(int idTienda) async {
+  final _url = '$apiUrl/tienda/$idTienda';
+
+  /* take token */
+  String _token = await getToken();
+
+  final _response = await http.get(_url, headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer $_token',
+  });
+
+  Store store;
+
+  if (_response.statusCode == 200) {
+    Map<String, dynamic> _result = jsonDecode(_response.body);
+
+    store = new Store.fromJson(_result['data']);
+  }
+  return store;
 }
 
 /// getProductsByStoreId - Get products by store id throught GET

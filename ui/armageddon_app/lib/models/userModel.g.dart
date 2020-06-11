@@ -16,6 +16,7 @@ class UserAdapter extends TypeAdapter<User> {
     var fields = <int, dynamic>{
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
+    //print(fields[7].toString());
     return User(
       id: fields[0] as int,
       nombre: fields[1] as String,
@@ -24,7 +25,7 @@ class UserAdapter extends TypeAdapter<User> {
       createdAt: fields[4] as dynamic,
       updatedAt: fields[5] as dynamic,
       avatar: fields[6] as String,
-      esTienda: fields[7] as int,
+      esTienda: fields[7] == 0 ? false : true,
     );
   }
 
