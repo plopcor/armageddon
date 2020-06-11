@@ -24,14 +24,14 @@ Listar todos los productos de nuestra tienda
             "id_producto": 1,
             "precio": 3.8,
             "disponible": true,
-            "created_at": "2020-05-29 19:38:30",
+            "created_at": "2020-12-30 23:00:00",
             "updated_at": null,
             "producto": {
                 "id": 1,
-                "nombre": "Cafe solo",
+                "nombre": "<Nombre producto>",
                 "img_path": "<URL>",
                 "esEspecifico": 0,
-                "created_at": "2020-05-29 19:38:28",
+                "created_at": "2020-12-30 23:00:00",
                 "updated_at": null
             }
         },
@@ -41,14 +41,14 @@ Listar todos los productos de nuestra tienda
             "id_producto": 2,
             "precio": 4.4,
             "disponible": true,
-            "created_at": "2020-05-29 19:38:30",
+            "created_at": "2020-12-30 23:00:00",
             "updated_at": null,
             "producto": {
                 "id": 2,
-                "nombre": "Cafe con leche",
+                "nombre": "<Nombre producto>",
                 "img_path": "<URL>",
                 "esEspecifico": 0,
-                "created_at": "2020-05-29 19:38:28",
+                "created_at": "2020-12-30 23:00:00",
                 "updated_at": null
             }
         },
@@ -58,14 +58,14 @@ Listar todos los productos de nuestra tienda
             "id_producto": 3,
             "precio": 1.4,
             "disponible": true,
-            "created_at": "2020-05-29 19:38:30",
+            "created_at": "2020-12-30 23:00:00",
             "updated_at": null,
             "producto": {
                 "id": 3,
-                "nombre": "Croissant",
+                "nombre": "<Nombre producto>",
                 "img_path": "<URL>",
                 "esEspecifico": 0,
-                "created_at": "2020-05-29 19:38:28",
+                "created_at": "2020-12-30 23:00:00",
                 "updated_at": null
             }
         }

@@ -1,6 +1,6 @@
 # Errores generales
 
-Posibles errores en la API
+Respuestas de error devueltas por la API
 
 ## Lista de errores
 
@@ -62,6 +62,20 @@ No se ha encontrado un recurso necessario para completar la accion
 }
 ```
 
+#### 409 Conflict
+
+El recurso que se intenta crear ya existe.
+
+**Codigo** : `409 Conflict`
+
+**Contenido** :
+
+```json
+{
+    "success": false,
+    "message": "El recurso ya existe",
+}
+```
 
 #### 500 Internal Server Error
 
