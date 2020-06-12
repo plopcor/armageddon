@@ -35,7 +35,8 @@ class UsuariosSeeder extends Seeder
                 'nombre' => 'Usuario 3',
                 'usuario' => 'usuario3',
                 'email' => 'usuario3@mail.com',
-                'password' => bcrypt('usuario3')
+                'password' => bcrypt('usuario3'),
+                'avatar' => 'https://www.washingtonpost.com/resizer/uwlkeOwC_3JqSUXeH8ZP81cHx3I=/arc-anglerfish-washpost-prod-washpost/public/HB4AT3D3IMI6TMPTWIZ74WAR54.jpg'
             ],
             [
                 'id' => 4,
@@ -77,13 +78,22 @@ class UsuariosSeeder extends Seeder
             ],
             [
                 'id' => 6,
-                'nombre' => 'Tienda 2',
-                'usuario' => 'tienda1',
+                'nombre' => 'Panaderia Baker',
+                'usuario' => 'tienda2',
                 'email' => 'tienda2@mail.com',
                 'password' => bcrypt('tienda2'),
                 'avatar' => 'https://i.redd.it/9feswlg1n8z41.jpg',
                 'esTienda' => true
-            ]
+            ],
+            [
+                'id' => 7,
+                'nombre' => 'Bar Parada',
+                'usuario' => 'tienda3',
+                'email' => 'tienda3@mail.com',
+                'password' => bcrypt('tienda3'),
+                'avatar' => 'https://cdn131.picsart.com/307342630030211.png',
+                'esTienda' => true
+            ],
         ];
 
         // TIMESTAMPS
