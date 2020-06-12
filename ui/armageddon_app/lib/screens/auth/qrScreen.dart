@@ -1,5 +1,7 @@
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/orderModel.dart';
+import 'package:armageddon_app/models/storeModel.dart';
+import 'package:armageddon_app/services/dataGetService.dart';
 import 'package:armageddon_app/services/dataPutService.dart';
 import 'package:flutter/material.dart';
 
@@ -55,6 +57,36 @@ class _QRScreenState extends State<QRScreen> {
                   ),
                 ),
               ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 27),
+                  child: FutureBuilder(
+                    future: getStoreById(widget.order.idTienda),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<Store> snapshot) {
+                      var store = snapshot.data;
+                      return Container(
+                        width: 200,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(17),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(store.nombre, style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('Latitud: ' + store.latitud),
+                            Text('Longitud: ' + store.longitud)
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              )
             ],
           ),
         ),

@@ -16,7 +16,7 @@ class SignInScreen extends StatelessWidget {
               height: 100,
             ),
             Text(
-              'ARMAGEDDON',
+              'QUICKDUTY',
               overflow: TextOverflow.visible,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
