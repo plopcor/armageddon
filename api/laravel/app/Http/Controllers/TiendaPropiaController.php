@@ -7,8 +7,11 @@ use Auth;
 use DB;
 use App\User;
 use App\Tienda;
+use App\Producto;
+use App\ProductoTienda;
 use App\Traits;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class TiendaPropiaController extends APIController
 {
@@ -128,23 +131,139 @@ class TiendaPropiaController extends APIController
         return $this->sendResponse($productos);
     }
 
+//    /**
+//     * Listar productos base Especificos
+//     */
+//    public function listar_especificos(Request $request)
+//    {
+//        $tienda = $this->recuperarTiendaPropia();
+//        $productos = Producto::where('id_tienda', $tienda->id);
+//        return $this->sendResponse($productos);
+//    }
+
     /**
      * Ver producto
      */
     public function productos_ver(Request $request)
     {
-        // TODO
+        $tienda = $this->recuperarTiendaPropia();
+        $producto = $tienda->productos->where('id', $request->idProducto)->first();
+        if($producto == null) {
+            return $this->sendErrorNotFound("No se ha encontrado el producto en la tienda");
+        }
+
+        // Cargar ProductoBase
+        $producto->producto;
+
+        return $this->sendResponse($producto);
     }
 
     /**
      * Crear producto
      */
-    public function productos_crear(Request $request)
+    public function productos_añadir(Request $request)
     {
-        // TODO
-//        $tienda = $this->recuperarTiendaPropia();
-//        $productos = $tienda->productos;
-//        return $this->sendResponse($productos);
+        $tienda = $this->recuperarTiendaPropia();
+
+        // Comprovar si se esta intentando añadir un producto base (se le pasa ID del ProductoBase)
+        // O se intenta crear un producto especifico para esta tienda
+        if(isset($request->idProducto)) {
+
+            // Validar datos
+            $validator = Validator::make($request->all(), [
+                'idProducto' => 'required|numeric',
+                'precio' => 'required|numeric|between:0,99999.99',
+                'disponible' => 'boolean'
+            ]);
+
+            if($validator->fails()){
+                return $this->sendErrorBadRequest($validator->errors());
+            }
+
+            // Comprovar si ya esta añadido
+            $producto = $tienda->productos->where('id_producto', $request->idProducto)->first();
+            if($producto != null) {
+                return $this->sendErrorConflict("El producto ya esta en la Tienda");
+            }
+
+            // Comprovar si existe un ProductoBase con esa ID
+            $productoBase = Producto::where('id', $request->idProducto)->first();
+            if($productoBase == null) {
+                return $this->sendErrorNotFound();
+            }
+
+            // Cojer datos
+            $input = [];
+            $input['id_tienda'] = $tienda->id;
+            $input['id_producto'] = $productoBase->id;
+            $input['precio'] = $request->precio;
+            $input['disponible'] = $request->disponible ?? true;
+
+            // Añadir producto a nuestra Tienda
+            $producto = ProductoTienda::create($input);
+
+            return $this->sendResponse($producto);
+
+        } else {
+
+            // Crear nuevo producto especifico
+
+            // Validar datos
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required|numeric',
+                'imagen' => 'url',
+                'precio' => 'required|numeric|between:0,99999.99',
+                'disponible' => 'boolean'
+            ]);
+
+            if($validator->fails()){
+                return $this->sendErrorBadRequest($validator->errors());
+            }
+
+            // Mirar si hay un producto especifico con el mismo nombre
+            $producto = $tienda->productosEspecificos->whereRaw( 'LOWER(`nombre`) like ?', array( strtolower($request->nombre) ) );
+            if($producto != null) {
+                return $this->sendErrorConflict();
+            }
+
+            // Cojer datos para el Producto especifico Base
+            $inputProductoBase = [];
+            $inputProductoBase['nombre'] = $request->nombre;
+            $inputProductoBase['img_path'] = $request->imagen;
+            $inputProductoBase['esEspecifico'] = true;
+
+            // Crear Producto base
+            $productoBase = Producto::create($inputProductoBase);
+
+            /*
+             * AÑADIR PRODUCTO DIRECTAMENTE A LA TIENDA ??
+             */
+
+            // Cojer datos para ProductoTienda
+            $inputProductoTienda = [];
+            $inputProductoTienda['id_tienda'] = $tienda->id;
+            $inputProductoTienda['id_producto'] = $productoBase->id;
+            $inputProductoTienda['precio'] = $request->precio;
+            $inputProductoTienda['disponible'] = $request->disponible ?? true;
+
+            // Crear ProductoTienda
+            $productoTienda = ProductoTienda::create($inputProductoTienda);
+
+            // TODO ??
+
+        }
+
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'string',
+            'email' => 'email',
+            'avatar' => 'url',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendErrorBadRequest($validator->errors());
+        }
+
+        $producto = $tienda->productos->where('id_producto', $request->idProducto);
     }
 
     /**
@@ -152,7 +271,34 @@ class TiendaPropiaController extends APIController
      */
     public function productos_editar(Request $request)
     {
-        // TODO
+        $tienda = $this->recuperarTiendaPropia();
+        $producto = $tienda->productos->where('id', $request->idProducto)->first();
+        if($producto == null) {
+            return $this->sendErrorNotFound("No se ha encontrado el producto en la tienda");
+        }
+
+        // Validar datos
+        $validator = Validator::make($request->all(), [
+            'precio' => 'numeric|between:0,99999.99',
+            'disponible' => 'boolean'
+        ]);
+
+        if($validator->fails()){
+            return $this->sendErrorBadRequest($validator->errors());
+        }
+
+        // Cojer datos
+        $data = $request->only('precio', 'disponible');
+
+        // Actualizar datos
+        $producto->update($data);
+
+        // Cargar ProductoBase
+        if($producto->save()) {
+            return $this->sendOk();
+        } else {
+            return $this->sendErrorDatabase();
+        }
     }
 
     /**
@@ -160,7 +306,68 @@ class TiendaPropiaController extends APIController
      */
     public function productos_eliminar(Request $request)
     {
-        // TODO
+        $tienda = $this->recuperarTiendaPropia();
+        $producto = $tienda->productos->where('id', $request->idProducto)->first();
+        if($producto == null) {
+            return $this->sendErrorNotFound("No se ha encontrado el producto en la tienda");
+        }
+
+        // Cargar ProductoBase
+        if($producto->delete()) {
+            return $this->sendOk();
+        } else {
+            return $this->sendErrorDatabase();
+        }
+    }
+
+
+    // ------------------------------------------------------------------
+    // Pedidos
+    // ------------------------------------------------------------------
+    /**
+     * Listar pedidos
+     *
+     * nota: se puede filtrar si pasamos "estado" con un estado valido (CREADO, PAGADO, RECOGIDO)
+     */
+    public function pedidos_listar(Request $request)
+    {
+        $tienda = $this->recuperarTiendaPropia();
+
+        // Validar datos
+        $validator = Validator::make($request->all(), [
+            'estado' => ['string',Rule::in(['CREADO', 'PAGADO', 'RECOGIDO'])],
+        ]);
+
+        if($validator->fails()){
+            return $this->sendErrorBadRequest($validator->errors());
+        }
+
+        $pedidos = $tienda->pedidos;
+
+        if(!empty($request->estado)) {
+            $pedidos->where('estado', $request->estado);
+        }
+
+        $pedidos->load('productos');
+
+        return $this->sendResponse($pedidos);
+    }
+
+    /**
+     * Ver pedido
+     */
+    public function pedidos_ver(Request $request)
+    {
+        $tienda = $this->recuperarTiendaPropia();
+        $pedido = $tienda->pedidos->where('id', $request->idPedido)->first();
+        if($pedido == null) {
+            return $this->sendErrorNotFound("No se ha encontrado el pedido");
+        }
+
+        // Cargar ProductoBase
+        $pedido->productos;
+
+        return $this->sendResponse($pedido);
     }
 
 }

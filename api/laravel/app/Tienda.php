@@ -39,6 +39,14 @@ class Tienda extends Model
     }
 
     /**
+     * Pedidos que tiene esa tienda
+     */
+    public function pedidos()
+    {
+        return $this->hasMany(Pedido::class, 'id_tienda');
+    }
+
+    /**
      * Productos base Especificos de la Tienda
      */
     public function productosEspecificos()

@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
+    <link rel="icon" href="{{ url('/img/logo.png') }}">
 
     <!-- JQuery, Popper, BootstrapJS -->
-{{--    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>--}}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
@@ -34,26 +33,54 @@
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css" rel="stylesheet">
 
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
     @yield('head')
 
 </head>
 
+<script>
+    // Recuperar token generado para las peticions a la API
+    {{--var API_TOKEN = "{{ Session::get('APIToken')}}";--}}
 
+    function enviarPeticion(ruta, metodo, data, _success, _error) {
+
+        $.ajax({
+            url: '/api/v1' + ruta,
+            type: metodo,
+            dataType: 'json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer {{ Session::get('APIToken')}}');
+            },
+            data: data,
+            success: _success,
+            error: (_error != undefined ? _error : function(xmlHTTP, status, httperror) {mostrarError(xmlHTTP, status, httperror);})
+        });
+
+    }
+
+    function mostrarError(xmlHTTP, status, httperror) {
+
+        var err = xmlHTTP.responseJSON;//= $.parseJSON(xmlHTTP.responseText);
+        var errMessage = err.message;
+        var errData = err.data;
+
+        var msg = "Error: " + errMessage;
+
+        if(errData != undefined) {
+            msg += "\n"
+            $.each( errData, function( key, value ) {
+                msg += "\n" + key + ": " + value;
+            });
+        }
+
+        alert(msg);
+    }
+</script>
 
 @yield('body')
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-{{--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>--}}
-{{--<script>window.jQuery || document.write('<script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>--}}
-{{--<script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>--}}
-{{--<script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>--}}
-
-<!-- MOVIDO AL <head> para que JQuery carge al principio. Si lo dejamos aqui, no podemos usar funciones JQuery ya que no carga hasta el final -->
-{{--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>--}}
-{{--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>--}}
-{{--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>--}}
 
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>

@@ -77,7 +77,7 @@ Route::group(['prefix' => 'v1'], function () {
         // Categorias
         Route::get('/categorias', 'TiendaPropiaController@categorias_listar');
         Route::post('/categoria', 'TiendaPropiaController@categorias_crear');
-        Route::delete('/categoria/{idCategoria}', 'ConTiendaPropiaControllertroller@categorias_eliminar');
+        Route::delete('/categoria/{idCategoria}', 'TiendaPropiaController@categorias_eliminar');
 
         // Horario
         Route::get('/horario', 'TiendaPropiaController@horario_ver');
@@ -87,6 +87,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         // Pedidos
         Route::get('/pedidos', 'TiendaPropiaController@pedidos_listar');
+        //Route::get('/pedidos/estado/{estado}', 'TiendaPropiaController@pedidos_filtrar_estado');
         Route::get('/pedido/{idPedido}', 'TiendaPropiaController@pedidos_ver');
         Route::delete('/pedido/{idPedido}', 'TiendaPropiaController@pedidos_eliminar');
 
