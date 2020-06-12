@@ -39,7 +39,7 @@ Route::group(['prefix' => 'tienda', 'middleware' => 'auth'], function () {
     Route::get('/horario', 'WebControllers\TiendaPropiaController@horario')->name('horario');
 
     // Pedidos
-    Route::get('/pedidos', 'WebControllers\TiendaPropiaController@productos')->name('pedidos');
+    Route::get('/pedidos', 'WebControllers\TiendaPropiaController@pedidos')->name('pedidos');
 
     // Clientes
     Route::get('/clientes', 'WebControllers\TiendaPropiaController@clientes')->name('clientes');
@@ -47,14 +47,17 @@ Route::group(['prefix' => 'tienda', 'middleware' => 'auth'], function () {
     // Estadisticas
     Route::get('/estadisticas', 'WebControllers\TiendaPropiaController@estadisticas')->name('estadisticas');
 
-});
-
-/**
- * USUARIO
- */
-Route::group(['prefix' => 'usuario'], function () {
-
     // Perfil
-    Route::get('/', 'WebController\UsuarioController@perfil')->name('usuario');
+    Route::get('/perfil', 'WebControllers\TiendaPropiaController@perfil')->name('perfil');
+
 });
+
+///**
+// * USUARIO
+// */
+//Route::group(['prefix' => 'usuario'], function () {
+//
+//    // Perfil
+//    Route::get('/', 'WebController\TiendaPropiaController@perfil')->name('perfil');
+//});
 

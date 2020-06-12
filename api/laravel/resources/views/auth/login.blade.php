@@ -12,7 +12,7 @@
     @csrf
 
         <!-- LOGO -->
-        <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <img class="mb-4" src="{{ url('/img/logo.png') }}" alt="" width="auto" height="72">
 
         <!-- INICIAR SESION -->
         <h1 class="h3 mb-3 font-weight-normal">Iniciar sesión</h1>

@@ -16,8 +16,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('tienda') }}">Tienda</a>
-                        <a class="dropdown-item" href="{{ route('usuario') }}">Perfil</a>
+                        <a class="dropdown-item" href="{{ route('perfil') }}">Perfil</a>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
@@ -60,13 +59,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::is('pedidos') ? 'active' : '' }}" href="{{ route('estadisticas') }}">
+                            <a class="nav-link {{ Route::is('estadisticas') ? 'active' : '' }}" href="{{ route('estadisticas') }}">
                                 <span data-feather="bar-chart-2"></span>
                                 Estadisticas
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('tienda') ? 'active' : '' }}" href="{{ route('tienda') }}">
+                            <a class="nav-link {{ Request::is('perfil') ? 'active' : '' }}" href="{{ route('perfil') }}">
                                 <span data-feather="layers"></span>
                                 Tienda
                             </a>
