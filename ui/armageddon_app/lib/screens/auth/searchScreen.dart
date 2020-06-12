@@ -214,7 +214,6 @@ class _MySearchBarProductsState extends State<MySearchBarProducts> {
               ),
             ),
           ),
-          /* TODO put location here */
           header: null,
           emptyWidget: Container(
             padding: EdgeInsets.symmetric(horizontal: 18, vertical: 34),
@@ -362,7 +361,6 @@ class _MySearchBarStoresState extends State<MySearchBarStores> {
               ),
             ),
           ),
-          /* TODO put location here */
           header: null,
           emptyWidget: Container(
             padding: EdgeInsets.symmetric(horizontal: 18, vertical: 34),

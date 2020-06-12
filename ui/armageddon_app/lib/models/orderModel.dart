@@ -36,7 +36,7 @@ class Order {
       idUsuario: json["id_usuario"],
       idTienda: json["id_tienda"],
       estado: json["estado"],
-      recogida: DateTime.parse(json["recogida"]),
+      recogida: json["recogida"] != null ? DateTime.parse(json["recogida"]) : null,
       codigoQr: json["codigo_qr"],
       createdAt: json["created_at"] != null
           ? DateTime.parse(json["created_at"])

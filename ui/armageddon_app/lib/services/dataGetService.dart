@@ -64,12 +64,25 @@ Future<List<Order>> getFavOrders() async {
     'Authorization': 'Bearer $_token',
   });
 
-  List<Order> orders;
+  var pedidos;
+
+  List<Order> orders = [];
 
   if (_response.statusCode == 200) {
     Map<String, dynamic> _result = jsonDecode(_response.body);
-    orders =
-        (_result['data'] as List).map((e) => new Order.fromJson(e)).toList();
+    pedidos = (_result['data'] as List).map((e) => e['id_pedido']).toList();
+    List<Order> o = await getOrders();
+    o.where(
+      (element) {
+        for (var item in pedidos) {
+          print(item.toString());
+          if (element.id == item) {
+            orders.add(element);
+          }
+        }
+        return false;
+      },
+    );
   }
 
   return orders;

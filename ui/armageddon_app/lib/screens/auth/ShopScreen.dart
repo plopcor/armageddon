@@ -104,7 +104,6 @@ class _FloatingPanelState extends State<_FloatingPanel> {
             margin: EdgeInsets.symmetric(horizontal: 27, vertical: 24),
             child: RaisedButton(
               onPressed: () async {
-                /*TODO Finalizar pedido */
                 var _result = await crearPedido(widget.store.id, widget.cart);
                 if (_result) {
                   Scaffold.of(context).showSnackBar(
@@ -307,7 +306,7 @@ class _ShopScreenState extends State<ShopScreen> {
                     )),
                 child: new Column(
                   children: <Widget>[
-                    //Indormacion tienda
+                    //INFO tienda
                     Padding(
                       padding: const EdgeInsets.only(top: 15, right: 150),
                       child: Text(

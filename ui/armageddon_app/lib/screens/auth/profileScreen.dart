@@ -115,14 +115,14 @@ class ProfileButton extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => new OrdersScreen(),
+                  builder: (context) => OrdersScreen(),
                 ),
               );
             if (routeName.contains('/editProfile'))
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => new EditProfileScreen(),
+                  builder: (context) => EditProfileScreen(),
                 ),
               );
             else

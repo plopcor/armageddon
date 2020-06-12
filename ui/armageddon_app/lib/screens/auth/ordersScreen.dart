@@ -42,7 +42,8 @@ class _MyOrderListState extends State<MyOrderList> {
           Container(
             margin: EdgeInsets.only(top: 30),
             child: IconButton(
-              icon: Icon(Icons.keyboard_arrow_left), iconSize: 40,
+              icon: Icon(Icons.keyboard_arrow_left),
+              iconSize: 40,
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),
@@ -57,8 +58,8 @@ class _MyOrderListState extends State<MyOrderList> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => new ListProducts(
-                            productos: order.productos,
+                          builder: (context) => ListProducts(
+                            order: order,
                           ),
                         ),
                       );
@@ -67,7 +68,7 @@ class _MyOrderListState extends State<MyOrderList> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => new QRScreen(order: order),
+                          builder: (context) => QRScreen(order: order),
                         ),
                       );
                     },
