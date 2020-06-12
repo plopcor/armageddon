@@ -10,12 +10,15 @@ Crear un pedido con productos de la tienda
 
 **Datos** :
 
+Pasamos las IDs de los productos que tiene la tienda y la hora a la que se recoje.
+
 ```json
 {
   "productos" : [
-    [ "id": "<ID ProductoTienda | Integer>", "cantidad": "<Integer>" ],
-    [ "id": "<ID ProductoTienda | Integer>", "cantidad": "<Integer>" ]
-  ]
+    [ "id": "<idProducto | Integer>", "cantidad": "<Integer>" ],
+    [ "id": "<idProducto | Integer>", "cantidad": "<Integer>" ]
+  ],
+  "recogida": "<Fecha | Igual o posterior a hoy | Formato 2020-12-30 23:00:00>"
 }
 ```
 

@@ -44,6 +44,7 @@ class PedidoController extends APIController
             'productos' => 'required|array|min:1',
             'productos.*.id' => 'required|integer',
             'productos.*.cantidad' => 'required|integer',
+            'recogida' => 'required|date|after_or_equal:today'
         ]);
 
         if($validator->fails()){
@@ -59,7 +60,7 @@ class PedidoController extends APIController
             'id_usuario' => Auth::user()->id,
             'id_tienda' => $tienda->id,
             'estado' => "CREADO",
-            'recogida' => date("Y-m-d H:i:s")
+            'recogida' => $request->recogida //date("Y-m-d H:i:s")
         ]);
 
         // Recuperar Productos de la comanda
