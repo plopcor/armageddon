@@ -29,7 +29,7 @@ Future<List<Product>> getProducts() async {
   return products;
 }
 
-/// getOrders - Get All favourite orders of login user throught GET
+/// getOrders - Get All orders of login user throught GET
 Future<List<Order>> getOrders() async {
   final _url = '$apiUrl/usuario/pedidos';
 
@@ -52,6 +52,7 @@ Future<List<Order>> getOrders() async {
   return orders;
 }
 
+/// getFavOrders - Get All favourite orders of login user throught GET
 Future<List<Order>> getFavOrders() async {
   final _url = '$apiUrl/usuario/favoritos';
 
@@ -134,9 +135,11 @@ Future<List<Product>> getProductsByStoreId(int id) async {
   if (_response.statusCode == 200) {
     Map<String, dynamic> _result = jsonDecode(_response.body);
 
-    products = (_result['data'] as List)
-        .map((e) => new Product.fromJson(e['producto']))
-        .toList();
+    products = (_result['data'] as List).map((e) {
+      Product p = new Product.fromJson(e['producto']);
+      p.precio = e['precio'];
+      return p;
+    }).toList();
   }
   return products;
 }

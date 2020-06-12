@@ -35,86 +35,106 @@ class MyOrderList extends StatefulWidget {
 class _MyOrderListState extends State<MyOrderList> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: widget.data.length,
-        itemBuilder: (context, index) {
-          Order order = widget.data[index];
-          int orderLength = order.productos.length;
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => new ListProducts(
-                    productos: order.productos,
-                  ),
-                ),
-              );
-            },
-            onLongPress: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => new QRScreen(order: order),
-                ),
-              );
-            },
-            child: Container(
-              margin: EdgeInsets.only(top: 27, left: 24, right: 24),
-              padding: EdgeInsets.only(left: 10, top: 24, right: 0, bottom: 8),
-              decoration: BoxDecoration(
-                  color: PrimaryPurple,
-                  borderRadius: BorderRadius.circular(17)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        height: 77,
-                        width: 280,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: orderLength,
-                            itemBuilder: (BuildContext context, int index) {
-                              if (index < 3) {
-                                return Container(
-                                  padding: EdgeInsets.all(1),
-                                  margin: EdgeInsets.only(left: 14),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(17)),
-                                  child: Image.network(
-                                    order.productos[index].imgPath,
-                                    height: 77,
-                                    width: 77,
-                                  ),
-                                );
-                              } else {
-                                return Container();
-                              }
-                            }),
-                      ),
-                      buildContainer(orderLength),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 14),
-                    child: Text(
-                      '$orderLength Productos',
-                      style: TextStyle(color: Colors.white, fontSize: 12),
-                    ),
-                  ),
-                ],
-              ),
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(top: 30),
+            child: IconButton(
+              icon: Icon(Icons.keyboard_arrow_left), iconSize: 40,
+              onPressed: () => Navigator.of(context).pop(),
             ),
-          );
-        });
+          ),
+          Expanded(
+            child: ListView.builder(
+                itemCount: widget.data.length,
+                itemBuilder: (context, index) {
+                  Order order = widget.data[index];
+                  int orderLength = order.productos.length;
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => new ListProducts(
+                            productos: order.productos,
+                          ),
+                        ),
+                      );
+                    },
+                    onLongPress: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => new QRScreen(order: order),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 27, left: 24, right: 24),
+                      padding: EdgeInsets.only(
+                          left: 10, top: 24, right: 0, bottom: 8),
+                      decoration: BoxDecoration(
+                          color: PrimaryPurple,
+                          borderRadius: BorderRadius.circular(17)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                height: 77,
+                                width: 280,
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: orderLength,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      if (index < 3) {
+                                        return Container(
+                                          padding: EdgeInsets.all(1),
+                                          margin: EdgeInsets.only(left: 14),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(17)),
+                                          child: Image.network(
+                                            order.productos[index].imgPath,
+                                            height: 77,
+                                            width: 77,
+                                          ),
+                                        );
+                                      } else {
+                                        return Container();
+                                      }
+                                    }),
+                              ),
+                              buildContainer(orderLength),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 14),
+                            child: Text(
+                              '$orderLength Productos',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 12),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+          ),
+        ],
+      ),
+    );
   }
 
   Container buildContainer(int lenght) {

@@ -37,7 +37,7 @@ Future<bool> crearPedido(int idTienda, Cart cart) async {
   }
 }
 
-/// crearPedido - Post All list products throught POST
+/// payOrder - Post change state to pay throught POST
 Future<Order> payOrder(Order order) async {
   var id = order.id;
   final _url = '$apiUrl/usuario/pedido/$id/pagar';
@@ -58,4 +58,37 @@ Future<Order> payOrder(Order order) async {
   }
 
   return _orderN;
+}
+
+/// editProfile - Post All profile changes throught POST
+Future<bool> editProfile(String nombre, String email) async {
+  final _url = '$apiUrl/usuario';
+
+  /* take token */
+  String _token = await getToken();
+
+  Map data = {};
+
+  if (email.isNotEmpty) {
+    data.addAll({jsonEncode("email"): jsonEncode(nombre)});
+  }
+
+  if (nombre.isNotEmpty) {
+    data.addAll({jsonEncode("nombre"): jsonEncode(nombre)});
+  }
+
+  final _response = await http.put(
+    _url,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $_token',
+    },
+    body: data.toString(),
+  );
+
+  if (_response.statusCode == 200)
+    return true;
+  else
+    return false;
 }

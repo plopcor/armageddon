@@ -26,6 +26,7 @@ class StartButton extends StatelessWidget {
         color: type ? PrimaryPurple : Colors.white,
         child: Text(
           text,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontSize: 24,
             color: type ? Colors.white : PrimaryPurple,

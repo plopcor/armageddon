@@ -84,19 +84,20 @@ class _FloatingPanelState extends State<_FloatingPanel> {
             child: Container(
               margin: EdgeInsets.only(top: 20),
               child: ListView.builder(
-                  itemCount: widget.cart.productos.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          widget.cart.deleteProduct(index);
-                        });
-                      },
-                      child: Item(
-                          text: widget.cart.productos[index].nombre,
-                          cantidad: widget.cart.productos[index].cantidad),
-                    );
-                  }),
+                itemCount: widget.cart.productos.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        widget.cart.deleteProduct(index);
+                      });
+                    },
+                    child: Item(
+                        text: widget.cart.productos[index].nombre,
+                        cantidad: widget.cart.productos[index].cantidad),
+                  );
+                },
+              ),
             ),
           ),
           Container(
@@ -168,10 +169,17 @@ class _ShopScreenState extends State<ShopScreen> {
 
             //Container rojo (imagen)
             new Container(
-              width: 450,
-              height: 225.0,
-              color: Colors.redAccent,
-            ),
+                width: 450,
+                height: 225.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        "https://imgmedia.lbb.in/media/2018/08/5b898c57fe22575b86710050_1535741015631.jpg",
+                        scale: 0.2),
+                    fit: BoxFit.fitWidth,
+                    alignment: Alignment.topCenter,
+                  ),
+                )),
             //Container Lila (Orid)
 
             Positioned(
@@ -217,7 +225,8 @@ class _ShopScreenState extends State<ShopScreen> {
                                   child: GridView.builder(
                                       gridDelegate:
                                           SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 3),
+                                              crossAxisCount: 3,
+                                              mainAxisSpacing: 30),
                                       itemCount: snapshot.data.length,
                                       itemBuilder: (context, index) {
                                         Product product = snapshot.data[index];
@@ -254,10 +263,17 @@ class _ShopScreenState extends State<ShopScreen> {
                                                   borderRadius:
                                                       BorderRadius.circular(17),
                                                 ),
-                                                child: Image.network(
-                                                  product.imgPath,
-                                                  height: 90,
-                                                  width: 90,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Image.network(
+                                                      product.imgPath,
+                                                      height: 90,
+                                                      width: 90,
+                                                    ),
+                                                    Text(product.precio
+                                                            .toString() +
+                                                        ' €')
+                                                  ],
                                                 ),
                                               ),
                                             ),
@@ -345,42 +361,15 @@ class _ShopScreenState extends State<ShopScreen> {
               ),
             ),
             Positioned(
-              top: 43,
-              left: 315,
-              right: 20,
-              child: Container(
-                height: 80,
-                decoration: new BoxDecoration(
-                  color: PrimaryPurple,
-                  borderRadius: new BorderRadius.only(
-                    topLeft: const Radius.circular(30.0),
-                    topRight: const Radius.circular(30.0),
-                    bottomLeft: const Radius.circular(30.0),
-                    bottomRight: const Radius.circular(30.0),
-                  ),
-                ),
-                child: new Column(
-                  children: <Widget>[
-                    //Indormación tienda
-                    Padding(
-                      padding: const EdgeInsets.only(top: 13),
-                      child: Icon(
-                        Icons.favorite,
-                        color: Colors.black,
-                        size: 55.0,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
               top: 0,
               left: 0,
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: Icon(
+                    Icons.keyboard_arrow_left,
+                    color: Colors.white,
+                  ),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
