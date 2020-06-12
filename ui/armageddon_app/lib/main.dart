@@ -2,6 +2,7 @@ import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/models/userModel.dart';
 import 'package:armageddon_app/root_screen.dart';
 import 'package:armageddon_app/screens/auth/favScreen.dart';
+import 'package:armageddon_app/screens/auth/ordersScreen.dart';
 import 'package:armageddon_app/screens/auth/profileScreen.dart';
 import 'package:armageddon_app/screens/auth/searchScreen.dart';
 import 'package:armageddon_app/screens/noAuth/registerScreen.dart';
@@ -23,6 +24,7 @@ var routes = <String, WidgetBuilder>{
   '/signIn': (BuildContext context) => new SignInScreen(),
   '/register': (BuildContext context) => new RegisterScreen(),
   '/favProducts': (BuildContext context) => new FavScreen(),
+  '/allProducts': (BuildContext context) => new OrdersScreen(),
   '/search': (BuildContext context) => new SearchScreen(),
   '/profile': (BuildContext context) => new ProfileScreen(),
 };

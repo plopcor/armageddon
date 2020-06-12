@@ -5,11 +5,11 @@ import 'package:armageddon_app/screens/auth/qrScreen.dart';
 import 'package:armageddon_app/services/dataGetService.dart';
 import 'package:flutter/material.dart';
 
-class FavScreen extends StatelessWidget {
+class OrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Order>>(
-        future: getFavOrders(),
+        future: getOrders(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {

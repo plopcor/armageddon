@@ -65,7 +65,7 @@ class ProfileScreen extends StatelessWidget {
                     ProfileButton(
                       text: 'Historial Pedidos',
                       type: true,
-                      routeName: '/favProducts',
+                      routeName: '/allProducts',
                     ),
                     ProfileButton(
                       text: 'Editar Perfil',

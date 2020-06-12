@@ -29,9 +29,31 @@ Future<List<Product>> getProducts() async {
   return products;
 }
 
-/// getFavOrders - Get All favourite orders of login user throught GET
-Future<List<Order>> getFavOrders() async {
+/// getOrders - Get All favourite orders of login user throught GET
+Future<List<Order>> getOrders() async {
   final _url = '$apiUrl/usuario/pedidos';
+
+  /* take token */
+  String _token = await getToken();
+
+  final _response = await http.get(_url, headers: {
+    'Accept': 'application/json',
+    'Authorization': 'Bearer $_token',
+  });
+
+  List<Order> orders;
+
+  if (_response.statusCode == 200) {
+    Map<String, dynamic> _result = jsonDecode(_response.body);
+    orders =
+        (_result['data'] as List).map((e) => new Order.fromJson(e)).toList();
+  }
+
+  return orders;
+}
+
+Future<List<Order>> getFavOrders() async {
+  final _url = '$apiUrl/usuario/favoritos';
 
   /* take token */
   String _token = await getToken();
