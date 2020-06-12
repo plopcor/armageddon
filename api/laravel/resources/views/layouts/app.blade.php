@@ -73,7 +73,7 @@
                     </ul>
 
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <span>Saved reports</span>
+                        <span>Estadisticas y reportes</span>
                         <a class="d-flex align-items-center text-muted" href="#">
                             <span data-feather="plus-circle"></span>
                         </a>
@@ -82,25 +82,19 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <span data-feather="file-text"></span>
-                                Current month
+                                Mes actual
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <span data-feather="file-text"></span>
-                                Last quarter
+                                Ultimo trimestre
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <span data-feather="file-text"></span>
-                                Social engagement
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Year-end sale
+                                Ultimo año
                             </a>
                         </li>
                     </ul>
