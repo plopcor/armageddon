@@ -17,11 +17,25 @@ class TiendasSeeder extends Seeder
 
         $datos = [
             [
-                'nombre' => 'Cafe Esquina',
+                'nombre' => 'Cafe Sedo',
                 'id_propietario' => 5,
                 'longitud' => 41.555983,
                 'latitud' => 2.085601,
                 'imagen' => 'https://dosg.net/wp-content/uploads/2018/03/cafeteria.jpg'
+            ],
+            [
+                'nombre' => 'Panaderia Baker',
+                'id_propietario' => 6,
+                'longitud' => 41.554279,
+                'latitud' => 2.085989,
+                'imagen' => ''
+            ],
+            [
+                'nombre' => 'Bar Parada',
+                'id_propietario' => 7,
+                'longitud' => 40.554279,
+                'latitud' => 2.885989,
+                'imagen' => ''
             ],
             [
                 'nombre' => 'Panaderia Baker',
