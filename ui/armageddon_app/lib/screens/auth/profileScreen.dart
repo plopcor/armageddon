@@ -1,6 +1,7 @@
 import 'package:armageddon_app/constants.dart';
 import 'package:armageddon_app/root_screen.dart';
-import 'package:armageddon_app/screens/auth/favScreen.dart';
+import 'package:armageddon_app/screens/auth/editProfileScreen.dart';
+import 'package:armageddon_app/screens/auth/ordersScreen.dart';
 import 'package:armageddon_app/services/authenticationServices.dart';
 import 'package:flutter/material.dart';
 
@@ -70,7 +71,7 @@ class ProfileScreen extends StatelessWidget {
                     ProfileButton(
                       text: 'Editar Perfil',
                       type: true,
-                      routeName: '',
+                      routeName: '/editProfile',
                     ),
                     ProfileButton(text: 'Cerrar Sesión', type: false),
                   ],
@@ -110,19 +111,22 @@ class ProfileButton extends StatelessWidget {
       child: RaisedButton(
         onPressed: () {
           if (type == true) {
-            if (routeName.contains('/favProducts'))
+            if (routeName.contains('/allProducts'))
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                    backgroundColor: BackgroundColor,
-                    appBar: AppBar(),
-                    body: new FavScreen(),
-                  ),
+                  builder: (context) => OrdersScreen(),
+                ),
+              );
+            if (routeName.contains('/editProfile'))
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditProfileScreen(),
                 ),
               );
             else
-              Navigator.popAndPushNamed(context, routeName);
+              Navigator.pushNamed(context, routeName);
           } else {
             logout().whenComplete(() {
               Navigator.push(

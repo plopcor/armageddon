@@ -1,15 +1,26 @@
 import 'package:armageddon_app/constants.dart';
+import 'package:armageddon_app/models/orderModel.dart';
 import 'package:armageddon_app/models/productModel.dart';
+import 'package:armageddon_app/services/dataPutService.dart';
 import 'package:flutter/material.dart';
 
 class ListProducts extends StatelessWidget {
-  final List<Product> productos;
-  ListProducts({this.productos});
+  final Order order;
+  ListProducts({this.order});
 
   @override
   Widget build(BuildContext context) {
+    List<Product> productos = order.productos;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.favorite),
+              onPressed: () {
+                addFavouriteOrder(order);
+              })
+        ],
+      ),
       backgroundColor: BackgroundColor,
       body: ListView.builder(
           itemCount: productos.length,

@@ -46,7 +46,7 @@ class _MyOrderListState extends State<MyOrderList> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => new ListProducts(
-                    productos: order.productos,
+                    order: order,
                   ),
                 ),
               );
